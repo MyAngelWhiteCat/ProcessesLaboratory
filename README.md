@@ -1,4 +1,4 @@
-# Это не готовое ПО. Разработка в процессе.
+# Разработка в процессе.
 
 Простейшая утилита для анализа активных процессов на аномалии.
 
@@ -42,3 +42,5 @@
 [createtoolhelp32snapshot](https://learn.microsoft.com/en-us/windows/win32/api/tlhelp32/nf-tlhelp32-createtoolhelp32snapshot)
 
 [moduleentry32](https://learn.microsoft.com/en-us/windows/win32/api/tlhelp32/ns-tlhelp32-moduleentry32)
+
+[threadentry32](https://learn.microsoft.com/en-us/windows/win32/api/tlhelp32/ns-tlhelp32-threadentry32)
