@@ -1,0 +1,50 @@
+#include "domain.h"
+
+namespace proc_scan {
+
+    namespace domain {
+
+        void Snapshot::Insert(std::shared_ptr<ProcessInfo> proc_info) {
+            pid_to_proc_info_[proc_info->pid_] = proc_info;
+            proc_name_to_proc_info_[proc_info->process_name_] = proc_info;
+        }
+
+        std::shared_ptr<ProcessInfo> Snapshot::GetProcessInfo(std::string_view process_name) const {
+            if (auto it = proc_name_to_proc_info_.find(process_name);
+                it != proc_name_to_proc_info_.end()) {
+                return it->second;
+            }
+            return nullptr;
+        }
+
+        std::shared_ptr<ProcessInfo> Snapshot::GetProcessInfo(DWORD pid) const {
+            if (auto it = pid_to_proc_info_.find(pid);
+                it != pid_to_proc_info_.end()) {
+                return it->second;
+            }
+            return nullptr;
+        }
+
+        void ProcessInfo::Print(std::ostream& out) const {
+            out << "[PID]{" << pid_ << "}[Threads]{" << threads_count_
+                << "}[Name]{" << process_name_ << "}\n";
+        }
+
+        std::string WideCharToString(const WCHAR* wstr) {
+            if (!wstr) {
+                return "";
+            }
+
+            int size_needed = WideCharToMultiByte(CP_UTF8, 0, wstr, -1, nullptr, 0, nullptr, nullptr);
+            std::string str(size_needed, 0);
+            WideCharToMultiByte(CP_UTF8, 0, wstr, -1, &str[0], size_needed, nullptr, nullptr);
+
+            if (!str.empty() && str.back() == '\0') {
+                str.pop_back();
+            }
+            return str;
+        }
+
+    }
+    
+}
