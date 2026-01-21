@@ -18,6 +18,21 @@ namespace proc_scan {
 
     namespace domain {
 
+        struct ThreadInfo {
+            ThreadInfo() = delete;
+            ThreadInfo(DWORD thread_id, DWORD owner_id, LONG prioritet) 
+                : thread_id_(thread_id)
+                , owner_id_(owner_id)
+                , prioritet_(prioritet)
+            {
+
+            }
+
+            DWORD thread_id_{ 0 };
+            DWORD owner_id_{ 0 };
+            LONG prioritet_{ 0 };
+        };
+
         struct ModuleInfo {
             ModuleInfo() = default;
             ModuleInfo(DWORD dwPID, std::string&& name, std::string&& path)
