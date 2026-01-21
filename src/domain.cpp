@@ -26,8 +26,11 @@ namespace proc_scan {
         }
 
         void ProcessInfo::Print(std::ostream& out) const {
-            out << "[PID]{" << pid_ << "}[Threads]{" << threads_count_
-                << "}[Name]{" << process_name_ << "}\n";
+            out << "================================================="
+                << "\n[PID]       " << pid_
+                << "\n[Threads]   " << threads_count_
+                << "\n[Name]      " << process_name_
+                << "\n-------------------------------------------------\n";
         }
 
         std::string WideCharToString(const WCHAR* wstr) {
