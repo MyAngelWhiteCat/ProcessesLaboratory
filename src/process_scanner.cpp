@@ -78,4 +78,30 @@ namespace proc_scan {
         last_full_snapshots_.clear();
     }
 
+    void ProcessScanner::GetProcModules(domain::ProcessInfo& pinfo) {
+        MODULEENTRY32W module_entry{ 0 };
+        
+        HANDLE hSnapshot = CreateToolhelp32Snapshot(TH32CS_SNAPMODULE, pinfo.pid_);
+        if (hSnapshot == INVALID_HANDLE_VALUE) {
+            throw std::runtime_error("Module snapshot creating error: " 
+                + std::to_string(GetLastError()));
+        }
+
+        module_entry.dwSize = sizeof(MODULEENTRY32);
+        
+        if (!Module32FirstW(hSnapshot, &module_entry)) {
+            throw std::runtime_error("Module reading error: " + std::to_string(GetLastError()));
+        }
+
+        do {
+            domain::ModuleInfo minfo(module_entry.th32ModuleID
+                , domain::WideCharToString(module_entry.szModule)
+                , domain::WideCharToString(module_entry.szExePath));
+            
+            pinfo.modules_.push_back(std::move(minfo));
+        } while (Module32NextW(hSnapshot, &module_entry));
+
+        CloseHandle(hSnapshot);
+    }
+
 }

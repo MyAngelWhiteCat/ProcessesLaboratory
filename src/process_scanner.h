@@ -27,6 +27,8 @@ namespace proc_scan {
         size_t buffer_size_ = 10;
         std::deque<domain::Snapshot> last_full_snapshots_;
 
+        void GetProcModules(domain::ProcessInfo& pinfo);
+
     };
 
 } // namespace proc_scan
