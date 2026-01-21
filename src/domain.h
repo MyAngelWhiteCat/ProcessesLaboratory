@@ -56,6 +56,14 @@ namespace proc_scan {
             std::string path_;
         };
 
+        std::ostream& operator<<(std::ostream& out, const ModuleInfo& minfo) {
+            out << "Module info:"
+                << "\n[ModuleID] " << minfo.module_id_
+                << "\n[name]     " << minfo.name_
+                << "\n[path]     " << minfo.path_
+                << "\n";
+        }
+
         struct ProcessInfo {
             ProcessInfo() = default;
             ProcessInfo(DWORD pid, DWORD threads_count, std::string_view process_name)
