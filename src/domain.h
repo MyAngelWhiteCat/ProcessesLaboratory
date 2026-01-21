@@ -33,6 +33,14 @@ namespace proc_scan {
             LONG prioritet_{ 0 };
         };
 
+        std::ostream& operator<<(std::ostream& out, const ThreadInfo tinfo) {
+            out << "Thread info:"
+                << "\n[id]        " << tinfo.thread_id_
+                << "\n[owner id]  " << tinfo.owner_id_
+                << "\n[prioritet] " << tinfo.prioritet_
+                << "\n";
+        }
+
         struct ModuleInfo {
             ModuleInfo() = default;
             ModuleInfo(DWORD dwPID, std::string&& name, std::string&& path)
