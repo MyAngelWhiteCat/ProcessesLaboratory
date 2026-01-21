@@ -6,6 +6,10 @@
 #include <unordered_map>
 #include <chrono>
 #include <memory>
+#include <ostream>
+#include <utility>
+#include <vector>
+#include <string_view>
 
 
 namespace proc_scan {
@@ -13,6 +17,21 @@ namespace proc_scan {
     using SystemClock = std::chrono::system_clock;
 
     namespace domain {
+
+        struct ModuleInfo {
+            ModuleInfo() = default;
+            ModuleInfo(DWORD dwPID, std::string&& name, std::string&& path)
+                : pid_(dwPID)
+                , name_(std::move(name))
+                , path_(std::move(path))
+            {
+
+            }
+
+            DWORD pid_{ 0 };
+            std::string name_;
+            std::string path_;
+        };
 
         struct ProcessInfo {
             ProcessInfo() = default;
@@ -26,6 +45,8 @@ namespace proc_scan {
             DWORD pid_{ 0 };
             DWORD threads_count_{ 0 };
             std::string process_name_;
+            std::vector<ModuleInfo> modules_;
+
             void Print(std::ostream& out) const;
 
         };
