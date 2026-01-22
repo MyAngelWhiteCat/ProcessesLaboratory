@@ -4,7 +4,7 @@
 #include <deque>
 #include <memory>
 #include <ostream>
-
+#include <iostream>
 #include <Windows.h>
 
 #include "domain.h"
@@ -15,7 +15,7 @@ namespace proc_scan {
 
     class ProcessScanner {
     public:
-        void CreateFullSnapshot();
+        void CreateSnapshot();
         void PrintLastFullSnapshot(std::ostream& out);
         void SetFullSnapshotsBufferSize(size_t size);
 
@@ -28,7 +28,7 @@ namespace proc_scan {
         std::deque<domain::Snapshot> last_full_snapshots_;
 
         void GetProcModules(domain::ProcessInfo& pinfo);
-
+        void GetProcThreads(domain::ProcessInfo& pinfo);
     };
 
 } // namespace proc_scan
