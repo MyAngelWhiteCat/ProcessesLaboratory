@@ -2,13 +2,14 @@
 
 #include <iostream>
 
+
 int main() {
     proc_scan::ProcessScanner proc_scanner;
 
-    proc_scanner.CreateFullSnapshot();
+    proc_scanner.CreateSnapshot();
     proc_scanner.PrintLastFullSnapshot(std::cout);
 
-    if (auto proc = proc_scanner.GetProcessInfo("svchost.exe")) {
+    if (auto proc = proc_scanner.GetProcessInfo("explorer.exe")) {
         std::cout << "Founded: \n";
         proc->Print(std::cout);
     }
