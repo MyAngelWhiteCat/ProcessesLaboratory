@@ -31,10 +31,17 @@ namespace proc_scan {
 
         domain::Snapshot snapshot(now);
         do {
-            auto proc_info = 
-                std::make_shared<domain::ProcessInfo>
+            auto proc_info = std::make_shared<domain::ProcessInfo>
                     (proc_entry.th32ProcessID, proc_entry.cntThreads
                    , domain::WideCharToString(proc_entry.szExeFile));
+            try {
+                if (DWORD prioritet = GetProcessPrioritet(proc_info->pid_)) {
+                    proc_info->prioritet_ = prioritet;
+                }
+            }
+            catch (const std::exception& e) {
+                std::cout << "Getting prioritet error: " << e.what() << std::endl;
+            }
             try {
                 GetProcModules(*proc_info);
             }
@@ -48,6 +55,7 @@ namespace proc_scan {
             catch (const std::exception& e) {
                 std::cout << "Reading process threads error: " << e.what() << std::endl;
             }
+
             snapshot.Insert(proc_info);
 
         } while (Process32NextW(hSnapshot, &proc_entry));
