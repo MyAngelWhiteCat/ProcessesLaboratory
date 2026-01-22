@@ -96,13 +96,15 @@ namespace proc_scan {
         
         HANDLE hSnapshot = CreateToolhelp32Snapshot(TH32CS_SNAPMODULE, pinfo.pid_);
         if (hSnapshot == INVALID_HANDLE_VALUE) {
-            throw std::runtime_error("Module snapshot creating error: " 
+            throw std::runtime_error("Process " + std::to_string(pinfo.pid_)
+                + " modules snapshot creating error: " 
                 + std::to_string(GetLastError()));
         }
 
-        module_entry.dwSize = sizeof(MODULEENTRY32);
+        module_entry.dwSize = sizeof(MODULEENTRY32W);
         
         if (!Module32FirstW(hSnapshot, &module_entry)) {
+            CloseHandle(hSnapshot);
             throw std::runtime_error("Module reading error: " + std::to_string(GetLastError()));
         }
 
