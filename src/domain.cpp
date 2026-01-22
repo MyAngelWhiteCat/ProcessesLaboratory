@@ -45,7 +45,6 @@ namespace proc_scan {
             for (const auto& thread : threads_) {
                 thread.Print(out);
             }
-
             out << "\n-------------------------------------------------\n";
         }
 
