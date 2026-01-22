@@ -28,6 +28,7 @@ namespace proc_scan {
         void ProcessInfo::Print(std::ostream& out) const {
             out << "================================================="
                 << "\n[PID]       " << pid_
+                << "\n[Prioritet]" << ((prioritet_ == -1) ? "Unknown" : std::to_string(prioritet_))
                 << "\n[Threads]   " << threads_count_
                 << "\n[Name]      " << process_name_;
 

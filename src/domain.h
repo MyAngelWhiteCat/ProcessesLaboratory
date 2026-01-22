@@ -62,6 +62,7 @@ namespace proc_scan {
 
             }
             DWORD pid_{ 0 };
+            DWORD prioritet_{ -1 };
             DWORD threads_count_{ 0 };
             std::string process_name_;
 
