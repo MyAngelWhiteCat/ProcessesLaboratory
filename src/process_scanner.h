@@ -29,6 +29,7 @@ namespace proc_scan {
 
         void GetProcModules(domain::ProcessInfo& pinfo);
         void GetProcThreads(domain::ProcessInfo& pinfo);
+        DWORD GetProcessPrioritet(DWORD pid);
     };
 
 } // namespace proc_scan
