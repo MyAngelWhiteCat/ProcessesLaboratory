@@ -29,8 +29,16 @@ namespace proc_scan {
             out << "================================================="
                 << "\n[PID]       " << pid_
                 << "\n[Threads]   " << threads_count_
-                << "\n[Name]      " << process_name_
-                << "\n-------------------------------------------------\n";
+                << "\n[Name]      " << process_name_;
+
+            for (const auto& module : modules_) {
+                module.Print(out);
+            }
+            for (const auto& thread : threads_) {
+                thread.Print(out);
+            }
+
+            out << "\n-------------------------------------------------\n";
         }
 
         std::string WideCharToString(const WCHAR* wstr) {
@@ -49,14 +57,15 @@ namespace proc_scan {
         }
 
         void ModuleInfo::Print(std::ostream& out) const {
-            out << "Module info:"
+            out << "\nModule info:"
                 << "\n[ModuleID] " << module_id_
                 << "\n[name]     " << name_
-                << "\n[path]     " << path_;
+                << "\n[path]     " << path_
+                << "\n";
         }
 
         void ThreadInfo::Print(std::ostream& out) const {
-            out << "Thread info:"
+            out << "\nThread info:"
                 << "\n[id]        " << thread_id_
                 << "\n[owner id]  " << owner_id_
                 << "\n[prioritet] " << prioritet_
