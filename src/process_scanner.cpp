@@ -9,11 +9,12 @@
 
 #include <TlHelp32.h>
 #include <string_view>
+#include <exception>
 
 
 namespace proc_scan {
 
-    void ProcessScanner::CreateFullSnapshot() {
+    void ProcessScanner::CreateSnapshot() {
         HANDLE hSnapshot = CreateToolhelp32Snapshot(TH32CS_SNAPPROCESS, 0);
         auto now = SystemClock::now();
 
