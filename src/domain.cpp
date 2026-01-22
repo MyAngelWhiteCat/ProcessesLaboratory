@@ -28,13 +28,20 @@ namespace proc_scan {
         void ProcessInfo::Print(std::ostream& out) const {
             out << "================================================="
                 << "\n[PID]       " << pid_
-                << "\n[Prioritet]" << ((prioritet_ == -1) ? "Unknown" : std::to_string(prioritet_))
+                << "\n[Prioritet] " << (prioritet_ ? std::to_string(prioritet_) : "Unknown")
                 << "\n[Threads]   " << threads_count_
-                << "\n[Name]      " << process_name_;
+                << "\n[Name]      " << process_name_
+                << "\n";
+            out << "\n-------------------------------------------------\n";
+        }
 
+        void ProcessInfo::PrintModules(std::ostream& out) const {
             for (const auto& module : modules_) {
                 module.Print(out);
             }
+        }
+
+        void ProcessInfo::PrintThreads(std::ostream& out) const {
             for (const auto& thread : threads_) {
                 thread.Print(out);
             }

@@ -70,6 +70,8 @@ namespace proc_scan {
             std::vector<ThreadInfo> threads_;
 
             void Print(std::ostream& out) const;
+            void PrintModules(std::ostream& out) const;
+            void PrintThreads(std::ostream& out) const;
 
         };
 
