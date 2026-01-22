@@ -34,6 +34,19 @@ namespace proc_scan {
                 std::make_shared<domain::ProcessInfo>
                     (proc_entry.th32ProcessID, proc_entry.cntThreads
                    , domain::WideCharToString(proc_entry.szExeFile));
+            try {
+                GetProcModules(*proc_info);
+            }
+            catch (const std::exception& e) {
+                std::cout << "Reading process modules error: " << e.what() << std::endl;
+            }
+
+            try {
+                GetProcThreads(*proc_info);
+            }
+            catch (const std::exception& e) {
+                std::cout << "Reading process threads error: " << e.what() << std::endl;
+            }
             snapshot.Insert(proc_info);
 
         } while (Process32NextW(hSnapshot, &proc_entry));
