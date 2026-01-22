@@ -117,4 +117,36 @@ namespace proc_scan {
         CloseHandle(hSnapshot);
     }
 
+    void ProcessScanner::GetProcThreads(domain::ProcessInfo& pinfo) {
+        if (pinfo.modules_.empty()) {
+            return;
+        }
+        THREADENTRY32 thread_entry{ 0 };
+
+        HANDLE hSnapshot = CreateToolhelp32Snapshot(TH32CS_SNAPTHREAD, 0);
+        if (hSnapshot == INVALID_HANDLE_VALUE) {
+            throw std::runtime_error("Creating threads snapshot error: " 
+                + std::to_string(GetLastError()));
+        }
+
+        thread_entry.dwSize = sizeof(THREADENTRY32);
+
+        if (!Thread32First(hSnapshot, &thread_entry)) {
+            CloseHandle(hSnapshot);
+            throw std::runtime_error("Thread reading error: " + std::to_string(GetLastError()));
+        }
+
+        do {
+            if (thread_entry.th32OwnerProcessID == pinfo.pid_) {
+                domain::ThreadInfo tinfo(thread_entry.th32ThreadID
+                    , thread_entry.th32OwnerProcessID, thread_entry.tpBasePri);
+
+                pinfo.threads_.push_back(std::move(tinfo));
+            }
+
+        } while (Thread32Next(hSnapshot, &thread_entry));
+
+        CloseHandle(hSnapshot);
+    }
+
 }
