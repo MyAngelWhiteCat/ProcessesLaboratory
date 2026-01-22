@@ -48,6 +48,21 @@ namespace proc_scan {
             return str;
         }
 
+        void ModuleInfo::Print(std::ostream& out) const {
+            out << "Module info:"
+                << "\n[ModuleID] " << module_id_
+                << "\n[name]     " << name_
+                << "\n[path]     " << path_;
+        }
+
+        void ThreadInfo::Print(std::ostream& out) const {
+            out << "Thread info:"
+                << "\n[id]        " << thread_id_
+                << "\n[owner id]  " << owner_id_
+                << "\n[prioritet] " << prioritet_
+                << "\n";
+        }
+
     }
     
 }

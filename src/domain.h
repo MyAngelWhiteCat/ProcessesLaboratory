@@ -31,6 +31,8 @@ namespace proc_scan {
             DWORD thread_id_{ 0 };
             DWORD owner_id_{ 0 };
             LONG prioritet_{ 0 };
+
+            void Print(std::ostream& out) const;
         };
 
         std::ostream& operator<<(std::ostream& out, const ThreadInfo tinfo) {
@@ -54,6 +56,8 @@ namespace proc_scan {
             DWORD pid_{ 0 };
             std::string name_;
             std::string path_;
+
+            void Print(std::ostream& out) const;
         };
 
         std::ostream& operator<<(std::ostream& out, const ModuleInfo& minfo) {
