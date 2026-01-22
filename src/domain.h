@@ -35,52 +35,38 @@ namespace proc_scan {
             void Print(std::ostream& out) const;
         };
 
-        std::ostream& operator<<(std::ostream& out, const ThreadInfo tinfo) {
-            out << "Thread info:"
-                << "\n[id]        " << tinfo.thread_id_
-                << "\n[owner id]  " << tinfo.owner_id_
-                << "\n[prioritet] " << tinfo.prioritet_
-                << "\n";
-        }
-
         struct ModuleInfo {
             ModuleInfo() = default;
             ModuleInfo(DWORD dwPID, std::string&& name, std::string&& path)
-                : pid_(dwPID)
+                : module_id_(dwPID)
                 , name_(std::move(name))
                 , path_(std::move(path))
             {
 
             }
 
-            DWORD pid_{ 0 };
+            DWORD module_id_{ 0 };
             std::string name_;
             std::string path_;
 
             void Print(std::ostream& out) const;
         };
 
-        std::ostream& operator<<(std::ostream& out, const ModuleInfo& minfo) {
-            out << "Module info:"
-                << "\n[ModuleID] " << minfo.module_id_
-                << "\n[name]     " << minfo.name_
-                << "\n[path]     " << minfo.path_
-                << "\n";
-        }
-
         struct ProcessInfo {
             ProcessInfo() = default;
-            ProcessInfo(DWORD pid, DWORD threads_count, std::string_view process_name)
+            ProcessInfo(DWORD pid, DWORD threads_count, std::string&& process_name)
                 : pid_(pid)
                 , threads_count_(threads_count)
-                , process_name_(std::string(process_name))
+                , process_name_(std::move(process_name))
             {
 
             }
             DWORD pid_{ 0 };
             DWORD threads_count_{ 0 };
             std::string process_name_;
+
             std::vector<ModuleInfo> modules_;
+            std::vector<ThreadInfo> threads_;
 
             void Print(std::ostream& out) const;
 
