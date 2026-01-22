@@ -152,4 +152,20 @@ namespace proc_scan {
         CloseHandle(hSnapshot);
     }
 
+    DWORD ProcessScanner::GetProcessPrioritet(DWORD pid) {
+        DWORD process_prioritet = 0;
+        HANDLE hProcess = OpenProcess(PROCESS_QUERY_INFORMATION, false, pid);
+        if (hProcess == INVALID_HANDLE_VALUE) {
+            throw std::runtime_error("Can't open process " + std::to_string(pid));
+        }
+
+        process_prioritet = GetPriorityClass(hProcess);
+        if (!process_prioritet) {
+            CloseHandle(hProcess);
+            throw std::runtime_error("Can't get prioritet of " + std::to_string(pid)
+                + ". Error code: " + std::to_string(GetLastError()));
+        }
+        return process_prioritet;
+    }
+
 }
