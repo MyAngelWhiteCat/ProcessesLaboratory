@@ -175,4 +175,55 @@ namespace proc_scan {
         return process_prioritet;
     }
 
+    std::vector<DWORD> ProcessScanner::FastFindPIDs() {
+        HMODULE ntdll = GetModuleHandleW(L"ntdll.dll");
+        if (!ntdll) {
+            throw std::runtime_error("Can't get module ntdll.dll" + std::to_string(GetLastError()));
+        }
+
+        auto NtQuerySystemInformation =
+            reinterpret_cast<PNtQuerySystemInformation>(
+                GetProcAddress
+                (ntdll, "NtQuerySystemInformation")
+            );
+
+        ULONG sysinfo_len = 0;
+        NTSTATUS status = NtQuerySystemInformation(SystemProcessInformation
+            , NULL
+            , sysinfo_len
+            , &sysinfo_len
+        );
+
+        const NTSTATUS STATUS_INFO_LENGTH_MISMATCH = 0xC0000004;
+        if (status != STATUS_INFO_LENGTH_MISMATCH) {
+            throw std::runtime_error("Can't get system information lenght");
+        }
+
+        std::vector<BYTE> buffer(sysinfo_len);
+        status = NtQuerySystemInformation(SystemProcessInformation
+            , buffer.data()
+            , sysinfo_len
+            , &sysinfo_len
+        );
+
+        if (!NT_SUCCESS(status)) {
+            throw std::runtime_error("Cant get system information: " 
+                + std::to_string(GetLastError()));
+        }
+
+        PSYSTEM_PROCESS_INFORMATION sysinfo =
+            reinterpret_cast<PSYSTEM_PROCESS_INFORMATION>
+            (buffer.data());
+
+        std::vector<DWORD> pids;
+        while (sysinfo->NextEntryOffset) {
+            pids.push_back(HandleToUlong(sysinfo->UniqueProcessId));
+            sysinfo = reinterpret_cast<PSYSTEM_PROCESS_INFORMATION>
+                (reinterpret_cast<BYTE*>(sysinfo) 
+                    + sysinfo->NextEntryOffset);
+        }
+
+        return pids;
+    }
+
 }
