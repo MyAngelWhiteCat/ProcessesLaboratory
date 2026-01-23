@@ -1,5 +1,6 @@
 #include "domain.h"
 #include "process_scanner.h"
+#include "logger.h"
 
 #include <iostream>
 #include <stdexcept>
@@ -40,20 +41,20 @@ namespace proc_scan {
                 }
             }
             catch (const std::exception& e) {
-                std::cout << "Getting prioritet error: " << e.what() << std::endl;
+                LOG_CRITICAL("Getting prioritet error: "s + e.what());
             }
             try {
                 GetProcModules(*proc_info);
             }
             catch (const std::exception& e) {
-                std::cout << "Reading process modules error: " << e.what() << std::endl;
+                LOG_CRITICAL("Reading process modules error: "s + e.what());
             }
 
             try {
                 GetProcThreads(*proc_info);
             }
             catch (const std::exception& e) {
-                std::cout << "Reading process threads error: " << e.what() << std::endl;
+                LOG_CRITICAL("Reading process threads error: "s + e.what());
             }
 
             snapshot.Insert(proc_info);
