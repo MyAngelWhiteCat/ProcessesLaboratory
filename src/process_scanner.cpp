@@ -129,9 +129,6 @@ namespace proc_scan {
     }
 
     void ProcessScanner::GetProcThreads(domain::ProcessInfo& pinfo) {
-        if (pinfo.modules_.empty()) {
-            return;
-        }
         THREADENTRY32 thread_entry{ 0 };
 
         HANDLE hSnapshot = CreateToolhelp32Snapshot(TH32CS_SNAPTHREAD, 0);
