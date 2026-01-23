@@ -11,6 +11,8 @@
 
 namespace proc_scan {
 
+    using namespace std::literals;
+
     using SystemClock = std::chrono::system_clock;
 
     class ProcessScanner {
