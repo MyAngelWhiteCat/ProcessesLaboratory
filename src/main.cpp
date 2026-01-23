@@ -9,7 +9,7 @@ int main() {
     proc_scanner.CreateSnapshot();
     proc_scanner.PrintLastFullSnapshot(std::cout);
 
-    if (auto proc = proc_scanner.GetProcessInfo("explorer.exe")) {
+    if (auto proc = proc_scanner.GetProcessInfo("Telegram.exe")) {
         std::cout << "Founded: \n";
         proc->Print(std::cout);
     }

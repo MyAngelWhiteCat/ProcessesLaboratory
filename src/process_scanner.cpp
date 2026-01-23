@@ -36,7 +36,7 @@ namespace proc_scan {
                    , domain::WideCharToString(proc_entry.szExeFile));
             try {
                 if (DWORD prioritet = GetProcessPrioritet(proc_info->pid_)) {
-                    proc_info->prioritet_ = prioritet;
+                    proc_info->priority_ = prioritet;
                 }
             }
             catch (const std::exception& e) {

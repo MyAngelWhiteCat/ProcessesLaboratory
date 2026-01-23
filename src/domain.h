@@ -23,14 +23,14 @@ namespace proc_scan {
             ThreadInfo(DWORD thread_id, DWORD owner_id, LONG prioritet) 
                 : thread_id_(thread_id)
                 , owner_id_(owner_id)
-                , prioritet_(prioritet)
+                , priority_level_(prioritet)
             {
 
             }
 
             DWORD thread_id_{ 0 };
             DWORD owner_id_{ 0 };
-            LONG prioritet_{ 0 };
+            LONG priority_level_{ 0 };
 
             void Print(std::ostream& out) const;
         };
@@ -62,7 +62,7 @@ namespace proc_scan {
 
             }
             DWORD pid_{ 0 };
-            DWORD prioritet_{ 0 };
+            DWORD priority_{ 0 };
             DWORD threads_count_{ 0 };
             std::string process_name_;
 
