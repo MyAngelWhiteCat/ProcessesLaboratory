@@ -46,3 +46,11 @@
 [threadentry32](https://learn.microsoft.com/en-us/windows/win32/api/tlhelp32/ns-tlhelp32-threadentry32)
 
 [getpriorityclass](https://learn.microsoft.com/en-us/windows/win32/api/processthreadsapi/nf-processthreadsapi-getpriorityclass)
+
+[ntquerysysteminformation](https://learn.microsoft.com/ru-ru/windows/win32/api/winternl/nf-winternl-ntquerysysteminformation)
+
+[enumprocesses](https://learn.microsoft.com/ru-ru/windows/win32/api/psapi/nf-psapi-enumprocesses)
+
+[getmodulehandlew](https://learn.microsoft.com/en-us/windows/win32/api/libloaderapi/nf-libloaderapi-getmodulehandlew)
+
+[getprocaddress](https://learn.microsoft.com/en-us/windows/win32/api/libloaderapi/nf-libloaderapi-getprocaddress)
