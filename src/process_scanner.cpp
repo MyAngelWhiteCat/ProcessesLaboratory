@@ -173,6 +173,7 @@ namespace proc_scan {
             throw std::runtime_error("Can't get prioritet of " + std::to_string(pid)
                 + ". Error code: " + std::to_string(GetLastError()));
         }
+        CloseHandle(hProcess);
         return process_prioritet;
     }
 
