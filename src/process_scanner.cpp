@@ -163,7 +163,7 @@ namespace proc_scan {
     DWORD ProcessScanner::GetProcessPrioritet(DWORD pid) {
         DWORD process_prioritet = 0;
         HANDLE hProcess = OpenProcess(PROCESS_QUERY_INFORMATION, false, pid);
-        if (hProcess == INVALID_HANDLE_VALUE) {
+        if (hProcess == NULL) {
             throw std::runtime_error("Can't open process " + std::to_string(pid));
         }
 
