@@ -5,6 +5,7 @@
 
 int main() {
     proc_scan::ProcessScanner proc_scanner;
+    //}
 
     proc_scanner.CreateSnapshot();
     proc_scanner.PrintLastFullSnapshot(std::cout);
