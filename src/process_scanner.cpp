@@ -9,8 +9,12 @@
 #include <ranges>
 
 #include <TlHelp32.h>
+#include <Windows.h>
+#include <winternl.h>
+
 #include <string_view>
 #include <exception>
+#include <vector>
 
 
 namespace proc_scan {
