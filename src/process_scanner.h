@@ -32,6 +32,8 @@ namespace proc_scan {
     class ProcessScanner {
     public:
         void CreateSnapshot();
+        std::unordered_map<DWORD, domain::ProcessInfo>  CreateQuickSnapshot();
+
         void PrintLastFullSnapshot(std::ostream& out);
         void SetFullSnapshotsBufferSize(size_t size);
 
