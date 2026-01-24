@@ -206,7 +206,7 @@ namespace proc_scan {
         return process_prioritet;
     }
 
-    std::vector<DWORD> ProcessScanner::FastFindPIDs() {
+    std::vector<domain::ProcessInfo> ProcessScanner::FastFindProcesses() {
         HMODULE ntdll = GetModuleHandleW(L"ntdll.dll");
         if (!ntdll) {
             throw std::runtime_error("Can't get module ntdll.dll" + std::to_string(GetLastError()));
