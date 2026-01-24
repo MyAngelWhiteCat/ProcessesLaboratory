@@ -77,7 +77,7 @@ namespace proc_scan {
         void GetProcModules(domain::ProcessInfo& pinfo);
         void GetProcThreads(domain::ProcessInfo& pinfo);
         DWORD GetProcessPrioritet(DWORD pid);
-        std::vector<DWORD> FastFindPIDs();
+        std::vector<domain::ProcessInfo> FastFindProcesses();
     };
 
 } // namespace proc_scan
