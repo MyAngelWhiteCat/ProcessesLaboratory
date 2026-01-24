@@ -1,4 +1,7 @@
 #include "domain.h"
+#include <winternl.h>
+#include <codecvt>
+#include <locale>
 
 namespace proc_scan {
 
