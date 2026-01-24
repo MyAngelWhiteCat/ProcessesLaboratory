@@ -72,6 +72,33 @@ namespace proc_scan {
         CloseHandle(hSnapshot);
     }
 
+    std::unordered_map<DWORD, domain::ProcessInfo> ProcessScanner::CreateQuickSnapshot() {
+        HANDLE hSnapshot = CreateToolhelp32Snapshot(TH32CS_SNAPPROCESS, 0);
+        if (hSnapshot == INVALID_HANDLE_VALUE) {
+            throw std::runtime_error("Quick Snapshot creating error: " + std::to_string(GetLastError()));
+        }
+
+        PROCESSENTRY32W proc_entry{ 0 };
+        proc_entry.dwSize = sizeof(PROCESSENTRY32W);
+        if (!Process32FirstW(hSnapshot, &proc_entry)) {
+            CloseHandle(hSnapshot);
+            throw std::runtime_error("Quick Snapshot reading error: " + std::to_string(GetLastError()));
+        }
+
+        std::unordered_map<DWORD, domain::ProcessInfo>  proc_infos;
+        do {
+            proc_infos[proc_entry.th32ProcessID] = domain::ProcessInfo(proc_entry.th32ProcessID
+                , proc_entry.cntThreads
+                , domain::WideCharToString(proc_entry.szExeFile)
+            );
+
+        } while (Process32NextW(hSnapshot, &proc_entry));
+
+        CloseHandle(hSnapshot);
+        LOG_INFO("Quick snapshot Ready");
+        return proc_infos;
+    }
+
     void ProcessScanner::PrintLastFullSnapshot(std::ostream& out) {
         domain::Snapshot& last_snapshot = last_full_snapshots_.back();
         for (const auto& [_, proc] : last_snapshot.pid_to_proc_info_) {
