@@ -219,15 +219,24 @@ namespace proc_scan {
             reinterpret_cast<PSYSTEM_PROCESS_INFORMATION>
             (buffer.data());
 
-        std::vector<DWORD> pids;
-        while (sysinfo->NextEntryOffset) {
-            pids.push_back(HandleToUlong(sysinfo->UniqueProcessId));
+        std::vector<domain::ProcessInfo> processes;
+        while (true) {
+            
+            processes.emplace_back(HandleToUlong(sysinfo->UniqueProcessId)
+                , static_cast<DWORD>(sysinfo->NumberOfThreads)
+                , domain::UnicodeToString(sysinfo->ImageName)
+            );
+
+            if (sysinfo->NextEntryOffset == 0) {
+                break;
+            }
             sysinfo = reinterpret_cast<PSYSTEM_PROCESS_INFORMATION>
                 (reinterpret_cast<BYTE*>(sysinfo) 
                     + sysinfo->NextEntryOffset);
         }
 
-        return pids;
+        LOG_INFO("Fast find Ready");
+        return processes;
     }
 
 }
