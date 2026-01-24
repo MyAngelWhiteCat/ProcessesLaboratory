@@ -10,11 +10,11 @@
 
 #include <TlHelp32.h>
 #include <Windows.h>
-#include <winternl.h>
 
 #include <string_view>
 #include <exception>
 #include <vector>
+#include <unordered_map>
 
 
 namespace proc_scan {
