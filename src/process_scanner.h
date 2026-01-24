@@ -41,7 +41,7 @@ namespace proc_scan {
         std::shared_ptr<domain::ProcessInfo> GetProcessInfo(DWORD pid) const;
         void ClearBuffer();
 
-        void FindHidenProcesses() {
+        std::vector<domain::ProcessInfo> FindHidenProcesses() {
             try {
                 CreateSnapshot();
                 auto pids = FastFindPIDs();
