@@ -62,6 +62,18 @@ namespace proc_scan {
             return str;
         }
 
+        std::string UnicodeToString(const UNICODE_STRING& ustr) {
+            if (!ustr.Buffer || !ustr.Length) {
+                return "";
+            }
+
+            std::wstring wstr(ustr.Buffer, ustr.Length / sizeof(wchar_t));
+
+            std::wstring_convert<std::codecvt_utf8<wchar_t>> converter;
+
+            return converter.to_bytes(wstr);
+        }
+
         void ModuleInfo::Print(std::ostream& out) const {
             out << "\nModule info:"
                 << "\n[ModuleID] " << module_id_
