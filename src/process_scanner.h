@@ -4,13 +4,17 @@
 #include <deque>
 #include <memory>
 #include <ostream>
+#include <exception>
 #include <iostream>
+#include <future>
 #include <vector>
 
 #include <Windows.h>
 #include <winternl.h>
 
 #include "domain.h"
+#include "logger.h"
+#include <unordered_map>
 
 namespace proc_scan {
 
