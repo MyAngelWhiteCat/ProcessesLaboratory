@@ -43,16 +43,26 @@ namespace proc_scan {
 
         std::vector<domain::ProcessInfo> FindHidenProcesses() {
             try {
-                CreateSnapshot();
-                auto pids = FastFindPIDs();
-                for (const auto& pid : pids) {
-                    if (GetProcessInfo(pid)) {
-                        std::cout << pid << " OK\n";
+                std::vector<domain::ProcessInfo> hidden_processes;
+                auto snapshot_future = std::async(std::launch::async,
+                    [this] {return CreateQuickSnapshot(); });
+                auto processes_future = std::async(std::launch::async,
+                    [this] {return FastFindProcesses(); });
+
+                auto snap_processes = snapshot_future.get();
+                auto processes = processes_future.get();
+                for (const auto& proc : processes) {
+                    if (snap_processes.contains(proc.pid_)) {
+                        LOG_INFO("["s + std::to_string(proc.pid_) + "] "s
+                            + proc.process_name_ + " OK\n"s);
                     }
                     else {
-                        std::cout << pid << " HIDDEN!\n";
+                        LOG_INFO("["s + std::to_string(proc.pid_) + "] "s
+                            + proc.process_name_ + " MAYBE HIDDEN!\n"s);
+                        hidden_processes.push_back(proc);
                     }
                 }
+                return processes;
             }
             catch (const std::exception& e) {
                 std::cout << "Error getting PIDs: " << e.what() << std::endl;
