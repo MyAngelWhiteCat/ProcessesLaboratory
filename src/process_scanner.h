@@ -65,7 +65,7 @@ namespace proc_scan {
                 return processes;
             }
             catch (const std::exception& e) {
-                std::cout << "Error getting PIDs: " << e.what() << std::endl;
+                LOG_CRITICAL("Error getting PIDs: "s + e.what());
             }
 
         }
