@@ -41,34 +41,7 @@ namespace proc_scan {
         std::shared_ptr<domain::ProcessInfo> GetProcessInfo(DWORD pid) const;
         void ClearBuffer();
 
-        std::vector<domain::ProcessInfo> FindHidenProcesses() {
-            try {
-                std::vector<domain::ProcessInfo> hidden_processes;
-                auto snapshot_future = std::async(std::launch::async,
-                    [this] {return CreateQuickSnapshot(); });
-                auto processes_future = std::async(std::launch::async,
-                    [this] {return FastFindProcesses(); });
-
-                auto snap_processes = snapshot_future.get();
-                auto processes = processes_future.get();
-                for (const auto& proc : processes) {
-                    if (snap_processes.contains(proc.pid_)) {
-                        LOG_INFO("["s + std::to_string(proc.pid_) + "] "s
-                            + proc.process_name_ + " OK\n"s);
-                    }
-                    else {
-                        LOG_INFO("["s + std::to_string(proc.pid_) + "] "s
-                            + proc.process_name_ + " MAYBE HIDDEN!\n"s);
-                        hidden_processes.push_back(proc);
-                    }
-                }
-                return processes;
-            }
-            catch (const std::exception& e) {
-                LOG_CRITICAL("Error getting PIDs: "s + e.what());
-            }
-
-        }
+        std::vector<domain::ProcessInfo> FindHidenProcesses();
 
     private:
         size_t buffer_size_ = 10;

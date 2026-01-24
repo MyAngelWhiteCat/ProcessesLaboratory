@@ -132,6 +132,35 @@ namespace proc_scan {
         last_full_snapshots_.clear();
     }
 
+    std::vector<domain::ProcessInfo> ProcessScanner::FindHidenProcesses() {
+        try {
+            std::vector<domain::ProcessInfo> hidden_processes;
+            auto snapshot_future = std::async(std::launch::async,
+                [this] {return CreateQuickSnapshot(); });
+            auto processes_future = std::async(std::launch::async,
+                [this] {return FastFindProcesses(); });
+
+            auto snap_processes = snapshot_future.get();
+            auto processes = processes_future.get();
+            for (const auto& proc : processes) {
+                if (snap_processes.contains(proc.pid_)) {
+                    LOG_INFO("["s + std::to_string(proc.pid_) + "] "s
+                        + proc.process_name_ + " OK\n"s);
+                }
+                else {
+                    LOG_INFO("["s + std::to_string(proc.pid_) + "] "s
+                        + proc.process_name_ + " MAYBE HIDDEN!\n"s);
+                    hidden_processes.push_back(proc);
+                }
+            }
+            return processes;
+        }
+        catch (const std::exception& e) {
+            LOG_CRITICAL("Error getting PIDs: "s + e.what());
+        }
+
+    }
+
     void ProcessScanner::GetProcModules(domain::ProcessInfo& pinfo) {
         MODULEENTRY32W module_entry{ 0 };
         
