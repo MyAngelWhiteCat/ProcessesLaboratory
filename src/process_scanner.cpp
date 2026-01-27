@@ -1,20 +1,23 @@
 #include "domain.h"
-#include "process_scanner.h"
 #include "logger.h"
+#include "process_scanner.h"
 
 #include <iostream>
+#include <ranges>
 #include <stdexcept>
 #include <string>
 #include <utility>
-#include <ranges>
 
 #include <TlHelp32.h>
 #include <Windows.h>
 
-#include <string_view>
 #include <exception>
-#include <vector>
+#include <future>
+#include <memory>
+#include <string_view>
 #include <unordered_map>
+#include <vector>
+#include <winternl.h>
 
 
 namespace proc_scan {
@@ -72,7 +75,7 @@ namespace proc_scan {
         CloseHandle(hSnapshot);
     }
 
-    std::unordered_map<DWORD, domain::ProcessInfo> ProcessScanner::CreateQuickSnapshot() {
+    PidToProcessIndex ProcessScanner::CreateQuickSnapshot() {
         HANDLE hSnapshot = CreateToolhelp32Snapshot(TH32CS_SNAPPROCESS, 0);
         if (hSnapshot == INVALID_HANDLE_VALUE) {
             throw std::runtime_error("Quick Snapshot creating error: " + std::to_string(GetLastError()));
@@ -85,7 +88,7 @@ namespace proc_scan {
             throw std::runtime_error("Quick Snapshot reading error: " + std::to_string(GetLastError()));
         }
 
-        std::unordered_map<DWORD, domain::ProcessInfo>  proc_infos;
+        PidToProcessIndex  proc_infos;
         do {
             proc_infos[proc_entry.th32ProcessID] = domain::ProcessInfo(proc_entry.th32ProcessID
                 , proc_entry.cntThreads
@@ -110,7 +113,7 @@ namespace proc_scan {
         buffer_size_ = size;
     }
 
-    std::shared_ptr<domain::ProcessInfo> ProcessScanner::GetProcessInfo(std::string_view process_name) const {
+    SPProcessInfo ProcessScanner::GetProcessInfo(std::string_view process_name) const {
         for (const auto& snapshot : last_full_snapshots_ | std::views::reverse) {
             if (auto proc = snapshot.GetProcessInfo(process_name)) {
                 return proc;
@@ -119,7 +122,7 @@ namespace proc_scan {
         return nullptr;
     }
 
-    std::shared_ptr<domain::ProcessInfo> ProcessScanner::GetProcessInfo(DWORD pid) const {
+    SPProcessInfo ProcessScanner::GetProcessInfo(DWORD pid) const {
         for (const auto& snapshot : last_full_snapshots_ | std::views::reverse) {
             if (auto proc = snapshot.GetProcessInfo(pid)) {
                 return proc;
@@ -158,7 +161,6 @@ namespace proc_scan {
         catch (const std::exception& e) {
             LOG_CRITICAL("Error getting PIDs: "s + e.what());
         }
-
     }
 
     void ProcessScanner::GetProcModules(domain::ProcessInfo& pinfo) {
@@ -256,7 +258,7 @@ namespace proc_scan {
 
         const NTSTATUS STATUS_INFO_LENGTH_MISMATCH = 0xC0000004;
         if (status != STATUS_INFO_LENGTH_MISMATCH) {
-            throw std::runtime_error("Can't get system information lenght");
+            throw std::runtime_error("Can't get sysinfo's length");
         }
 
         std::vector<BYTE> buffer(sysinfo_len);
@@ -267,7 +269,7 @@ namespace proc_scan {
         );
 
         if (!NT_SUCCESS(status)) {
-            throw std::runtime_error("Cant get system information: " 
+            throw std::runtime_error("Can't get system information: " 
                 + std::to_string(GetLastError()));
         }
 
@@ -291,7 +293,7 @@ namespace proc_scan {
                     + sysinfo->NextEntryOffset);
         }
 
-        LOG_INFO("Fast find Ready");
+        LOG_DEBUG("Fast find Ready");
         return processes;
     }
 
