@@ -30,13 +30,13 @@ namespace proc_scan {
     class ProcessScanner {
     public:
         void CreateSnapshot();
-        std::unordered_map<DWORD, domain::ProcessInfo>  CreateQuickSnapshot();
+        PidToProcessIndex CreateQuickSnapshot();
 
         void PrintLastFullSnapshot(std::ostream& out);
         void SetFullSnapshotsBufferSize(size_t size);
 
-        std::shared_ptr<domain::ProcessInfo> GetProcessInfo(std::string_view process_name) const;
-        std::shared_ptr<domain::ProcessInfo> GetProcessInfo(DWORD pid) const;
+        SPProcessInfo GetProcessInfo(std::string_view process_name) const;
+        SPProcessInfo GetProcessInfo(DWORD pid) const;
         void ClearBuffer();
 
         std::vector<domain::ProcessInfo> FindHidenProcesses();
