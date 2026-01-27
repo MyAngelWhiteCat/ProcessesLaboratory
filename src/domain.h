@@ -94,8 +94,8 @@ namespace proc_scan {
 
             SystemClock::time_point time_;
 
-            std::unordered_map<DWORD, std::shared_ptr<ProcessInfo>> pid_to_proc_info_;
-            std::unordered_map<std::string_view, std::shared_ptr<ProcessInfo>> proc_name_to_proc_info_;
+            PidToProcessIndex pid_to_proc_info_;
+            ExeNameToProcessIndex proc_name_to_proc_info_;
 
             std::shared_ptr<ProcessInfo> GetProcessInfo(std::string_view process_name) const;
             std::shared_ptr<ProcessInfo> GetProcessInfo(DWORD pid) const;
