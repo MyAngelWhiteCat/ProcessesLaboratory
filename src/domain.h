@@ -16,6 +16,9 @@
 namespace proc_scan {
 
     using SystemClock = std::chrono::system_clock;
+    using SPProcessInfo = std::shared_ptr<domain::ProcessInfo>;
+    using PidToProcessIndex = std::unordered_map<DWORD, SPProcessInfo>;
+    using ExeNameToProcessIndex = std::unordered_map<std::string_view, SPProcessInfo>;
 
     namespace domain {
 
@@ -77,7 +80,7 @@ namespace proc_scan {
         };
 
         struct Snapshot {
-            Snapshot(SystemClock::time_point time)
+            Snapshot(SystemClock::time_point time) 
                 : time_(time)
             {
 
@@ -95,7 +98,7 @@ namespace proc_scan {
         };
 
         std::string WideCharToString(const WCHAR* wstr);
-       
+
         std::string UnicodeToString(const UNICODE_STRING& ustr);
        
     }

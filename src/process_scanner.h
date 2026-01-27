@@ -17,6 +17,8 @@ namespace proc_scan {
     using namespace std::literals;
 
     using SystemClock = std::chrono::system_clock;
+    using PidToProcessIndex = std::unordered_map<DWORD, domain::ProcessInfo>;
+    using SPProcessInfo = std::shared_ptr<domain::ProcessInfo>;
 
     typedef NTSTATUS(*PNtQuerySystemInformation)(
         SYSTEM_INFORMATION_CLASS SystemInformationClass,
