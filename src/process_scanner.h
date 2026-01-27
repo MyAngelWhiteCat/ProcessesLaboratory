@@ -41,6 +41,9 @@ namespace proc_scan {
 
         std::vector<domain::ProcessInfo> FindHidenProcesses();
 
+        size_t GetBufferSize() const;
+        void SetBufferSize(const size_t new_size);
+
     private:
         size_t buffer_size_ = 10;
         std::deque<domain::Snapshot> last_full_snapshots_;

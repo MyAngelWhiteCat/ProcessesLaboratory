@@ -166,6 +166,14 @@ namespace proc_scan {
         return {}; // Dummy for no warning
     }
 
+    size_t ProcessScanner::GetBufferSize() const {
+        return buffer_size_;
+    }
+
+    void ProcessScanner::SetBufferSize(const size_t new_size) {
+        buffer_size_ = new_size;
+    }
+
     void ProcessScanner::GetProcModules(domain::ProcessInfo& pinfo) {
         MODULEENTRY32W module_entry{ 0 };
         
