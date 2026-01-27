@@ -161,6 +161,8 @@ namespace proc_scan {
         catch (const std::exception& e) {
             LOG_CRITICAL("Error getting PIDs: "s + e.what());
         }
+
+        return {}; // Dummy for no warning
     }
 
     void ProcessScanner::GetProcModules(domain::ProcessInfo& pinfo) {
