@@ -6,11 +6,11 @@
 #include <ostream>
 #include <iostream>
 #include <vector>
+#include <unordered_map>
 
 #include <Windows.h>
 
 #include "domain.h"
-#include <unordered_map>
 
 namespace proc_scan {
 
@@ -30,13 +30,13 @@ namespace proc_scan {
     class ProcessScanner {
     public:
         void CreateSnapshot();
-        PidToProcessIndex CreateQuickSnapshot();
+        domain::PidToProcessIndex CreateQuickSnapshot();
 
         void PrintLastFullSnapshot(std::ostream& out);
         void SetFullSnapshotsBufferSize(size_t size);
 
-        SPProcessInfo GetProcessInfo(std::string_view process_name) const;
-        SPProcessInfo GetProcessInfo(DWORD pid) const;
+        domain::SPProcessInfo GetProcessInfo(std::string_view process_name) const;
+        domain::SPProcessInfo GetProcessInfo(DWORD pid) const;
         void ClearBuffer();
 
         std::vector<domain::ProcessInfo> FindHidenProcesses();

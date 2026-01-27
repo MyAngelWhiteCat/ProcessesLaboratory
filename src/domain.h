@@ -1,8 +1,9 @@
 #pragma once
 
 #include <Windows.h>
-#include <string>
+#include <winternl.h>
 
+#include <string>
 #include <unordered_map>
 #include <chrono>
 #include <memory>
@@ -10,17 +11,20 @@
 #include <utility>
 #include <vector>
 #include <string_view>
-#include <winternl.h>
 
 
 namespace proc_scan {
 
     using SystemClock = std::chrono::system_clock;
-    using SPProcessInfo = std::shared_ptr<domain::ProcessInfo>;
-    using PidToProcessIndex = std::unordered_map<DWORD, SPProcessInfo>;
-    using ExeNameToProcessIndex = std::unordered_map<std::string_view, SPProcessInfo>;
 
     namespace domain {
+
+        struct ProcessInfo;
+
+        using SPProcessInfo = std::shared_ptr<ProcessInfo>;
+        using PidToProcessIndex = std::unordered_map<DWORD, SPProcessInfo>;
+        using ExeNameToProcessIndex = std::unordered_map<std::string_view, SPProcessInfo>;
+
 
         struct ThreadInfo {
             ThreadInfo() = delete;
