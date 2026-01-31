@@ -23,7 +23,7 @@ namespace proc_scan {
 
         using SPProcessInfo = std::shared_ptr<ProcessInfo>;
         using PidToProcessIndex = std::unordered_map<DWORD, SPProcessInfo>;
-        using ExeNameToProcessIndex = std::unordered_map<std::string_view, SPProcessInfo>;
+        using ExeNameToProcessIndex = std::unordered_map<std::string, SPProcessInfo>;
 
 
         struct ThreadInfo {
