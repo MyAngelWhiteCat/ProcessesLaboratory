@@ -1,7 +1,14 @@
 #include "domain.h"
-#include <winternl.h>
+
+#include <string>
+#include <string_view>
+#include <memory>
 #include <codecvt>
 #include <locale>
+#include <ostream>
+
+#include <winternl.h>
+#include <Windows.h>
 
 namespace proc_scan {
 
@@ -13,7 +20,7 @@ namespace proc_scan {
         }
 
         std::shared_ptr<ProcessInfo> Snapshot::GetProcessInfo(std::string_view process_name) const {
-            if (auto it = proc_name_to_proc_info_.find(process_name);
+            if (auto it = proc_name_to_proc_info_.find(std::string(process_name));
                 it != proc_name_to_proc_info_.end()) {
                 return it->second;
             }
@@ -71,9 +78,7 @@ namespace proc_scan {
             }
 
             std::wstring wstr(ustr.Buffer, ustr.Length / sizeof(wchar_t));
-
             std::wstring_convert<std::codecvt_utf8<wchar_t>> converter;
-
             return converter.to_bytes(wstr);
         }
 

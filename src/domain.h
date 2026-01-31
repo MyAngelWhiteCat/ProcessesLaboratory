@@ -25,7 +25,6 @@ namespace proc_scan {
         using PidToProcessIndex = std::unordered_map<DWORD, SPProcessInfo>;
         using ExeNameToProcessIndex = std::unordered_map<std::string, SPProcessInfo>;
 
-
         struct ThreadInfo {
             ThreadInfo() = delete;
             ThreadInfo(DWORD thread_id, DWORD owner_id, LONG prioritet) 
@@ -93,7 +92,6 @@ namespace proc_scan {
             void Insert(std::shared_ptr<ProcessInfo> proc_info);
 
             SystemClock::time_point time_;
-
             PidToProcessIndex pid_to_proc_info_;
             ExeNameToProcessIndex proc_name_to_proc_info_;
 
@@ -102,7 +100,6 @@ namespace proc_scan {
         };
 
         std::string WideCharToString(const WCHAR* wstr);
-
         std::string UnicodeToString(const UNICODE_STRING& ustr);
        
     }
