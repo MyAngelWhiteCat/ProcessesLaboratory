@@ -1,14 +1,14 @@
 #include "domain.h"
 
-#include <string>
-#include <string_view>
-#include <memory>
 #include <codecvt>
 #include <locale>
+#include <memory>
 #include <ostream>
+#include <string>
+#include <string_view>
 
-#include <winternl.h>
 #include <Windows.h>
+#include <winternl.h>
 
 namespace proc_scan {
 
