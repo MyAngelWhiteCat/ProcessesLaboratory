@@ -137,12 +137,25 @@ namespace proc_scan {
     }
 
     std::vector<domain::ProcessInfo> ProcessScanner::FindHidenProcesses() {
+        const std::string NTDLL_STR = "ntdll.dll";
+        const std::string NTQSI_STR = "NtQuerySystemInformation";
         try {
+            auto ntdll = domain::LoadModule(NTDLL_STR);
+            if (!ntdll) {
+                throw std::runtime_error("Incorrect load: "s + NTDLL_STR);
+            }
+
+            auto NtQSI = domain::LoadFunctionFromModule
+                <domain::PNtQuerySystemInformation>(ntdll, NTQSI_STR);
+            if (!NtQSI) {
+                throw std::runtime_error("Incorrect load func: " + NTQSI_STR);
+            }
+
             std::vector<domain::ProcessInfo> hidden_processes;
             auto snapshot_future = std::async(std::launch::async,
                 [this] {return CreateQuickSnapshot(); });
             auto processes_future = std::async(std::launch::async,
-                [this] {return FastFindProcesses(); });
+                [this, NtQSI] {return FastFindProcesses(NtQSI); });
 
             auto snap_processes = snapshot_future.get();
             auto processes = processes_future.get();
@@ -248,18 +261,8 @@ namespace proc_scan {
         return process_prioritet;
     }
 
-    std::vector<domain::ProcessInfo> ProcessScanner::FastFindProcesses() {
-        HMODULE ntdll = GetModuleHandleW(L"ntdll.dll");
-        if (!ntdll) {
-            throw std::runtime_error("Can't get module ntdll.dll" + std::to_string(GetLastError()));
-        }
-
-        auto NtQuerySystemInformation =
-            reinterpret_cast<PNtQuerySystemInformation>(
-                GetProcAddress
-                (ntdll, "NtQuerySystemInformation")
-            );
-
+    std::vector<domain::ProcessInfo> ProcessScanner::FastFindProcesses
+    (domain::PNtQuerySystemInformation NtQuerySystemInformation) {
         ULONG sysinfo_len = 0;
         NTSTATUS status = NtQuerySystemInformation(SystemProcessInformation
             , NULL
