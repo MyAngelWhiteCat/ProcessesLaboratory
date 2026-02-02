@@ -20,12 +20,6 @@ namespace proc_scan {
     using PidToProcessIndex = std::unordered_map<DWORD, domain::ProcessInfo>;
     using SPProcessInfo = std::shared_ptr<domain::ProcessInfo>;
 
-    typedef NTSTATUS(*PNtQuerySystemInformation)(
-        SYSTEM_INFORMATION_CLASS SystemInformationClass,
-        PVOID SystemInformation,
-        ULONG SystemInformationLength,
-        PULONG ReturnLength
-        );
 
     class ProcessScanner {
     public:

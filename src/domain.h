@@ -25,6 +25,13 @@ namespace proc_scan {
         using PidToProcessIndex = std::unordered_map<DWORD, SPProcessInfo>;
         using ExeNameToProcessIndex = std::unordered_map<std::string, SPProcessInfo>;
 
+        typedef NTSTATUS(*PNtQuerySystemInformation)(
+            SYSTEM_INFORMATION_CLASS SystemInformationClass,
+            PVOID SystemInformation,
+            ULONG SystemInformationLength,
+            PULONG ReturnLength
+            );
+
         struct ThreadInfo {
             ThreadInfo() = delete;
             ThreadInfo(DWORD thread_id, DWORD owner_id, LONG prioritet) 
