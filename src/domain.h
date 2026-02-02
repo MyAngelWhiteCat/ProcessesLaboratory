@@ -111,6 +111,10 @@ namespace proc_scan {
         std::string UnicodeToString(const UNICODE_STRING& ustr);
         HMODULE LoadModule(std::string_view module_name);
        
+        template<typename Fn>
+        Fn LoadFunctionFromModule(HMODULE hModule, std::string_view function_name) {
+            return reinterpret_cast<Fn>(GetProcAddress(hModule, function_name.data()));
+        }
     }
 
 }
