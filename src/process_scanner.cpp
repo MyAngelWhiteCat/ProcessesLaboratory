@@ -137,12 +137,13 @@ namespace proc_scan {
     }
 
     std::vector<domain::ProcessInfo> ProcessScanner::FindHidenProcesses() {
-        const std::string NTDLL_STR = "ntdll.dll";
+        const std::wstring NTDLL_STR = L"ntdll.dll";
         const std::string NTQSI_STR = "NtQuerySystemInformation";
         try {
             auto ntdll = domain::LoadModule(NTDLL_STR);
             if (!ntdll) {
-                throw std::runtime_error("Incorrect load: "s + NTDLL_STR);
+                throw std::runtime_error("Incorrect load: "s 
+                    + domain::WideCharToString(NTDLL_STR.data()));
             }
 
             auto NtQSI = domain::LoadFunctionFromModule

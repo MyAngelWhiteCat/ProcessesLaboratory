@@ -93,16 +93,16 @@ namespace proc_scan {
             return converter.to_bytes(wstr);
         }
 
-        HMODULE LoadModule(std::string_view module_name) {
-            if (auto wstr = StringToWideChar(module_name); wstr) {
-                HMODULE hModule = GetModuleHandleW(wstr->c_str());
-                if (!hModule) {
-                    throw std::runtime_error("Can't load "s + WideCharToString(wstr->c_str()) 
-                        + ". error code:"s + std::to_string(GetLastError()));
-                }
-                return hModule;
+        HMODULE LoadModule(std::wstring_view module_name) {
+            if (module_name.empty()) {
+                return 0;
             }
-            return 0;
+            HMODULE hModule = GetModuleHandleW(module_name.data());
+            if (!hModule) {
+                throw std::runtime_error("Can't load " + WideCharToString(module_name.data())
+                    + ". error code:"s + std::to_string(GetLastError()));
+            }
+            return hModule;
         }
 
         void ModuleInfo::Print(std::ostream& out) const {
@@ -122,5 +122,5 @@ namespace proc_scan {
         }
 
     }
-    
+
 }
