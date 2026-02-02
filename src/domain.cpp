@@ -92,6 +92,18 @@ namespace proc_scan {
             return converter.to_bytes(wstr);
         }
 
+        HMODULE LoadModule(std::string_view module_name) {
+            if (auto wstr = StringToWideChar(module_name); wstr) {
+                HMODULE hModule = GetModuleHandleW(wstr->c_str());
+                if (!hModule) {
+                    throw std::runtime_error("Can't load "s + WideCharToString(wstr->c_str()) 
+                        + ". error code:"s + std::to_string(GetLastError()));
+                }
+                return hModule;
+            }
+            return 0;
+        }
+
         void ModuleInfo::Print(std::ostream& out) const {
             out << "\nModule info:"
                 << "\n[ModuleID] " << module_id_
