@@ -72,6 +72,16 @@ namespace proc_scan {
             return str;
         }
 
+        std::unique_ptr<std::wstring> StringToWideChar(std::string_view str) {
+            if (str.empty()) {
+                return nullptr;
+            }
+            int size_needed = MultiByteToWideChar(CP_UTF8, 0, str.data(), -1, nullptr, 0);
+            wchar_t* wide_str = new wchar_t[size_needed];
+            MultiByteToWideChar(CP_UTF8, 0, str.data(), -1, wide_str, size_needed);
+            return std::make_unique<std::wstring>(wide_str);
+        }
+
         std::string UnicodeToString(const UNICODE_STRING& ustr) {
             if (!ustr.Buffer || !ustr.Length) {
                 return "";

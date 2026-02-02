@@ -107,6 +107,7 @@ namespace proc_scan {
         };
 
         std::string WideCharToString(const WCHAR* wstr);
+        std::unique_ptr<std::wstring> StringToWideChar(std::string_view str);
         std::string UnicodeToString(const UNICODE_STRING& ustr);
        
     }
