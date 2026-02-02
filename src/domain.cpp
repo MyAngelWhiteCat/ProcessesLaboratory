@@ -9,6 +9,7 @@
 
 #include <Windows.h>
 #include <winternl.h>
+#include <stdexcept>
 
 namespace proc_scan {
 
