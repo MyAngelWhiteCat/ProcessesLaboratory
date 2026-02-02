@@ -16,6 +16,7 @@
 namespace proc_scan {
 
     using SystemClock = std::chrono::system_clock;
+    using namespace std::literals;
 
     namespace domain {
 
