@@ -33,7 +33,7 @@ namespace proc_scan {
         domain::SPProcessInfo GetProcessInfo(DWORD pid) const;
         void ClearBuffer();
 
-        std::vector<domain::ProcessInfo> FindHidenProcesses();
+        std::vector<domain::ProcessInfo> CheckForHiddenProcesses();
 
         size_t GetBufferSize() const;
         void SetBufferSize(const size_t new_size);

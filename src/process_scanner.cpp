@@ -136,6 +136,20 @@ namespace proc_scan {
         last_full_snapshots_.clear();
     }
 
+    std::vector<domain::ProcessInfo> ProcessScanner::CheckForHiddenProcesses() {
+        std::vector<domain::ProcessInfo> hidden_processes;
+        try {
+            hidden_processes = FindHidenProcesses();
+        }
+        catch (const std::exception& e) {
+            LOG_CRITICAL("Error while checking for hidden processes: "s + e.what());
+        }
+        if (hidden_processes.empty()) {
+            LOG_INFO("Hidden processes not found");
+        }
+        return hidden_processes;
+    }
+
     std::vector<domain::ProcessInfo> ProcessScanner::FindHidenProcesses() {
         const std::wstring NTDLL_STR = L"ntdll.dll";
         const std::string NTQSI_STR = "NtQuerySystemInformation";
