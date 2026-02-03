@@ -161,13 +161,7 @@ namespace proc_scan {
             auto snap_processes = snapshot_future.get();
             auto processes = processes_future.get();
             for (const auto& proc : processes) {
-                if (snap_processes.contains(proc.pid_)) {
-                    LOG_INFO("["s + std::to_string(proc.pid_) + "] "s
-                        + proc.process_name_ + " OK\n"s);
-                }
-                else {
-                    LOG_INFO("["s + std::to_string(proc.pid_) + "] "s
-                        + proc.process_name_ + " MAYBE HIDDEN!\n"s);
+                if (!snap_processes.contains(proc.pid_)) {
                     hidden_processes.push_back(proc);
                 }
             }
