@@ -277,9 +277,13 @@ namespace proc_scan {
         return process_prioritet;
     }
 
-    std::vector<domain::ProcessInfo> ProcessScanner::NtProcessesScan() {
+    domain::Snapshot ProcessScanner::NtProcessesScan() {
+        if (!NtQuerySystemInformation_) {
+            throw std::logic_error("Should load NtQuerySystemInformation before using NtScan");
+        }
+
         ULONG sysinfo_len = 0;
-        NTSTATUS status = NtQuerySystemInformation(SystemProcessInformation
+        NTSTATUS status = NtQuerySystemInformation_(SystemProcessInformation
             , NULL
             , sysinfo_len
             , &sysinfo_len
@@ -291,7 +295,7 @@ namespace proc_scan {
         }
 
         std::vector<BYTE> buffer(sysinfo_len);
-        status = NtQuerySystemInformation(SystemProcessInformation
+        status = NtQuerySystemInformation_(SystemProcessInformation
             , buffer.data()
             , sysinfo_len
             , &sysinfo_len
@@ -306,12 +310,12 @@ namespace proc_scan {
             reinterpret_cast<PSYSTEM_PROCESS_INFORMATION>
             (buffer.data());
 
-        std::vector<domain::ProcessInfo> processes;
+        domain::Snapshot processes(domain::Clock::now());
         while (true) {
-            
-            processes.emplace_back(HandleToUlong(sysinfo->UniqueProcessId)
+            processes.Insert(std::make_shared<domain::ProcessInfo>(
+                HandleToUlong(sysinfo->UniqueProcessId)
                 , static_cast<DWORD>(sysinfo->NumberOfThreads)
-                , domain::UnicodeToString(sysinfo->ImageName)
+                , domain::UnicodeToString(sysinfo->ImageName))
             );
 
             if (sysinfo->NextEntryOffset == 0) {
