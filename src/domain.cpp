@@ -58,6 +58,10 @@ namespace proc_scan {
             }
         }
 
+        void ProcessInfo::SetTimestamp() {
+            timestamp_ = Clock::now();
+        }
+
         std::string WideCharToString(const WCHAR* wstr) {
             if (!wstr) {
                 return "";

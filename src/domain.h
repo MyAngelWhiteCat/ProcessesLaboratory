@@ -81,12 +81,16 @@ namespace proc_scan {
             DWORD threads_count_{ 0 };
             std::string process_name_;
 
+            Clock::time_point timestamp_{Clock::now()};
+
             std::vector<ModuleInfo> modules_;
             std::vector<ThreadInfo> threads_;
 
             void Print(std::ostream& out) const;
             void PrintModules(std::ostream& out) const;
             void PrintThreads(std::ostream& out) const;
+
+            void SetTimestamp();
 
         };
 
