@@ -11,7 +11,9 @@
 
 #include <Windows.h>
 
+#include "analizer.h"
 #include "domain.h"
+#include "hidden_processes_analizer.h"
 
 namespace proc_scan {
 
