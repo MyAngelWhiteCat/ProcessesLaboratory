@@ -102,6 +102,7 @@ namespace proc_scan {
             {
 
             }
+
             DWORD pid_{ 0 };
             DWORD priority_{ 0 };
             DWORD threads_count_{ 0 };
