@@ -24,9 +24,6 @@ namespace proc_scan {
 
     class ProcessScanner {
     public:
-        void CreateSnapshot();
-        domain::PidToProcessIndex CreateQuickSnapshot();
-
         void PrintLastFullSnapshot(std::ostream& out);
         void SetFullSnapshotsBufferSize(size_t size);
 
@@ -43,10 +40,15 @@ namespace proc_scan {
         size_t buffer_size_ = 10;
         std::deque<domain::Snapshot> last_full_snapshots_;
 
+        void CreateToolHelpSnapshot();
+        domain::PidToProcessIndex CreateQuickSnapshot();
+
         void GetProcModules(domain::ProcessInfo& pinfo);
         void GetProcThreads(domain::ProcessInfo& pinfo);
+
         DWORD GetProcessPrioritet(DWORD pid);
-        std::vector<domain::ProcessInfo> FastFindProcesses(domain::PNtQuerySystemInformation);
+
+        std::vector<domain::ProcessInfo> NtProcessesScan();
         std::vector<domain::ProcessInfo> FindHidenProcesses();
 
         void LoadNtModule();
@@ -54,8 +56,6 @@ namespace proc_scan {
 
         void LoadNtQuerySystemInformation();
         domain::PNtQuerySystemInformation NtQuerySystemInformation_{ NULL };
-
-
 
     };
 
