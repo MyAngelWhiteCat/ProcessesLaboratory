@@ -75,7 +75,7 @@ namespace proc_scan {
         CloseHandle(hSnapshot);
     }
 
-    domain::PidToProcessIndex ProcessScanner::CreateQuickSnapshot() {
+    domain::Snapshot ProcessScanner::CreateQuickSnapshot() {
         HANDLE hSnapshot = CreateToolhelp32Snapshot(TH32CS_SNAPPROCESS, 0);
         if (hSnapshot == INVALID_HANDLE_VALUE) {
             throw std::runtime_error("Quick Snapshot creating error: " + std::to_string(GetLastError()));
@@ -88,19 +88,19 @@ namespace proc_scan {
             throw std::runtime_error("Quick Snapshot reading error: " + std::to_string(GetLastError()));
         }
 
-        domain::PidToProcessIndex  proc_infos;
+        domain::Snapshot snapshot(domain::Clock::now());
         do {
-            proc_infos[proc_entry.th32ProcessID] = std::make_shared<domain::ProcessInfo>
+            snapshot.Insert(std::make_shared<domain::ProcessInfo>
                 (proc_entry.th32ProcessID
                 , proc_entry.cntThreads
                 , domain::WideCharToString(proc_entry.szExeFile)
-            );
+            ));
 
         } while (Process32NextW(hSnapshot, &proc_entry));
 
         CloseHandle(hSnapshot);
         LOG_INFO("Quick snapshot Ready");
-        return proc_infos;
+        return snapshot;
     }
 
     void ProcessScanner::PrintLastFullSnapshot(std::ostream& out) {
