@@ -150,28 +150,28 @@ namespace proc_scan {
         return hidden_processes;
     }
 
-    std::vector<domain::ProcessInfo> ProcessScanner::FindHidenProcesses() {
+    std::vector<domain::SPProcessInfo> ProcessScanner::FindHidenProcesses() {
         try {
             LoadNtModule();
             LoadNtQuerySystemInformation();
 
-            std::vector<domain::ProcessInfo> hidden_processes;
+            domain::Scan scan;
             auto snapshot_future = std::async(std::launch::async,
                 [this] {return CreateQuickSnapshot(); });
-            auto processes_future = std::async(std::launch::async,
+            auto ntsnapshot_future = std::async(std::launch::async,
                 [this] {return NtProcessesScan(); });
 
-            auto snap_processes = snapshot_future.get();
-            auto processes = processes_future.get();
-            for (const auto& proc : processes) {
-                if (!snap_processes.contains(proc.pid_)) {
-                    hidden_processes.push_back(proc);
-                }
+            scan[domain::ScanMethod::ToolHelp] = snapshot_future.get();
+            scan[domain::ScanMethod::NtQSI] = ntsnapshot_future.get();
+
+            auto analizer = analizers_.find(domain::AnalizerType::HiddenProcesses);
+            if (analizer == analizers_.end()) {
+                throw std::runtime_error("Hidden processes analizer not initialized");
             }
-            return processes;
+            return analizer->second->Analize(std::move(scan)).suspicious_processes_;
         }
         catch (const std::exception& e) {
-            LOG_CRITICAL("Error getting PIDs: "s + e.what());
+            LOG_CRITICAL("Hidden processes annalize error: "s + e.what());
         }
 
         return {}; // Dummy for no warning
