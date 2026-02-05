@@ -24,6 +24,11 @@ namespace proc_scan {
 
     class ProcessScanner {
     public:
+        ProcessScanner() {
+            analizers_[domain::AnalizerType::HiddenProcesses]
+                = std::make_unique<labaratory::HiddenProcessesAnalizer>();
+        }
+
         void PrintLastFullSnapshot(std::ostream& out);
         void SetFullSnapshotsBufferSize(size_t size);
 
@@ -39,6 +44,8 @@ namespace proc_scan {
     private:
         size_t buffer_size_ = 10;
         std::deque<domain::Snapshot> last_full_snapshots_;
+
+        labaratory::Analizers analizers_;
 
         void CreateToolHelpSnapshot();
         domain::PidToProcessIndex CreateQuickSnapshot();
