@@ -15,7 +15,6 @@
 
 namespace proc_scan {
 
-    using SystemClock = std::chrono::system_clock;
     using namespace std::literals;
 
     namespace domain {
@@ -122,7 +121,7 @@ namespace proc_scan {
         };
 
         struct Snapshot {
-            Snapshot(SystemClock::time_point time) 
+            Snapshot(Clock::time_point time) 
                 : time_(time)
             {
 
@@ -130,7 +129,7 @@ namespace proc_scan {
 
             void Insert(std::shared_ptr<ProcessInfo> proc_info);
 
-            SystemClock::time_point time_;
+            Clock::time_point time_;
             PidToProcessIndex pid_to_proc_info_;
             ExeNameToProcessIndex proc_name_to_proc_info_;
 
