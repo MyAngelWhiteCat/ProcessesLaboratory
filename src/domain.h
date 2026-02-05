@@ -127,6 +127,10 @@ namespace proc_scan {
 
             }
 
+            Snapshot() {
+                time_ = Clock::now();
+            }
+
             void Insert(std::shared_ptr<ProcessInfo> proc_info);
 
             Clock::time_point time_;
