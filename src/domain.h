@@ -31,6 +31,12 @@ namespace proc_scan {
         struct Snapshot;
         using ScanResult = std::unordered_map<proc_scan::domain::ScanMethod, domain::Snapshot>;
 
+        struct NtNames {
+            NtNames() = delete;
+            static constexpr std::wstring_view NTDLL = L"ntdll.dll";
+            static constexpr std::string_view NTQSI = "NtQuerySystemInformation";
+        };
+
         typedef NTSTATUS(*PNtQuerySystemInformation)(
             SYSTEM_INFORMATION_CLASS SystemInformationClass,
             PVOID SystemInformation,

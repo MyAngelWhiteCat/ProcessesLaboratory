@@ -49,6 +49,14 @@ namespace proc_scan {
         std::vector<domain::ProcessInfo> FastFindProcesses(domain::PNtQuerySystemInformation);
         std::vector<domain::ProcessInfo> FindHidenProcesses();
 
+        void LoadNtModule();
+        HMODULE ntdll_{ NULL };
+
+        void LoadNtQuerySystemInformation();
+        domain::PNtQuerySystemInformation NtQuerySystemInformation_{ NULL };
+
+
+
     };
 
 } // namespace proc_scan
