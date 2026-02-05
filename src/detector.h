@@ -2,21 +2,29 @@
 
 #include <chrono>
 #include <optional>
+#include <unordered_map>
 
-namespace detector {
+#include "domain.h"
 
-    using Clock = std::chrono::high_resolution_clock;
+namespace proc_scan {
 
-    class Dectector {
-    public:
-        virtual void Scan();
-        virtual std::optional<Clock::time_point> GetLastScan();
-        virtual ~Dectector() = default;
+    namespace labaratory {
 
-    private:
-        std::optional<Clock::time_point> last_scan_;
+        using Clock = std::chrono::high_resolution_clock;
+        using ScanResult = std::unordered_map<proc_scan::domain::ScanMethod, domain::Snapshot>;
 
-        virtual void StartScan() = 0;
-    };
+        class Analizer {
+        public:
+            virtual void Analize(ScanResult scans);
+            virtual std::optional<Clock::time_point> GeLastAnalizeTimestamp();
+            virtual ~Analizer() = default;
+
+        private:
+            std::optional<Clock::time_point> last_analize_timestamp_;
+
+            virtual void StartAnalize(ScanResult scans) = 0;
+        };
+
+    }
 
 }

@@ -4,15 +4,19 @@
 #include <chrono>
 
 
-namespace detector {
+namespace proc_scan {
 
-    void Dectector::Scan() {
-        StartScan();
-        last_scan_ = Clock::now();
-    }
+    namespace labaratory {
 
-    std::optional<Clock::time_point> Dectector::GetLastScan() {
-        return last_scan_;
+        void Analizer::Analize(ScanResult scans) {
+            StartAnalize(scans);
+            last_analize_timestamp_ = Clock::now();
+        }
+
+        std::optional<Clock::time_point> Analizer::GeLastAnalizeTimestamp() {
+            return last_analize_timestamp_;
+        }
+
     }
 
 }
