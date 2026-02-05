@@ -2,6 +2,9 @@
 
 #include <optional>
 #include <chrono>
+#include <utility>
+
+#include "domain.h"
 
 
 namespace proc_scan {
