@@ -24,7 +24,7 @@ namespace proc_scan {
 
     void ProcessScanner::CreateToolHelpSnapshot() {
         HANDLE hSnapshot = CreateToolhelp32Snapshot(TH32CS_SNAPPROCESS, 0);
-        auto now = SystemClock::now();
+        auto now = domain::Clock::now();
 
         if (hSnapshot == INVALID_HANDLE_VALUE) {
             throw std::runtime_error("Snapshot creating error: " + std::to_string(GetLastError()));
