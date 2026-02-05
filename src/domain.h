@@ -30,7 +30,7 @@ namespace proc_scan {
         enum class ScanMethod;
         struct Snapshot;
         using ScanResult = std::unordered_map<ScanMethod, Snapshot>;
-
+        
         struct NtNames {
             NtNames() = delete;
             static constexpr std::wstring_view NTDLL = L"ntdll.dll";
@@ -148,5 +148,4 @@ namespace proc_scan {
             return reinterpret_cast<Fn>(GetProcAddress(hModule, function_name.data()));
         }
     }
-
 }
