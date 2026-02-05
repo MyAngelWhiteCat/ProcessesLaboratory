@@ -25,6 +25,11 @@ namespace proc_scan {
         using SPProcessInfo = std::shared_ptr<ProcessInfo>;
         using PidToProcessIndex = std::unordered_map<DWORD, SPProcessInfo>;
         using ExeNameToProcessIndex = std::unordered_map<std::string, SPProcessInfo>;
+        using Clock = std::chrono::high_resolution_clock;
+
+        enum class ScanMethod;
+        struct Snapshot;
+        using ScanResult = std::unordered_map<proc_scan::domain::ScanMethod, domain::Snapshot>;
 
         typedef NTSTATUS(*PNtQuerySystemInformation)(
             SYSTEM_INFORMATION_CLASS SystemInformationClass,
@@ -32,6 +37,22 @@ namespace proc_scan {
             ULONG SystemInformationLength,
             PULONG ReturnLength
             );
+
+        enum class ScanMethod {
+            ToolHelp = 0,
+            NtQSI = 1
+        };
+
+        enum class AnalizerType {
+            HiddenProcesses = 0
+        };
+
+        enum class ScanStrategy {
+            Quick = 0,
+            Base = 1,
+            Full = 2,
+            Runtime = 3,
+        };
 
         struct ThreadInfo {
             ThreadInfo() = delete;
