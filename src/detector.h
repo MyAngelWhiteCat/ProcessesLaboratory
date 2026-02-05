@@ -13,6 +13,9 @@ namespace proc_scan {
         using Clock = std::chrono::high_resolution_clock;
         using ScanResult = std::unordered_map<proc_scan::domain::ScanMethod, domain::Snapshot>;
 
+        class Analizer;
+        using Analizers = std::unordered_map<domain::AnalizerType, std::unique_ptr<Analizer>>;
+
         class Analizer {
         public:
             virtual void Analize(ScanResult scans);
