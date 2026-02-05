@@ -10,8 +10,16 @@ find_package(spdlog REQUIRED)
 add_library(ProcScan
     src/process_scanner.h 
     src/process_scanner.cpp 
+
+    src/detector.h
+    src/detector.cpp
+
+    src/hidden_processes_detector.cpp
+    src/hidden_processes_detector.h
+
     src/domain.h
     src/domain.cpp
+
     src/logger.h
     src/logger.cpp
 )
