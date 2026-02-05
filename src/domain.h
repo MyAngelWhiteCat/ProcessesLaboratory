@@ -28,7 +28,7 @@ namespace proc_scan {
 
         enum class ScanMethod;
         struct Snapshot;
-        using ScanResult = std::unordered_map<ScanMethod, Snapshot>;
+        using Scan = std::unordered_map<ScanMethod, Snapshot>;
         
         struct NtNames {
             NtNames() = delete;
