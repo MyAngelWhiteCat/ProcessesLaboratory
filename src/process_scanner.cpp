@@ -152,9 +152,6 @@ namespace proc_scan {
 
     std::vector<domain::SPProcessInfo> ProcessScanner::FindHidenProcesses() {
         try {
-            LoadNtModule();
-            LoadNtQuerySystemInformation();
-
             domain::Scan scan;
             auto snapshot_future = std::async(std::launch::async,
                 [this] {return CreateQuickSnapshot(); });
