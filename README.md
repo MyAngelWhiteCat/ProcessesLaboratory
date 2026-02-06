@@ -54,3 +54,13 @@
 [getmodulehandlew](https://learn.microsoft.com/en-us/windows/win32/api/libloaderapi/nf-libloaderapi-getmodulehandlew)
 
 [getprocaddress](https://learn.microsoft.com/en-us/windows/win32/api/libloaderapi/nf-libloaderapi-getprocaddress)
+
+[virtualqueryex](https://learn.microsoft.com/ru-ru/windows/win32/api/memoryapi/nf-memoryapi-virtualqueryex)
+
+[memory_basic_information](https://learn.microsoft.com/ru-ru/windows/win32/api/winnt/ns-winnt-memory_basic_information)
+
+[getsysteminfo](https://learn.microsoft.com/ru-ru/windows/win32/api/sysinfoapi/nf-sysinfoapi-getsysteminfo)
+
+[system_info](https://learn.microsoft.com/ru-ru/windows/win32/api/sysinfoapi/ns-sysinfoapi-system_info)
+
+[getmappedfilenamea](https://learn.microsoft.com/ru-ru/windows/win32/api/psapi/nf-psapi-getmappedfilenamea)
