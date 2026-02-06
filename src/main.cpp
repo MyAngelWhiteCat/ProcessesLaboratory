@@ -12,7 +12,9 @@ int main() {
         }
         else {
             for (const auto& hidden_proc : hp) {
-                hidden_proc->Print(std::cout);
+                std::cout << "Suspicious process: \n";
+                hidden_proc.proc_info->Print(std::cout);
+                std::cout << "Reason: " << hidden_proc.comment << "\n";
             }
         }
     }

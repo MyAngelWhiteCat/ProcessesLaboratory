@@ -18,7 +18,8 @@ namespace proc_scan {
         using Analyzers = std::unordered_map<domain::AnalyzerType, std::unique_ptr<Analyzer>>;
 
         struct AnalyzeResult {
-            std::vector<domain::SPProcessInfo> suspicious_processes_;
+            std::vector<domain::SuspiciousProcess> suspicious_processes_;
+
             // ...
         };
 

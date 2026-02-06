@@ -25,7 +25,8 @@ namespace proc_scan {
             AnalyzeResult result;
             for (const auto& [pid, sp_proc] : nt_scan.pid_to_proc_info_) {
                 if (!th_scan.pid_to_proc_info_.contains(pid)) {
-                    result.suspicious_processes_.push_back(sp_proc);
+                    result.suspicious_processes_.emplace_back(sp_proc,
+                        "Captured by NtSnapshot but do not exist in ToolHelp snapshot");
                 }
             }
             return result;

@@ -136,8 +136,8 @@ namespace proc_scan {
         last_full_snapshots_.clear();
     }
 
-    std::vector<domain::SPProcessInfo> ProcessScanner::CheckForHiddenProcesses() {
-        std::vector<domain::SPProcessInfo> hidden_processes;
+    std::vector<domain::SuspiciousProcess> ProcessScanner::CheckForHiddenProcesses() {
+        std::vector<domain::SuspiciousProcess> hidden_processes;
         try {
             return FindHidenProcesses();
         }
@@ -150,7 +150,7 @@ namespace proc_scan {
         return {};
     }
 
-    std::vector<domain::SPProcessInfo> ProcessScanner::FindHidenProcesses() {
+    std::vector<domain::SuspiciousProcess> ProcessScanner::FindHidenProcesses() {
         try {
             domain::Scan scan;
             auto snapshot_future = std::async(std::launch::async,
