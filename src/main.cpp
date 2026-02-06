@@ -6,9 +6,14 @@
 int main() {
     proc_scan::ProcessScanner proc_scanner;
     try {
-        if (auto proc = proc_scanner.GetProcessInfo("timer.exe")) {
-            std::cout << "Founded: \n";
-            proc->Print(std::cout);
+        auto hp = proc_scanner.CheckForHiddenProcesses();
+        if (hp.empty()) {
+            std::cout << "No hidden processes found" << std::endl;
+        }
+        else {
+            for (const auto& hidden_proc : hp) {
+                hidden_proc->Print(std::cout);
+            }
         }
     }
     catch (const std::exception& e) {
