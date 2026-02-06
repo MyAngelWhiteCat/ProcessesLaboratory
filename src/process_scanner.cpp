@@ -43,8 +43,8 @@ namespace proc_scan {
                     (proc_entry.th32ProcessID, proc_entry.cntThreads
                    , domain::WideCharToString(proc_entry.szExeFile));
             try {
-                if (DWORD prioritet = GetProcessPrioritet(proc_info->pid_)) {
-                    proc_info->priority_ = prioritet;
+                if (DWORD prioritet = GetProcessPrioritet(proc_info->GetPid())) {
+                    proc_info->SetPriority(prioritet);
                 }
             }
             catch (const std::exception& e) {
@@ -203,9 +203,9 @@ namespace proc_scan {
     void ProcessScanner::GetProcModules(domain::ProcessInfo& pinfo) {
         MODULEENTRY32W module_entry{ 0 };
         
-        HANDLE hSnapshot = CreateToolhelp32Snapshot(TH32CS_SNAPMODULE, pinfo.pid_);
+        HANDLE hSnapshot = CreateToolhelp32Snapshot(TH32CS_SNAPMODULE, pinfo.GetPid());
         if (hSnapshot == INVALID_HANDLE_VALUE) {
-            throw std::runtime_error("Process " + std::to_string(pinfo.pid_)
+            throw std::runtime_error("Process " + std::to_string(pinfo.GetPid())
                 + " modules snapshot creating error: " 
                 + std::to_string(GetLastError()));
         }
@@ -222,7 +222,7 @@ namespace proc_scan {
                 , domain::WideCharToString(module_entry.szModule)
                 , domain::WideCharToString(module_entry.szExePath));
             
-            pinfo.modules_.push_back(std::move(minfo));
+            pinfo.AddModule(std::move(minfo));
         } while (Module32NextW(hSnapshot, &module_entry));
 
         CloseHandle(hSnapshot);
@@ -245,11 +245,11 @@ namespace proc_scan {
         }
 
         do {
-            if (thread_entry.th32OwnerProcessID == pinfo.pid_) {
+            if (thread_entry.th32OwnerProcessID == pinfo.GetPid()) {
                 domain::ThreadInfo tinfo(thread_entry.th32ThreadID
                     , thread_entry.th32OwnerProcessID, thread_entry.tpBasePri);
 
-                pinfo.threads_.push_back(std::move(tinfo));
+                pinfo.AddThread(std::move(tinfo));
             }
 
         } while (Thread32Next(hSnapshot, &thread_entry));
