@@ -113,11 +113,16 @@ namespace proc_scan {
             std::vector<ModuleInfo> modules_;
             std::vector<ThreadInfo> threads_;
 
+            HANDLE hProcess_{ 0 };
+
             void Print(std::ostream& out) const;
             void PrintModules(std::ostream& out) const;
             void PrintThreads(std::ostream& out) const;
 
             void SetTimestamp();
+
+            HANDLE Open(DWORD access);
+            BOOL Close();
 
         };
 

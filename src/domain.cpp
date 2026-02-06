@@ -62,6 +62,15 @@ namespace proc_scan {
             timestamp_ = Clock::now();
         }
 
+        HANDLE ProcessInfo::Open(DWORD access) {
+            hProcess_ = OpenProcess(access, 0, pid_);
+            return hProcess_;
+        }
+
+        BOOL ProcessInfo::Close() {
+            return CloseHandle(hProcess_);
+        }
+
         std::string WideCharToString(const WCHAR* wstr) {
             if (!wstr) {
                 return "";
