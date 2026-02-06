@@ -70,3 +70,5 @@
 [system_info](https://learn.microsoft.com/ru-ru/windows/win32/api/sysinfoapi/ns-sysinfoapi-system_info)
 
 [getmappedfilenamea](https://learn.microsoft.com/ru-ru/windows/win32/api/psapi/nf-psapi-getmappedfilenamea)
+
+[enumprocessmodules](https://learn.microsoft.com/ru-ru/windows/win32/api/psapi/nf-psapi-enumprocessmodules)
