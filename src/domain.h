@@ -48,7 +48,7 @@ namespace proc_scan {
             NtQSI = 1
         };
 
-        enum class AnalizerType {
+        enum class AnalyzerType {
             HiddenProcesses = 0
         };
 

@@ -1,4 +1,4 @@
-#include "analizer.h"
+#include "analyzer.h"
 
 #include <optional>
 #include <chrono>
@@ -11,13 +11,13 @@ namespace proc_scan {
 
     namespace labaratory {
 
-        AnalizeResult Analizer::Analize(domain::Scan&& scans) {
+        Analyzeresult Analyzer::Analize(domain::Scan&& scans) {
             auto result = StartAnalize(std::move(scans));
             last_analize_timestamp_ = Clock::now();
             return result;
         }
 
-        std::optional<Clock::time_point> Analizer::GeLastAnalizeTimestamp() {
+        std::optional<Clock::time_point> Analyzer::GeLastAnalizeTimestamp() {
             return last_analize_timestamp_;
         }
 

@@ -11,9 +11,9 @@
 
 #include <Windows.h>
 
-#include "analizer.h"
+#include "analyzer.h"
 #include "domain.h"
-#include "hidden_processes_analizer.h"
+#include "hidden_processes_analyzer.h"
 
 namespace proc_scan {
 
@@ -27,8 +27,8 @@ namespace proc_scan {
     class ProcessScanner {
     public:
         ProcessScanner() {
-            analizers_[domain::AnalizerType::HiddenProcesses]
-                = std::make_unique<labaratory::HiddenProcessesAnalizer>();
+            Analyzers_[domain::AnalyzerType::HiddenProcesses]
+                = std::make_unique<labaratory::HiddenProcessesAnalyzer>();
             LoadNtModule();
             LoadNtQuerySystemInformation();
         }
@@ -49,12 +49,14 @@ namespace proc_scan {
         size_t buffer_size_ = 10;
         std::deque<domain::Snapshot> last_full_snapshots_;
 
-        labaratory::Analizers analizers_;
+        labaratory::Analyzers Analyzers_;
 
         void CreateToolHelpSnapshot();
         domain::Snapshot CreateQuickToolHelpSnapshot();
 
         void GetProcModules(domain::ProcessInfo& pinfo);
+        std::vector<HMODULE> GetProcModules(HANDLE hProcess);
+
         void GetProcThreads(domain::ProcessInfo& pinfo);
 
         DWORD GetProcessPrioritet(DWORD pid);

@@ -1,5 +1,5 @@
-#include "hidden_processes_analizer.h"
-#include "analizer.h"
+#include "hidden_processes_analyzer.h"
+#include "analyzer.h"
 #include "domain.h"
 
 #include <stdexcept>
@@ -9,7 +9,7 @@ namespace proc_scan {
 
     namespace labaratory {
 
-        AnalizeResult HiddenProcessesAnalizer::StartAnalize(domain::Scan&& scan) {
+        Analyzeresult HiddenProcessesAnalyzer::StartAnalize(domain::Scan&& scan) {
             if (!(scan.contains(domain::ScanMethod::NtQSI)
                 && scan.contains(domain::ScanMethod::ToolHelp))) {
                 throw std::invalid_argument("Invalid scan");
@@ -22,7 +22,7 @@ namespace proc_scan {
                 throw std::invalid_argument("Empty snapshots");
             }
 
-            AnalizeResult result;
+            Analyzeresult result;
             for (const auto& [pid, sp_proc] : nt_scan.pid_to_proc_info_) {
                 if (!th_scan.pid_to_proc_info_.contains(pid)) {
                     result.suspicious_processes_.push_back(sp_proc);
