@@ -121,6 +121,11 @@ namespace proc_scan {
 
         };
 
+        struct SuspiciousProcess {
+            SPProcessInfo proc_info;
+            std::string comment;
+        };
+
         struct Snapshot {
             Snapshot(Clock::time_point time) 
                 : time_(time)
