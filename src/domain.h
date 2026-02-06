@@ -103,27 +103,54 @@ namespace proc_scan {
 
             }
 
+            void Print(std::ostream& out) const;
+            void PrintModules(std::ostream& out) const;
+            void PrintThreads(std::ostream& out) const;
+
+            void SetPid(DWORD pid);
+            DWORD GetPid() const;
+
+            void SetPriority(DWORD priority);
+            DWORD GetPriority() const;
+
+            void SetThreadsCount(DWORD thread_count);
+            DWORD GetThreadCount() const;
+
+            void SetProcessName(std::string&& name);
+
+            void SetProcessName(std::string_view name);
+            const std::string_view GetProcessName() const;
+
+            void AddModule(const ModuleInfo& module_info);
+            void AddModule(ModuleInfo&& module_info);
+            void SetModules(const std::vector<ModuleInfo>& modules);
+            void SetModules(std::vector<ModuleInfo>&& modules);
+            std::vector<ModuleInfo> GetModules() const;
+
+            void AddThread(const ThreadInfo& thread_info);
+            void AddThread(ThreadInfo&& thread_info);
+            void SetThreads(std::vector<ThreadInfo>&& threads);
+            void SetThreads(const std::vector<ThreadInfo>& threads);
+            std::vector<ThreadInfo> GetThreads() const;
+
+            void SetTimestamp();
+            Clock::time_point GetTimestamp() const;
+
+            HANDLE Open(DWORD access);
+            BOOL Close() const;
+
+        private:
             DWORD pid_{ 0 };
             DWORD priority_{ 0 };
             DWORD threads_count_{ 0 };
             std::string process_name_;
 
-            Clock::time_point timestamp_{Clock::now()};
+            Clock::time_point timestamp_{ Clock::now() };
 
             std::vector<ModuleInfo> modules_;
             std::vector<ThreadInfo> threads_;
 
             HANDLE hProcess_{ 0 };
-
-            void Print(std::ostream& out) const;
-            void PrintModules(std::ostream& out) const;
-            void PrintThreads(std::ostream& out) const;
-
-            void SetTimestamp();
-
-            HANDLE Open(DWORD access);
-            BOOL Close();
-
         };
 
         struct SuspiciousProcess {

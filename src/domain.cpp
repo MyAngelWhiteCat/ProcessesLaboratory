@@ -10,14 +10,17 @@
 #include <Windows.h>
 #include <winternl.h>
 #include <stdexcept>
+#include <utility>
+#include <vector>
+#include <chrono>
 
 namespace proc_scan {
 
     namespace domain {
 
         void Snapshot::Insert(std::shared_ptr<ProcessInfo> proc_info) {
-            pid_to_proc_info_[proc_info->pid_] = proc_info;
-            proc_name_to_proc_info_[proc_info->process_name_] = proc_info;
+            pid_to_proc_info_[proc_info->GetPid()] = proc_info;
+            proc_name_to_proc_info_[std::string(proc_info->GetProcessName())] = proc_info;
         }
 
         std::shared_ptr<ProcessInfo> Snapshot::GetProcessInfo(std::string_view process_name) const {
@@ -58,16 +61,98 @@ namespace proc_scan {
             }
         }
 
+        void ProcessInfo::SetPid(DWORD pid) {
+            pid_ = pid;
+        }
+
+        DWORD ProcessInfo::GetPid() const {
+            return pid_;
+        }
+
+        void ProcessInfo::SetPriority(DWORD priority) {
+            priority_ = priority;
+        }
+
+        DWORD ProcessInfo::GetPriority() const {
+            return priority_;
+        }
+
+        void ProcessInfo::SetThreadsCount(DWORD threads_count) {
+            threads_count_ = threads_count;
+        }
+
+        DWORD ProcessInfo::GetThreadCount() const {
+            return threads_count_;
+        }
+
+        void ProcessInfo::SetProcessName(std::string&& name) {
+            process_name_ = std::move(name);
+        }
+
+        void ProcessInfo::SetProcessName(std::string_view name) {
+            process_name_ = name;
+        }
+
+        const std::string_view ProcessInfo::GetProcessName() const {
+            return process_name_;
+        }
+
+        void ProcessInfo::AddModule(const ModuleInfo& module_info) {
+            modules_.push_back(module_info);
+        }
+
+        void ProcessInfo::AddModule(ModuleInfo&& module_info) {
+            modules_.push_back(std::move(module_info));
+        }
+
+        void ProcessInfo::SetModules(const std::vector<ModuleInfo>& modules) {
+            modules_ = modules;
+        }
+
+        void ProcessInfo::SetModules(std::vector<ModuleInfo>&& modules) {
+            modules_ = std::move(modules);
+        }
+
+        std::vector<ModuleInfo> ProcessInfo::GetModules() const {
+            return modules_;
+        }
+
+        void ProcessInfo::AddThread(const ThreadInfo& thread_info) {
+            threads_.push_back(thread_info);
+        }
+
+        void ProcessInfo::AddThread(ThreadInfo&& thread_info) {
+            threads_.push_back(std::move(thread_info));
+        }
+
+        void ProcessInfo::SetThreads(std::vector<ThreadInfo>&& threads) {
+            threads_ = std::move(threads);
+        }
+
+        void ProcessInfo::SetThreads(const std::vector<ThreadInfo>& threads) {
+            threads_ = threads;
+        }
+
+        std::vector<ThreadInfo> ProcessInfo::GetThreads() const {
+            return threads_;
+        }
+
+
         void ProcessInfo::SetTimestamp() {
             timestamp_ = Clock::now();
         }
+
+        Clock::time_point ProcessInfo::GetTimestamp() const {
+            return timestamp_;
+        }
+
 
         HANDLE ProcessInfo::Open(DWORD access) {
             hProcess_ = OpenProcess(access, 0, pid_);
             return hProcess_;
         }
 
-        BOOL ProcessInfo::Close() {
+        BOOL ProcessInfo::Close() const {
             return CloseHandle(hProcess_);
         }
 
