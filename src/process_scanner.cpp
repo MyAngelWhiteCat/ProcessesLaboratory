@@ -166,7 +166,7 @@ namespace proc_scan {
             if (Analyzer == Analyzers_.end()) {
                 throw std::runtime_error("Hidden processes Analyzer not initialized");
             }
-            return Analyzer->second->Analize(std::move(scan)).suspicious_processes_;
+            return Analyzer->second->Analyze(std::move(scan)).suspicious_processes_;
         }
         catch (const std::exception& e) {
             LOG_CRITICAL("Hidden processes annalize error: "s + e.what());

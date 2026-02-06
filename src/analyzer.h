@@ -24,14 +24,14 @@ namespace proc_scan {
 
         class Analyzer {
         public:
-            virtual Analyzeresult Analize(domain::Scan&& scans);
-            virtual std::optional<Clock::time_point> GeLastAnalizeTimestamp();
+            virtual Analyzeresult Analyze(domain::Scan&& scans);
+            virtual std::optional<Clock::time_point> GeLastAnalyzeTimestamp();
             virtual ~Analyzer() = default;
 
         private:
-            std::optional<Clock::time_point> last_analize_timestamp_;
+            std::optional<Clock::time_point> last_analyze_timestamp_;
 
-            virtual Analyzeresult StartAnalize(domain::Scan&& scans) = 0;
+            virtual Analyzeresult StartAnalyze(domain::Scan&& scans) = 0;
         };
 
     }

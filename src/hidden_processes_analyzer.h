@@ -12,7 +12,7 @@ namespace proc_scan {
 
 
         private:
-            Analyzeresult StartAnalize(domain::Scan&& scan) override;
+            Analyzeresult StartAnalyze(domain::Scan&& scan) override;
         };
 
     }

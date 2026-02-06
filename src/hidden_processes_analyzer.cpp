@@ -9,7 +9,7 @@ namespace proc_scan {
 
     namespace labaratory {
 
-        Analyzeresult HiddenProcessesAnalyzer::StartAnalize(domain::Scan&& scan) {
+        Analyzeresult HiddenProcessesAnalyzer::StartAnalyze(domain::Scan&& scan) {
             if (!(scan.contains(domain::ScanMethod::NtQSI)
                 && scan.contains(domain::ScanMethod::ToolHelp))) {
                 throw std::invalid_argument("Invalid scan");
