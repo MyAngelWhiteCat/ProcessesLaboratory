@@ -156,7 +156,7 @@ namespace proc_scan {
             auto snapshot_future = std::async(std::launch::async,
                 [this] {return CreateQuickToolHelpSnapshot(); });
             auto ntsnapshot_future = std::async(std::launch::async,
-                [this] {return NtProcessesScan(); });
+                [this] {return CreateNtSnapshot(); });
 
             scan[domain::ScanMethod::ToolHelp] = snapshot_future.get();
             scan[domain::ScanMethod::NtQSI] = ntsnapshot_future.get();
@@ -274,7 +274,7 @@ namespace proc_scan {
         return process_prioritet;
     }
 
-    domain::Snapshot ProcessScanner::NtProcessesScan() {
+    domain::Snapshot ProcessScanner::CreateNtSnapshot() {
         if (!NtQuerySystemInformation_) {
             throw std::logic_error("Should load NtQuerySystemInformation before using NtScan");
         }

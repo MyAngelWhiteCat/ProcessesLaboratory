@@ -59,7 +59,7 @@ namespace proc_scan {
 
         DWORD GetProcessPrioritet(DWORD pid);
 
-        domain::Snapshot NtProcessesScan();
+        domain::Snapshot CreateNtSnapshot();
         std::vector<domain::SPProcessInfo> FindHidenProcesses();
 
         void LoadNtModule();
