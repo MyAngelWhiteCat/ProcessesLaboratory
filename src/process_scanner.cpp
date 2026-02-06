@@ -75,7 +75,7 @@ namespace proc_scan {
         CloseHandle(hSnapshot);
     }
 
-    domain::Snapshot ProcessScanner::CreateQuickSnapshot() {
+    domain::Snapshot ProcessScanner::CreateQuickToolHelpSnapshot() {
         HANDLE hSnapshot = CreateToolhelp32Snapshot(TH32CS_SNAPPROCESS, 0);
         if (hSnapshot == INVALID_HANDLE_VALUE) {
             throw std::runtime_error("Quick Snapshot creating error: " + std::to_string(GetLastError()));
@@ -154,7 +154,7 @@ namespace proc_scan {
         try {
             domain::Scan scan;
             auto snapshot_future = std::async(std::launch::async,
-                [this] {return CreateQuickSnapshot(); });
+                [this] {return CreateQuickToolHelpSnapshot(); });
             auto ntsnapshot_future = std::async(std::launch::async,
                 [this] {return NtProcessesScan(); });
 

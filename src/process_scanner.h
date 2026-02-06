@@ -52,7 +52,7 @@ namespace proc_scan {
         labaratory::Analizers analizers_;
 
         void CreateToolHelpSnapshot();
-        domain::Snapshot CreateQuickSnapshot();
+        domain::Snapshot CreateQuickToolHelpSnapshot();
 
         void GetProcModules(domain::ProcessInfo& pinfo);
         void GetProcThreads(domain::ProcessInfo& pinfo);

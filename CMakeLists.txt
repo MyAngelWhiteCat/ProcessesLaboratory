@@ -11,11 +11,15 @@ add_library(ProcScan
     src/process_scanner.h 
     src/process_scanner.cpp 
 
-    src/detector.h
-    src/detector.cpp
+    src/analizer.h
+    src/analizer.cpp
 
-    src/hidden_processes_detector.cpp
-    src/hidden_processes_detector.h
+    src/rwx_analizer.cpp
+    src/rwx_analizer.h
+
+
+    src/hidden_processes_analizer.cpp
+    src/hidden_processes_analizer.h
 
     src/domain.h
     src/domain.cpp
