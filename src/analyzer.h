@@ -17,21 +17,21 @@ namespace proc_scan {
         class Analyzer;
         using Analyzers = std::unordered_map<domain::AnalyzerType, std::unique_ptr<Analyzer>>;
 
-        struct Analyzeresult {
+        struct AnalyzeResult {
             std::vector<domain::SPProcessInfo> suspicious_processes_;
             // ...
         };
 
         class Analyzer {
         public:
-            virtual Analyzeresult Analyze(domain::Scan&& scans);
+            virtual AnalyzeResult Analyze(domain::Scan&& scans);
             virtual std::optional<Clock::time_point> GeLastAnalyzeTimestamp();
             virtual ~Analyzer() = default;
 
         private:
             std::optional<Clock::time_point> last_analyze_timestamp_;
 
-            virtual Analyzeresult StartAnalyze(domain::Scan&& scans) = 0;
+            virtual AnalyzeResult StartAnalyze(domain::Scan&& scans) = 0;
         };
 
     }

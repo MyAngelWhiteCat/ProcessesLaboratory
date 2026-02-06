@@ -11,7 +11,7 @@ namespace proc_scan {
 
     namespace labaratory {
 
-        Analyzeresult Analyzer::Analyze(domain::Scan&& scans) {
+        AnalyzeResult Analyzer::Analyze(domain::Scan&& scans) {
             auto result = StartAnalyze(std::move(scans));
             last_analyze_timestamp_ = Clock::now();
             return result;
