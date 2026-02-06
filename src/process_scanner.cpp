@@ -11,7 +11,6 @@
 #include <TlHelp32.h>
 #include <Windows.h>
 #include <winternl.h>
-#include <Psapi.h>
 
 #include <exception>
 #include <future>
@@ -227,30 +226,6 @@ namespace proc_scan {
         } while (Module32NextW(hSnapshot, &module_entry));
 
         CloseHandle(hSnapshot);
-    }
-
-    std::vector<HMODULE> ProcessScanner::GetProcModules(HANDLE hProcess) {
-        const size_t init_modules_count = 1024;
-        std::vector<HMODULE> modules(init_modules_count);
-        DWORD buffer_size = init_modules_count * sizeof(HMODULE);
-        DWORD size_needed = 0;
-        while (true) {
-            if (EnumProcessModules(hProcess, modules.data(), buffer_size, &size_needed)) {
-                size_t modules_count = size_needed / sizeof(HMODULE);
-                modules.resize(modules_count);
-                break;
-            }
-            
-            if (size_needed > buffer_size) {
-                buffer_size = size_needed;
-                modules.resize(buffer_size / sizeof(HMODULE));
-            }
-            else {
-                throw std::runtime_error("Can't get modules: " + std::to_string(GetLastError()));
-            }
-
-        }
-        return modules;
     }
 
     void ProcessScanner::GetProcThreads(domain::ProcessInfo& pinfo) {

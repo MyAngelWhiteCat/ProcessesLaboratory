@@ -55,8 +55,6 @@ namespace proc_scan {
         domain::Snapshot CreateQuickToolHelpSnapshot();
 
         void GetProcModules(domain::ProcessInfo& pinfo);
-        std::vector<HMODULE> GetProcModules(HANDLE hProcess);
-
         void GetProcThreads(domain::ProcessInfo& pinfo);
 
         DWORD GetProcessPrioritet(DWORD pid);
