@@ -49,7 +49,8 @@ namespace proc_scan {
         };
 
         enum class AnalyzerType {
-            HiddenProcesses = 0
+            HiddenProcesses = 0,
+            CompromisedProcesses = 1
         };
 
         enum class ScanStrategy {
