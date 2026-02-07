@@ -165,6 +165,10 @@ namespace proc_scan {
             if (Analyzer == Analyzers_.end()) {
                 throw std::runtime_error("Hidden processes Analyzer not initialized");
             }
+
+            scan[domain::ScanMethod::ToolHelp] = snapshot_future.get();
+            scan[domain::ScanMethod::NtQSI] = ntsnapshot_future.get();
+
             return Analyzer->second->Analyze(std::move(scan)).suspicious_processes_;
         }
         catch (const std::exception& e) {
