@@ -22,7 +22,21 @@ namespace proc_scan {
         void RWXAnalyzer::AnalyzeProcessMemory(domain::SPProcessInfo proc_info) {
             LOG_DEBUG("Start hidden processes analyze");
             MEMORY_BASIC_INFORMATION memory_info{ 0 };
-            //while (VirtualQueryEx(proc_info->Open(PROCESS_QUERY_INFORMATION), ));
+            HANDLE hProcess = proc_info->Open(PROCESS_QUERY_INFORMATION);
+            std::cout << "Process [" << proc_info->GetPid()
+                << "] " << proc_info->GetProcessName() << ":\n";
+            while (VirtualQueryEx(hProcess, NULL, &memory_info, sizeof(MEMORY_BASIC_INFORMATION))) {
+                std::cout
+                    << "AllocBase:" << memory_info.AllocationBase
+                    << "\n AllocProtect:- " << memory_info.AllocationProtect
+                    << "\n BaseAddress:-- " << memory_info.BaseAddress
+                    << "\n PartitionId:-- " << memory_info.PartitionId
+                    << "\n Protect:------ " << memory_info.Protect
+                    << "\n RegionSize:--- " << memory_info.RegionSize
+                    << "\n State:-------- " << memory_info.State
+                    << "\n Type:--------- " << memory_info.Type
+                    << "\n";
+            }
         }
 
         std::vector<HMODULE> RWXAnalyzer::GetProcModules(HANDLE hProcess) {
