@@ -32,7 +32,9 @@ void ScanForCompromisedProcesses(proc_scan::ProcessScanner& proc_scanner) {
     }
 
 int main() {
-    proc_scan::ProcessScanner proc_scanner;
+    logging::Logger logger;
+    logger.Init();
+
     try {
         ScanForHiddenProcesses(proc_scanner);
     }
