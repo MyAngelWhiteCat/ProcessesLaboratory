@@ -166,9 +166,13 @@ namespace proc_scan {
         try {
             domain::Scan scan;
             auto snapshot_future = std::async(std::launch::async,
-                [this] {return CreateQuickToolHelpSnapshot(); });
+                [self = this->shared_from_this()] {
+                    return self->CreateQuickToolHelpSnapshot();
+                });
             auto ntsnapshot_future = std::async(std::launch::async,
-                [this] {return CreateNtSnapshot(); });
+                [self = this->shared_from_this()] {
+                    return self->CreateNtSnapshot(); 
+                });
 
             auto analyzer = Analyzers_.find(domain::AnalyzerType::HiddenProcesses);
             if (analyzer == Analyzers_.end()) {
@@ -192,7 +196,9 @@ namespace proc_scan {
         domain::Scan scan;
         try {
             auto snapshot_future = std::async(std::launch::async, 
-                [this]() { return CreateNtSnapshot(); });
+                [self = this->shared_from_this()] {
+                    return self->CreateNtSnapshot();
+                });
 
             auto analyzer = Analyzers_.find(domain::AnalyzerType::CompromisedProcesses);
             if (analyzer == Analyzers_.end()) {
