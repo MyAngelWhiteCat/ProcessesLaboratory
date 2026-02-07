@@ -15,7 +15,7 @@ namespace proc_scan {
         private:
             AnalyzeResult StartAnalyze(domain::Scan&& scans) override;
 
-            void AnalyzeProcessMemory(domain::SPProcessInfo);
+            void AnalyzeProcessMemory(HANDLE hProcess);
             std::vector<HMODULE> GetProcModules(HANDLE hProcess);
 
         };
