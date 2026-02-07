@@ -175,6 +175,7 @@ namespace proc_scan {
             scan[domain::ScanMethod::ToolHelp] = snapshot_future.get();
             scan[domain::ScanMethod::NtQSI] = ntsnapshot_future.get();
 
+            LOG_DEBUG("Snapshots ready. Start finding hidden processes");
             return analyzer->second->Analyze(std::move(scan)).suspicious_processes_;
         }
         catch (const std::exception& e) {
@@ -197,6 +198,7 @@ namespace proc_scan {
 
             scan[domain::ScanMethod::NtQSI] = snapshot_future.get();
             
+            LOG_DEBUG("Snapshots ready. Start finding compromised processes");
             return analyzer->second->Analyze(std::move(scan)).suspicious_processes_;
         }
         catch (const std::exception& e) {
