@@ -353,7 +353,7 @@ namespace proc_scan {
                     + sysinfo->NextEntryOffset);
         }
 
-        LOG_DEBUG("NtSnapshot Ready");
+        LOG_DEBUG("NtSnapshot Ready. Size: "s.append(std::to_string(processes.Size())));
         return processes;
     }
 
