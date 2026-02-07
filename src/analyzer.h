@@ -34,8 +34,6 @@ namespace proc_scan {
 
         private:
             std::optional<Clock::time_point> last_analyze_timestamp_;
-
-            virtual AnalyzeResult StartAnalyze(domain::Scan&& scans) = 0;
         };
 
     }
