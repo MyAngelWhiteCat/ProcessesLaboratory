@@ -1,6 +1,7 @@
 #include "hidden_processes_analyzer.h"
 #include "analyzer.h"
 #include "domain.h"
+#include "logger.h"
 
 #include <stdexcept>
 
@@ -10,6 +11,7 @@ namespace proc_scan {
     namespace labaratory {
 
         AnalyzeResult HiddenProcessesAnalyzer::StartAnalyze(domain::Scan&& scan) {
+            LOG_DEBUG("Start hidden processes analyze");
             if (!(scan.contains(domain::ScanMethod::NtQSI)
                 && scan.contains(domain::ScanMethod::ToolHelp))) {
                 throw std::invalid_argument("Invalid scan");

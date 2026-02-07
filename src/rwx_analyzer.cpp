@@ -1,6 +1,7 @@
 #include "analyzer.h"
 #include "domain.h"
 #include "rwx_analyzer.h"
+#include "logger.h"
 
 #include <Psapi.h>
 #include <Windows.h>
@@ -19,6 +20,7 @@ namespace proc_scan {
         }
 
         void RWXAnalyzer::AnalyzeProcessMemory(domain::SPProcessInfo proc_info) {
+            LOG_DEBUG("Start hidden processes analyze");
             MEMORY_BASIC_INFORMATION memory_info{ 0 };
             //while (VirtualQueryEx(proc_info->Open(PROCESS_QUERY_INFORMATION), ));
         }
