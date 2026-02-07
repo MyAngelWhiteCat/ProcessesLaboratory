@@ -146,7 +146,7 @@ namespace proc_scan {
             LOG_CRITICAL("Error while checking for hidden processes: "s + e.what());
         }
 
-        return {};
+        return hidden_processes;
     }
 
     std::vector<domain::SuspiciousProcess> ProcessScanner::DetectCompromisedProcesses() {
