@@ -207,6 +207,7 @@ namespace proc_scan {
         catch (const std::exception& e) {
             LOG_CRITICAL("Compromised process analyze error: "s + e.what());
         }
+        return {}; // Dummy for no warning
     }
 
     void ProcessScanner::LoadNtModule() {
