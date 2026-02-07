@@ -25,7 +25,7 @@ namespace proc_scan {
 
         class Analyzer {
         public:
-            virtual AnalyzeResult Analyze(domain::Scan&& scans);
+            virtual AnalyzeResult Analyze(domain::Scan&& scans) final;
             virtual std::optional<Clock::time_point> GeLastAnalyzeTimestamp();
             virtual ~Analyzer() = default;
 
