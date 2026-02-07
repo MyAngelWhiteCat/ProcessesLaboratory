@@ -213,6 +213,7 @@ namespace proc_scan {
             throw std::runtime_error("Can't load: "s
                 + domain::WideCharToString(domain::NtNames::NTDLL.data()));
         }
+        LOG_DEBUG("NtModule loaded");
     }
 
     void ProcessScanner::LoadNtQuerySystemInformation() {
@@ -222,6 +223,7 @@ namespace proc_scan {
         if (!NtQuerySystemInformation_) {
             throw std::runtime_error("Incorrect load func: " + std::string(domain::NtNames::NTQSI));
         }
+        LOG_DEBUG("NtQuerySystemInformation loaded");
     }
 
     size_t ProcessScanner::GetBufferSize() const {
@@ -307,6 +309,7 @@ namespace proc_scan {
     }
 
     domain::Snapshot ProcessScanner::CreateNtSnapshot() {
+        LOG_DEBUG("In CreateNtSnapshot");
         if (!NtQuerySystemInformation_) {
             throw std::logic_error("Should load NtQuerySystemInformation before using NtScan");
         }
