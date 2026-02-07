@@ -18,27 +18,27 @@ namespace logging {
         static void Init();
         static void Shutdown();
 
-        static void Info(const std::string& message) {
+        static void Info(const std::string_view message) {
             spdlog::info(message);
         }
 
-        static void Error(const std::string& message) {
+        static void Error(const std::string_view message) {
             spdlog::error(message);
         }
 
-        static void Warn(const std::string& message) {
+        static void Warn(const std::string_view message) {
             spdlog::warn(message);
         }
 
-        static void Debug(const std::string& message) {
+        static void Debug(const std::string_view message) {
             spdlog::debug(message);
         }
 
-        static void Trace(const std::string& message) {
+        static void Trace(const std::string_view message) {
             spdlog::trace(message);
         }
 
-        static void Critical(const std::string& message) {
+        static void Critical(const std::string_view message) {
             spdlog::critical(message);
         }
     };
