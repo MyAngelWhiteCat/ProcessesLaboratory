@@ -6,6 +6,7 @@
 #include <ranges>
 #include <stdexcept>
 #include <string>
+#include <string_view>
 #include <utility>
 
 #include <TlHelp32.h>
@@ -21,6 +22,8 @@
 
 
 namespace proc_scan {
+
+    using namespace std::literals;
 
     void ProcessScanner::CreateToolHelpSnapshot() {
         HANDLE hSnapshot = CreateToolhelp32Snapshot(TH32CS_SNAPPROCESS, 0);
