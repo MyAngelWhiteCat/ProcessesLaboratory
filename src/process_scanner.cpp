@@ -144,9 +144,7 @@ namespace proc_scan {
         catch (const std::exception& e) {
             LOG_CRITICAL("Error while checking for hidden processes: "s + e.what());
         }
-        if (hidden_processes.empty()) {
-            LOG_INFO("Hidden processes not found");
-        }
+
         return {};
     }
 
