@@ -150,6 +150,17 @@ namespace proc_scan {
         return {};
     }
 
+    std::vector<domain::SuspiciousProcess> ProcessScanner::DetectCompromisedProcesses() {
+        std::vector<domain::SuspiciousProcess> compromised_processes;
+        try {
+            compromised_processes = FindCompromisedProcesses();
+        }
+        catch (const std::exception& e) {
+            LOG_CRITICAL("Compomised processes detection error: "s + e.what());
+        }
+        return std::vector<domain::SuspiciousProcess>();
+    }
+
     std::vector<domain::SuspiciousProcess> ProcessScanner::FindHidenProcesses() {
         try {
             domain::Scan scan;
@@ -173,6 +184,26 @@ namespace proc_scan {
         }
 
         return {}; // Dummy for no warning
+    }
+
+    std::vector<domain::SuspiciousProcess> ProcessScanner::FindCompromisedProcesses() {
+        domain::Scan scan;
+        try {
+            auto snapshot_future = std::async(std::launch::async, 
+                [this]() { return CreateNtSnapshot(); });
+
+            auto analyzer = Analyzers_.find(domain::AnalyzerType::CompromisedProcesses);
+            if (analyzer == Analyzers_.end()) {
+                throw std::runtime_error("Compromised processes Analyzer not initialized");
+            }
+
+            scan[domain::ScanMethod::NtQSI] = snapshot_future.get();
+            
+            return analyzer->second->Analyze(std::move(scan)).suspicious_processes_;
+        }
+        catch (const std::exception& e) {
+            LOG_CRITICAL("Compromised process analyze error: "s + e.what());
+        }
     }
 
     void ProcessScanner::LoadNtModule() {

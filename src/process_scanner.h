@@ -29,6 +29,8 @@ namespace proc_scan {
         ProcessScanner() {
             Analyzers_[domain::AnalyzerType::HiddenProcesses]
                 = std::make_unique<labaratory::HiddenProcessesAnalyzer>();
+            Analyzers_[domain::AnalyzerType::CompromisedProcesses]
+                = std::make_unique<labaratory::RWXAnalyzer>();
             LoadNtModule();
             LoadNtQuerySystemInformation();
         }
@@ -41,6 +43,7 @@ namespace proc_scan {
         void ClearBuffer();
 
         std::vector<domain::SuspiciousProcess> DetectHiddenProcesses();
+        std::vector<domain::SuspiciousProcess> DetectCompromisedProcesses();
 
         size_t GetBufferSize() const;
         void SetBufferSize(const size_t new_size);
@@ -53,6 +56,7 @@ namespace proc_scan {
 
         void CreateToolHelpSnapshot();
         domain::Snapshot CreateQuickToolHelpSnapshot();
+        domain::Snapshot CreateNtSnapshot();
 
         void GetProcModules(domain::ProcessInfo& pinfo);
         void GetProcThreads(domain::ProcessInfo& pinfo);
@@ -61,6 +65,7 @@ namespace proc_scan {
 
         domain::Snapshot CreateNtSnapshot();
         std::vector<domain::SuspiciousProcess> FindHidenProcesses();
+        std::vector<domain::SuspiciousProcess> FindCompromisedProcesses();
 
         void LoadNtModule();
         HMODULE ntdll_{ NULL };
