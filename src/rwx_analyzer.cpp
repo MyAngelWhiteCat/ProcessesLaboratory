@@ -1,9 +1,13 @@
-#include "rwx_analyzer.h"
-#include "domain.h"
 #include "analyzer.h"
+#include "domain.h"
+#include "rwx_analyzer.h"
 
 #include <Psapi.h>
+#include <Windows.h>
+
 #include <stdexcept>
+#include <string>
+#include <vector>
 
 namespace proc_scan {
 
