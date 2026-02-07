@@ -172,7 +172,7 @@ namespace proc_scan {
             return Analyzer->second->Analyze(std::move(scan)).suspicious_processes_;
         }
         catch (const std::exception& e) {
-            LOG_CRITICAL("Hidden processes annalize error: "s + e.what());
+            LOG_CRITICAL("Hidden processes analyze error: "s + e.what());
         }
 
         return {}; // Dummy for no warning
