@@ -195,7 +195,7 @@ namespace proc_scan {
     std::vector<domain::SuspiciousProcess> ProcessScanner::FindCompromisedProcesses() {
         domain::Scan scan;
         try {
-            auto snapshot_future = std::async(std::launch::async, 
+            auto snapshot_future = std::async(std::launch::async,
                 [self = this->shared_from_this()] {
                     LOG_DEBUG("Start async creating Nt Snapshot");
                     return self->CreateNtSnapshot();
@@ -368,7 +368,7 @@ namespace proc_scan {
                 (reinterpret_cast<BYTE*>(sysinfo) 
                     + sysinfo->NextEntryOffset);
         }
-
+        
         LOG_DEBUG("NtSnapshot Ready. Size: "s.append(std::to_string(processes.Size())));
         return processes;
     }
