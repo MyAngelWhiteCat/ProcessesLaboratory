@@ -14,6 +14,7 @@
 #include "analyzer.h"
 #include "domain.h"
 #include "hidden_processes_analyzer.h"
+#include "rwx_analyzer.h"
 
 namespace proc_scan {
 
