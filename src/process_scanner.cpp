@@ -136,7 +136,7 @@ namespace proc_scan {
         last_full_snapshots_.clear();
     }
 
-    std::vector<domain::SuspiciousProcess> ProcessScanner::CheckForHiddenProcesses() {
+    std::vector<domain::SuspiciousProcess> ProcessScanner::DetectHiddenProcesses() {
         std::vector<domain::SuspiciousProcess> hidden_processes;
         try {
             return FindHidenProcesses();

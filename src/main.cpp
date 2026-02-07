@@ -6,7 +6,7 @@
 int main() {
     proc_scan::ProcessScanner proc_scanner;
     try {
-        auto hp = proc_scanner.CheckForHiddenProcesses();
+        auto hp = proc_scanner.DetectHiddenProcesses();
         if (hp.empty()) {
             std::cout << "No hidden processes found" << std::endl;
         }
