@@ -165,10 +165,12 @@ namespace proc_scan {
             domain::Scan scan;
             auto snapshot_future = std::async(std::launch::async,
                 [self = this->shared_from_this()] {
+                    LOG_DEBUG("Start async creating ToolHelp Snapshot");
                     return self->CreateQuickToolHelpSnapshot();
                 });
             auto ntsnapshot_future = std::async(std::launch::async,
                 [self = this->shared_from_this()] {
+                    LOG_DEBUG("Start async creating Nt Snapshot");
                     return self->CreateNtSnapshot(); 
                 });
 
@@ -195,6 +197,7 @@ namespace proc_scan {
         try {
             auto snapshot_future = std::async(std::launch::async, 
                 [self = this->shared_from_this()] {
+                    LOG_DEBUG("Start async creating Nt Snapshot");
                     return self->CreateNtSnapshot();
                 });
 
