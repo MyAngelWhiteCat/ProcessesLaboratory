@@ -158,18 +158,15 @@ namespace proc_scan {
             auto ntsnapshot_future = std::async(std::launch::async,
                 [this] {return CreateNtSnapshot(); });
 
-            scan[domain::ScanMethod::ToolHelp] = snapshot_future.get();
-            scan[domain::ScanMethod::NtQSI] = ntsnapshot_future.get();
-
-            auto Analyzer = Analyzers_.find(domain::AnalyzerType::HiddenProcesses);
-            if (Analyzer == Analyzers_.end()) {
+            auto analyzer = Analyzers_.find(domain::AnalyzerType::HiddenProcesses);
+            if (analyzer == Analyzers_.end()) {
                 throw std::runtime_error("Hidden processes Analyzer not initialized");
             }
 
             scan[domain::ScanMethod::ToolHelp] = snapshot_future.get();
             scan[domain::ScanMethod::NtQSI] = ntsnapshot_future.get();
 
-            return Analyzer->second->Analyze(std::move(scan)).suspicious_processes_;
+            return analyzer->second->Analyze(std::move(scan)).suspicious_processes_;
         }
         catch (const std::exception& e) {
             LOG_CRITICAL("Hidden processes analyze error: "s + e.what());
