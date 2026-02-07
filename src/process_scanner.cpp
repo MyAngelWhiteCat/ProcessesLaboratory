@@ -156,7 +156,7 @@ namespace proc_scan {
         catch (const std::exception& e) {
             LOG_CRITICAL("Compomised processes detection error: "s + e.what());
         }
-        return std::vector<domain::SuspiciousProcess>();
+        return compromised_processes;
     }
 
     std::vector<domain::SuspiciousProcess> ProcessScanner::FindHidenProcesses() {
