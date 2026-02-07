@@ -19,7 +19,7 @@ namespace proc_scan {
             auto& th_scan = scan.at(domain::ScanMethod::ToolHelp);
 
             if (nt_scan.pid_to_proc_info_.empty() || th_scan.pid_to_proc_info_.empty()) {
-                throw std::invalid_argument("Empty snapshots");
+                throw std::invalid_argument("Empty snapshot");
             }
 
             AnalyzeResult result;
