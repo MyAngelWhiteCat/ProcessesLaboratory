@@ -6,6 +6,7 @@
 #include <Psapi.h>
 #include <Windows.h>
 
+#include <iostream>
 #include <stdexcept>
 #include <string>
 #include <vector>
@@ -15,17 +16,22 @@ namespace proc_scan {
     namespace labaratory {
 
         AnalyzeResult proc_scan::labaratory::RWXAnalyzer::StartAnalyze(domain::Scan&& scans) {
+            auto& snapshot = scans.at(domain::ScanMethod::NtQSI);
+            for (const auto& [pid, proc_info] : snapshot.pid_to_proc_info_) {
+                std::cout << "Process [" << proc_info->GetPid()
+                    << "] " << proc_info->GetProcessName() << ":\n";
+                HANDLE hProcess = proc_info->Open(PROCESS_QUERY_INFORMATION);
+                AnalyzeProcessMemory(hProcess);
+            }
             return {};
             
         }
 
-        void RWXAnalyzer::AnalyzeProcessMemory(domain::SPProcessInfo proc_info) {
-            LOG_DEBUG("Start hidden processes analyze");
+        void RWXAnalyzer::AnalyzeProcessMemory(HANDLE hProcess) {
+            LOG_DEBUG("Start RWX analyze");
             MEMORY_BASIC_INFORMATION memory_info{ 0 };
-            HANDLE hProcess = proc_info->Open(PROCESS_QUERY_INFORMATION);
-            std::cout << "Process [" << proc_info->GetPid()
-                << "] " << proc_info->GetProcessName() << ":\n";
-            while (VirtualQueryEx(hProcess, NULL, &memory_info, sizeof(MEMORY_BASIC_INFORMATION))) {
+            SIZE_T address = NULL;
+            while (VirtualQueryEx(hProcess, &address, &memory_info, sizeof(MEMORY_BASIC_INFORMATION))) {
                 std::cout
                     << "AllocBase:" << memory_info.AllocationBase
                     << "\n AllocProtect:- " << memory_info.AllocationProtect
@@ -36,6 +42,7 @@ namespace proc_scan {
                     << "\n State:-------- " << memory_info.State
                     << "\n Type:--------- " << memory_info.Type
                     << "\n";
+                address += memory_info.RegionSize;
             }
         }
 
