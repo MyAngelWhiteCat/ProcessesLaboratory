@@ -175,6 +175,8 @@ namespace proc_scan {
             PidToProcessIndex pid_to_proc_info_;
             ExeNameToProcessIndex proc_name_to_proc_info_;
 
+            size_t Size() const;
+
             std::shared_ptr<ProcessInfo> GetProcessInfo(std::string_view process_name) const;
             std::shared_ptr<ProcessInfo> GetProcessInfo(DWORD pid) const;
         };

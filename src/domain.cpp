@@ -23,6 +23,10 @@ namespace proc_scan {
             proc_name_to_proc_info_[std::string(proc_info->GetProcessName())] = proc_info;
         }
 
+        size_t Snapshot::Size() const {
+            return proc_name_to_proc_info_.size();
+        }
+
         std::shared_ptr<ProcessInfo> Snapshot::GetProcessInfo(std::string_view process_name) const {
             if (auto it = proc_name_to_proc_info_.find(std::string(process_name));
                 it != proc_name_to_proc_info_.end()) {

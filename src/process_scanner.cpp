@@ -353,7 +353,7 @@ namespace proc_scan {
                     + sysinfo->NextEntryOffset);
         }
 
-        LOG_DEBUG("Fast find Ready");
+        LOG_DEBUG("NtSnapshot Ready");
         return processes;
     }
 
