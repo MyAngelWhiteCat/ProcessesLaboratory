@@ -63,7 +63,6 @@ namespace proc_scan {
 
         DWORD GetProcessPrioritet(DWORD pid);
 
-        domain::Snapshot CreateNtSnapshot();
         std::vector<domain::SuspiciousProcess> FindHidenProcesses();
         std::vector<domain::SuspiciousProcess> FindCompromisedProcesses();
 
