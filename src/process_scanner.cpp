@@ -139,7 +139,7 @@ namespace proc_scan {
     std::vector<domain::SuspiciousProcess> ProcessScanner::DetectHiddenProcesses() {
         std::vector<domain::SuspiciousProcess> hidden_processes;
         try {
-            return FindHidenProcesses();
+            hidden_processes = FindHidenProcesses();
         }
         catch (const std::exception& e) {
             LOG_CRITICAL("Error while checking for hidden processes: "s + e.what());
