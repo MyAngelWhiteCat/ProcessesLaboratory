@@ -25,7 +25,7 @@ namespace proc_scan {
     using SPProcessInfo = std::shared_ptr<domain::ProcessInfo>;
 
 
-    class ProcessScanner {
+    class ProcessScanner : public std::enable_shared_from_this<ProcessScanner> {
     public:
         ProcessScanner() {
             Analyzers_[domain::AnalyzerType::HiddenProcesses]
