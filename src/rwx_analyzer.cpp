@@ -17,36 +17,54 @@ namespace proc_scan {
 
         AnalyzeResult proc_scan::labaratory::RWXAnalyzer::StartAnalyze(domain::Scan&& scans) {
             auto& snapshot = scans.at(domain::ScanMethod::NtQSI);
+
+            AnalyzeResult result;
             for (const auto& [pid, proc_info] : snapshot.pid_to_proc_info_) {
                 std::cout << "Process [" << proc_info->GetPid()
                     << "] " << proc_info->GetProcessName() << ":\n";
                 HANDLE hProcess = proc_info->Open(PROCESS_QUERY_INFORMATION);
-                AnalyzeProcessMemory(hProcess);
+                std::string comments = AnalyzeProcessMemory(hProcess);
+                if (!comments.empty()) {
+                    result.suspicious_processes_.emplace_back(proc_info, comments);
+                }
             }
             return {};
             
         }
 
-        void RWXAnalyzer::AnalyzeProcessMemory(HANDLE hProcess) {
+        std::string RWXAnalyzer::AnalyzeProcessMemory(HANDLE hProcess) {
             LOG_DEBUG("Start RWX analyze");
+            std::string comments;
             MEMORY_BASIC_INFORMATION memory_info{ 0 };
-            SIZE_T address = NULL;
+            SIZE_T address = NULL; 
             while (VirtualQueryEx(hProcess, (LPVOID)address, &memory_info, sizeof(memory_info))) {
-                std::cout
-                    <<   "AllocBase:---- " << memory_info.AllocationBase
-                    << "\nAllocProtect:- " << memory_info.AllocationProtect
-                    << "\nBaseAddress:-- " << memory_info.BaseAddress
-                    << "\nPartitionId:-- " << memory_info.PartitionId
-                    << "\nProtect:------ " << memory_info.Protect
-                    << "\nRegionSize:--- " << memory_info.RegionSize
-                    << "\nState:-------- " << memory_info.State
-                    << "\nType:--------- " << memory_info.Type
-                    << "\n";
+                //std::cout
+                //    <<   "AllocBase:---- " << memory_info.AllocationBase
+                //    << "\nAllocProtect:- " << memory_info.AllocationProtect
+                //    << "\nBaseAddress:-- " << memory_info.BaseAddress
+                //    << "\nPartitionId:-- " << memory_info.PartitionId
+                //    << "\nProtect:------ " << memory_info.Protect
+                //    << "\nRegionSize:--- " << memory_info.RegionSize
+                //    << "\nState:-------- " << memory_info.State
+                //    << "\nType:--------- " << memory_info.Type
+                //    << "\n";
+
+                if (memory_info.Protect == PAGE_EXECUTE_READWRITE) {
+                    comments += "RWX rights detected!\n";
+                }
+
+                if (memory_info.AllocationProtect == PAGE_EXECUTE_READ
+                    && memory_info.Protect == PAGE_READWRITE) {
+                    comments += "RX to RW swap detected!\n";
+                }
+
+
                 address += (SIZE_T)memory_info.BaseAddress + memory_info.RegionSize;
                 if (address == 0) {
                     break;
                 }
             }
+            return comments;
         }
 
         std::vector<HMODULE> RWXAnalyzer::GetProcModules(HANDLE hProcess) {

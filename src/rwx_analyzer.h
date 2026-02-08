@@ -4,6 +4,8 @@
 #include "domain.h"
 
 #include <vector>
+#include <string>
+
 #include <Windows.h>
 
 namespace proc_scan {
@@ -15,7 +17,7 @@ namespace proc_scan {
         private:
             AnalyzeResult StartAnalyze(domain::Scan&& scans) override;
 
-            void AnalyzeProcessMemory(HANDLE hProcess);
+            std::string AnalyzeProcessMemory(HANDLE hProcess);
             std::vector<HMODULE> GetProcModules(HANDLE hProcess);
 
         };
