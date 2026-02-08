@@ -20,15 +20,16 @@ namespace proc_scan {
 
             AnalyzeResult result;
             for (const auto& [pid, proc_info] : snapshot.pid_to_proc_info_) {
-                std::cout << "Process [" << proc_info->GetPid()
-                    << "] " << proc_info->GetProcessName() << ":\n";
+                LOG_DEBUG("Process ["s + std::to_string(proc_info->GetPid())+ "] "s
+                    + std::string(proc_info->GetProcessName()));
+
                 HANDLE hProcess = proc_info->Open(PROCESS_QUERY_INFORMATION);
                 std::string comments = AnalyzeProcessMemory(hProcess);
                 if (!comments.empty()) {
                     result.suspicious_processes_.emplace_back(proc_info, comments);
                 }
             }
-            return {};
+            return result;
             
         }
 
