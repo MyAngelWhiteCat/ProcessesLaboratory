@@ -96,6 +96,37 @@ namespace proc_scan {
             return modules;
         }
 
+        std::string RWXAnalyzer::CheckRegions(std::vector<SIZE_T> regions, std::string_view comment) {
+            std::string result;
+            for (SIZE_T region : regions) {
+                auto [count, mesure] = Convert(region);
+                result += std::to_string(count) 
+                    + ' ' + mesure + ' '
+                    + std::string(comment) + '\n';
+            }
+            return result;
+        }
+
+        std::pair<SIZE_T, std::string> RWXAnalyzer::Convert(SIZE_T bytes) {
+            int convertations = 0;
+            while (bytes > KB) {
+                bytes /= KB;
+                ++convertations;
+            }
+
+            std::string mesure;
+            if (convertations == 0) {
+                mesure = "KB";
+            }
+            else if (convertations == 1) {
+                mesure = "KB";
+            }
+            else if (convertations == 2) {
+                mesure = "MB";
+            }
+            return { bytes, mesure };
+        }
+
     }
 
 }

@@ -25,6 +25,8 @@ namespace proc_scan {
             std::string AnalyzeProcessMemory(HANDLE hProcess);
             std::vector<HMODULE> GetProcModules(HANDLE hProcess);
 
+            std::string CheckRegions(std::vector<SIZE_T> regions, std::string_view comment);
+            std::pair<SIZE_T, std::string> Convert(SIZE_T bytes);
         };
 
     }
