@@ -19,12 +19,12 @@ void ScanForHiddenProcesses(std::shared_ptr<proc_scan::ProcessScanner> proc_scan
 }
 
 void ScanForCompromisedProcesses(std::shared_ptr<proc_scan::ProcessScanner> proc_scanner) {
-    auto hp = proc_scanner->DetectCompromisedProcesses();
-    if (hp.empty()) {
+    auto cp = proc_scanner->DetectCompromisedProcesses();
+    if (cp.empty()) {
         std::cout << "No compromised processes found" << std::endl;
     }
     else {
-        for (const auto& hidden_proc : hp) {
+        for (const auto& hidden_proc : cp) {
             std::cout << "Suspicious process: \n";
             hidden_proc.proc_info->Print(std::cout);
             std::cout << "Reason: " << hidden_proc.comment << "\n";
