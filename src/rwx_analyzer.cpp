@@ -31,18 +31,21 @@ namespace proc_scan {
             LOG_DEBUG("Start RWX analyze");
             MEMORY_BASIC_INFORMATION memory_info{ 0 };
             SIZE_T address = NULL;
-            while (VirtualQueryEx(hProcess, &address, &memory_info, sizeof(MEMORY_BASIC_INFORMATION))) {
+            while (VirtualQueryEx(hProcess, (LPVOID)address, &memory_info, sizeof(memory_info))) {
                 std::cout
-                    << "AllocBase:" << memory_info.AllocationBase
-                    << "\n AllocProtect:- " << memory_info.AllocationProtect
-                    << "\n BaseAddress:-- " << memory_info.BaseAddress
-                    << "\n PartitionId:-- " << memory_info.PartitionId
-                    << "\n Protect:------ " << memory_info.Protect
-                    << "\n RegionSize:--- " << memory_info.RegionSize
-                    << "\n State:-------- " << memory_info.State
-                    << "\n Type:--------- " << memory_info.Type
+                    <<   "AllocBase:---- " << memory_info.AllocationBase
+                    << "\nAllocProtect:- " << memory_info.AllocationProtect
+                    << "\nBaseAddress:-- " << memory_info.BaseAddress
+                    << "\nPartitionId:-- " << memory_info.PartitionId
+                    << "\nProtect:------ " << memory_info.Protect
+                    << "\nRegionSize:--- " << memory_info.RegionSize
+                    << "\nState:-------- " << memory_info.State
+                    << "\nType:--------- " << memory_info.Type
                     << "\n";
-                address += memory_info.RegionSize;
+                address += (SIZE_T)memory_info.BaseAddress + memory_info.RegionSize;
+                if (address == 0) {
+                    break;
+                }
             }
         }
 
