@@ -13,6 +13,8 @@ namespace proc_scan {
         class RWXAnalyzer : public Analyzer {
 
         private:
+            AnalyzeResult analyze_result_;
+
             AnalyzeResult StartAnalyze(domain::Scan&& scans) override;
 
             void AnalyzeProcessMemory(HANDLE hProcess);
