@@ -59,6 +59,10 @@ namespace proc_scan {
                     comments += "RX to RW swap detected!\n";
                 }
 
+                if (memory_info.AllocationProtect == PAGE_READWRITE
+                    && memory_info.Protect == PAGE_EXECUTE_READ) {
+                    comments += "RW to RX swap detected!\n";
+                }
 
                 address += (SIZE_T)memory_info.BaseAddress + memory_info.RegionSize;
                 if (address == 0) {
