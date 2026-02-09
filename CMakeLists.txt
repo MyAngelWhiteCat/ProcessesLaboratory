@@ -44,6 +44,6 @@ add_executable(ProcessScanner
     src/main.cpp 
 )
 
-target_link_libraries(Application PRIVATE
-    ProcScan
+target_link_libraries(ProcessScanner PRIVATE
+    Application
 )
