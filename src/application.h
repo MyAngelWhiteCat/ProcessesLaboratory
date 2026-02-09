@@ -9,6 +9,8 @@
 
 namespace application {
 
+    using Suspects = std::vector<proc_scan::domain::SuspiciousProcess>;
+
     struct AnalyzeResult {
         AnalyzeResult(
             std::string&& process_name,
