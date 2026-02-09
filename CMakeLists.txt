@@ -8,17 +8,20 @@ include(${CMAKE_BINARY_DIR}/conan_toolchain.cmake)
 find_package(spdlog REQUIRED)
 
 add_library(ProcScan
+    src/application.h 
+    src/application.cpp
+
     src/process_scanner.h 
     src/process_scanner.cpp 
 
     src/analyzer.h
     src/analyzer.cpp
 
-    src/rwx_analyzer.cpp
     src/rwx_analyzer.h
+    src/rwx_analyzer.cpp
 
-    src/hidden_processes_analyzer.cpp
     src/hidden_processes_analyzer.h
+    src/hidden_processes_analyzer.cpp
 
     src/domain.h
     src/domain.cpp
