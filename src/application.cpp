@@ -26,10 +26,10 @@ namespace application {
 
     std::vector<AnalyzeResult> Application::FormatResult(Suspects&& suspects) const {
         std::vector<AnalyzeResult> formated_result;
-        for (const auto& suspect : suspects) {
+        for (auto& suspect : suspects) {
             formated_result.emplace_back(
-                suspect.proc_info->GetProcessName(),
-                suspect.comment,
+                std::string(suspect.proc_info->GetProcessName()),
+                std::move(suspect.comment),
                 std::to_string(suspect.proc_info->GetPid()));
         }
         return formated_result;
