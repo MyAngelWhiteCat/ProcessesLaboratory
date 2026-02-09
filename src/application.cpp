@@ -7,8 +7,6 @@
 #include <string>
 #include <utility>
 #include <vector>
-#include <string>
-#include <memory>
 
 namespace application {
 
