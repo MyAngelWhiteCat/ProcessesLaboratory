@@ -1,10 +1,10 @@
 #pragma once
 
 #include "process_scanner.h"
-#include "logger.h"
 
 #include <vector>
 #include <string>
+#include <memory>
 
 
 namespace application {
@@ -17,14 +17,14 @@ namespace application {
 
     class Application {
     public:
+        Application();
         
         std::vector<AnalyzeResult> DetectHiddenProcesses();
         std::vector<AnalyzeResult> DetectCompromisedProcesses();
 
 
     private:
-        proc_scan::ProcessScanner labaratory_;
-
+        std::shared_ptr<proc_scan::ProcessScanner> labaratory_;
 
     };
 
