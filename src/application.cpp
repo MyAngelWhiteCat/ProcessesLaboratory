@@ -1,5 +1,6 @@
 #include "application.h"
 #include "domain.h"
+#include "logger.h"
 
 #include <vector>
 #include <string>
