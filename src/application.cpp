@@ -3,6 +3,9 @@
 #include "logger.h"
 #include "process_scanner.h"
 
+#include <memory>
+#include <string>
+#include <utility>
 #include <vector>
 #include <string>
 #include <memory>
