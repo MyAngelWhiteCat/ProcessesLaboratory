@@ -8,9 +8,6 @@ include(${CMAKE_BINARY_DIR}/conan_toolchain.cmake)
 find_package(spdlog REQUIRED)
 
 add_library(ProcScan
-    src/application.h 
-    src/application.cpp
-
     src/process_scanner.h 
     src/process_scanner.cpp 
 
@@ -34,10 +31,19 @@ target_link_libraries(ProcScan PUBLIC
     spdlog::spdlog
 )
 
+add_library(Application
+    src/application.h 
+    src/application.cpp
+)
+
+target_link_libraries(Application PUBLIC 
+    ProcScan 
+)
+
 add_executable(ProcessScanner
     src/main.cpp 
 )
 
-target_link_libraries(ProcessScanner PRIVATE
+target_link_libraries(Application PRIVATE
     ProcScan
 )
