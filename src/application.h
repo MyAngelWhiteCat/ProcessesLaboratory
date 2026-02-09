@@ -1,24 +1,29 @@
 #pragma once
 
 #include "process_scanner.h"
-#include "domain.h"
 
 #include <vector>
 #include <string>
 
+
 namespace application {
+
+    struct AnalyzeResult {
+        std::string process_name;
+        std::string comment;
+        std::string pid;
+    };
 
     class Application {
     public:
         
-        std::vector<proc_scan::domain::SuspiciousProcess> DetectHiddenProcesses();
-        std::vector<proc_scan::domain::SuspiciousProcess> DetectCompromisedProcesses();
+        std::vector<AnalyzeResult> DetectHiddenProcesses();
+        std::vector<AnalyzeResult> DetectCompromisedProcesses();
 
 
     private:
         proc_scan::ProcessScanner labaratory_;
 
-        std::string FormatToString(std::vector<proc_scan::domain::SuspiciousProcess>);
 
     };
 
