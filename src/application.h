@@ -1,6 +1,7 @@
 #pragma once
 
 #include "process_scanner.h"
+#include "logger.h"
 
 #include <vector>
 #include <string>
