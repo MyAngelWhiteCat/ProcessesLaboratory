@@ -1,6 +1,7 @@
 #pragma once
 
 #include "process_scanner.h"
+#include "domain.h"
 
 #include <vector>
 #include <string>
@@ -38,6 +39,7 @@ namespace application {
     private:
         std::shared_ptr<proc_scan::ProcessScanner> labaratory_;
 
+        std::vector<AnalyzeResult> FormatResult(Suspects&& suspects) const;
     };
 
 }

@@ -16,11 +16,22 @@ namespace application {
     }
 
     std::vector<AnalyzeResult> Application::DetectHiddenProcesses() {
-        return std::vector<AnalyzeResult>();
+        return FormatResult(std::move(labaratory_->DetectHiddenProcesses()));
     }
 
     std::vector<AnalyzeResult> Application::DetectCompromisedProcesses() {
-        return std::vector<AnalyzeResult>();
+        return FormatResult(std::move(labaratory_->DetectCompromisedProcesses()));
+    }
+
+    std::vector<AnalyzeResult> Application::FormatResult(Suspects&& suspects) const {
+        std::vector<AnalyzeResult> formated_result;
+        for (const auto& suspect : suspects) {
+            formated_result.emplace_back(
+                suspect.proc_info->GetProcessName(),
+                suspect.comment,
+                std::to_string(suspect.proc_info->GetPid()));
+        }
+        return formated_result;
     }
 
 }
