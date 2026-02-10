@@ -26,7 +26,7 @@ namespace proc_scan {
                 auto suspicious_memory = AnalyzeProcessMemory(hProcess);
                 if (!suspicious_memory.empty()) {
                     result.suspicious_processes_
-                        .emplace_back(proc_info, CheckRegions(suspicious_memory));
+                        .emplace_back(proc_info, TranslateResult(suspicious_memory));
                 }
             }
             return result;
@@ -60,19 +60,9 @@ namespace proc_scan {
                     HandleSuspiciosMemory
                     (suspicious_memory, memory_info, domain::MemDetection::RW_TO_RX);
                 }
-                else if (rw_to_rx_regions.back()) {
-                    rw_to_rx_regions.push_back(0);
-                }
+            }
 
             return suspicious_memory;
-            }
-            if (!rw_to_rx_regions.empty()) {
-                for (int i : rw_to_rx_regions) {
-                    comments += std::to_string(i / 1024)
-                        + "KB region with switched from RW to RX rights detected!\n";
-                }
-            }
-            return comments;
         }
 
         std::vector<HMODULE> RWXAnalyzer::GetProcModules(HANDLE hProcess) {
@@ -122,7 +112,7 @@ namespace proc_scan {
             std::string result;
             for (auto& region : regions) {
                 auto [count, mesure] = ConvertBytesUpscale(region.size_bytes_);
-                result += std::to_string(count) 
+                result += std::to_string(count)
                     + ' ' + mesure + " of "
                     + DetectionToString(region.GetDetection()) + '\n';
             }
@@ -135,7 +125,7 @@ namespace proc_scan {
                 bytes /= KB;
                 ++convertations;
             }
-
+            
             std::string mesure;
             if (convertations == 0) {
                 mesure = "KB";
