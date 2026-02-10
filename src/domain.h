@@ -60,6 +60,11 @@ namespace proc_scan {
             Runtime = 3,
         };
 
+        struct SuspiciousProcess {
+            SPProcessInfo proc_info;
+            std::string comment;
+        };
+
         struct ThreadInfo {
             ThreadInfo() = delete;
             ThreadInfo(DWORD thread_id, DWORD owner_id, LONG prioritet) 
@@ -154,11 +159,6 @@ namespace proc_scan {
             HANDLE hProcess_{ 0 };
         };
 
-        struct SuspiciousProcess {
-            SPProcessInfo proc_info;
-            std::string comment;
-        };
-
         struct Snapshot {
             Snapshot(Clock::time_point time) 
                 : time_(time)
@@ -182,6 +182,7 @@ namespace proc_scan {
             std::shared_ptr<ProcessInfo> GetProcessInfo(DWORD pid) const;
         };
 
+        // Helpers methods
         std::string WideCharToString(const WCHAR* wstr);
         std::unique_ptr<std::wstring> StringToWideChar(std::string_view str);
         std::string UnicodeToString(const UNICODE_STRING& ustr);
