@@ -63,6 +63,18 @@ namespace proc_scan {
             Runtime = 3 // some circle of scans and analyzers
         };
 
+        enum class MemDetection {
+            RWX = 0,
+            RW_TO_RX = 1,
+            RX_TO_RW = 2
+        };
+
+        struct SuspiciousMemory {
+            MemDetection detection_;
+            SIZE_T address_;
+            SIZE_T size_bytes_;
+        };
+
         enum class Severity {
             INFO = 0,
             SUSPICIOUS = 1,
@@ -73,6 +85,7 @@ namespace proc_scan {
         struct SuspiciousProcess {
             SPProcessInfo proc_info_;
             std::string comment_;
+            std::vector<SuspiciousMemory> suspicious_memory_;
             Severity severity_;
         };
 
