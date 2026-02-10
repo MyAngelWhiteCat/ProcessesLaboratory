@@ -3,14 +3,15 @@
 #include <Windows.h>
 #include <winternl.h>
 
-#include <string>
-#include <unordered_map>
 #include <chrono>
 #include <memory>
+#include <optional>
 #include <ostream>
+#include <string>
+#include <string_view>
+#include <unordered_map>
 #include <utility>
 #include <vector>
-#include <string_view>
 
 
 namespace proc_scan {
@@ -70,7 +71,7 @@ namespace proc_scan {
         };
 
         struct SuspiciousMemory {
-            MemDetection detection_;
+            std::optional<MemDetection> detection_;
             SIZE_T address_ = 0;
             SIZE_T size_bytes_ = 0;
 
