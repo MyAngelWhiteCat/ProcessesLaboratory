@@ -65,9 +65,10 @@ namespace proc_scan {
         };
 
         enum class MemDetection {
-            RWX = 0,
-            RW_TO_RX = 1,
-            RX_TO_RW = 2
+            ERROR_VALUE = 0,
+            RWX = 1,
+            RW_TO_RX = 2,
+            RX_TO_RW = 3
         };
 
         struct SuspiciousMemory {
