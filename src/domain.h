@@ -60,7 +60,7 @@ namespace proc_scan {
             Quick = 0, // "just check there is no some malware.exe" for the future database
             Base = 1, // classic scan of hidden procs, RWX regions and some future stuff
             Full = 2, // all scans, all analyzers
-            Runtime = 3 // some cylce of scans and analyzers
+            Runtime = 3 // some circle of scans and analyzers
         };
 
         enum class Severity {
