@@ -23,23 +23,21 @@ namespace proc_scan {
                     + std::string(proc_info->GetProcessName()));
 
                 HANDLE hProcess = proc_info->Open(PROCESS_QUERY_INFORMATION);
-                std::string comments = AnalyzeProcessMemory(hProcess);
-                if (!comments.empty()) {
-                    result.suspicious_processes_.emplace_back(proc_info, comments);
+                auto suspicious_memory = AnalyzeProcessMemory(hProcess);
+                if (!suspicious_memory.empty()) {
+                    result.suspicious_processes_
+                        .emplace_back(proc_info, CheckRegions(suspicious_memory));
                 }
             }
             return result;
         }
 
-        std::string RWXAnalyzer::AnalyzeProcessMemory(HANDLE hProcess) {
+        std::vector<domain::SuspiciousMemory> RWXAnalyzer::AnalyzeProcessMemory(HANDLE hProcess) {
             LOG_DEBUG("Start RWX analyze");
-            std::string comments;
             MEMORY_BASIC_INFORMATION memory_info{ 0 };
             SIZE_T address = NULL;
 
-            std::vector<SIZE_T> rwx_regions{ 0 };
-            std::vector<SIZE_T> rx_to_rw_regions{ 0 };
-            std::vector<SIZE_T> rw_to_rx_regions{ 0 };
+            std::vector<domain::SuspiciousMemory> suspicious_memory;
             while (VirtualQueryEx(hProcess, (LPVOID)address, &memory_info, sizeof(memory_info))) {
                 address = (SIZE_T)memory_info.BaseAddress + memory_info.RegionSize;
                 if (address == 0) {
@@ -50,43 +48,23 @@ namespace proc_scan {
                 }
 
                 if (memory_info.Protect == PAGE_EXECUTE_READWRITE) {
-                    rwx_regions.back() += memory_info.RegionSize;
+                    HandleSuspiciosMemory(suspicious_memory, memory_info, domain::MemDetection::RWX);
                 }
-                else if (rwx_regions.back()) {
-                    rwx_regions.push_back(0);
-                }
-
-                if (memory_info.AllocationProtect == PAGE_EXECUTE_READ
+                else if (memory_info.AllocationProtect == PAGE_EXECUTE_READ
                     && memory_info.Protect == PAGE_READWRITE) {
-                    rx_to_rw_regions.back() += memory_info.RegionSize;
+                    HandleSuspiciosMemory
+                    (suspicious_memory, memory_info, domain::MemDetection::RX_TO_RW);
                 }
-                else if (rx_to_rw_regions.back()) {
-                    rx_to_rw_regions.push_back(0);
-                }
-
-                if (memory_info.AllocationProtect == PAGE_READWRITE
+                else if (memory_info.AllocationProtect == PAGE_READWRITE
                     && memory_info.Protect == PAGE_EXECUTE_READ) {
-                    rw_to_rx_regions.back() += memory_info.RegionSize;
+                    HandleSuspiciosMemory
+                    (suspicious_memory, memory_info, domain::MemDetection::RW_TO_RX);
                 }
                 else if (rw_to_rx_regions.back()) {
                     rw_to_rx_regions.push_back(0);
                 }
 
-            }
-            rwx_regions.pop_back();
-            rx_to_rw_regions.pop_back();
-            rw_to_rx_regions.pop_back();
-            if (!rwx_regions.empty()) {
-                for (int i : rwx_regions) {
-                    comments += std::to_string(i / 1024)
-                        + "KB region with RWX rights detected!\n";
-                }
-            }
-            if (!rx_to_rw_regions.empty()) {
-                for (int i : rx_to_rw_regions) {
-                    comments += std::to_string(i / 1024)
-                        + "KB region with switched from RX to RW rights detected!\n";
-                }
+            return suspicious_memory;
             }
             if (!rw_to_rx_regions.empty()) {
                 for (int i : rw_to_rx_regions) {
@@ -123,16 +101,16 @@ namespace proc_scan {
 
         std::string RWXAnalyzer::CheckRegions(std::vector<SIZE_T> regions, std::string_view comment) {
             std::string result;
-            for (SIZE_T region : regions) {
-                auto [count, mesure] = Convert(region);
+            for (auto& region : regions) {
+                auto [count, mesure] = ConvertBytesUpscale(region.size_bytes_);
                 result += std::to_string(count) 
-                    + ' ' + mesure + ' '
-                    + std::string(comment) + '\n';
+                    + ' ' + mesure + " of "
+                    + DetectionToString(region.GetDetection()) + '\n';
             }
             return result;
         }
 
-        std::pair<SIZE_T, std::string> RWXAnalyzer::Convert(SIZE_T bytes) {
+        std::pair<SIZE_T, std::string> RWXAnalyzer::ConvertBytesUpscale(SIZE_T bytes) const {
             int convertations = 0;
             while (bytes > KB) {
                 bytes /= KB;
@@ -150,6 +128,20 @@ namespace proc_scan {
                 mesure = "MB";
             }
             return { bytes, mesure };
+        }
+
+        std::string RWXAnalyzer::DetectionToString(domain::MemDetection detection) const {
+            switch (detection) {
+            case domain::MemDetection::RWX:
+                return "RWX region";
+            case domain::MemDetection::RW_TO_RX:
+                return "RW to RX changed region";
+            case domain::MemDetection::RX_TO_RW:
+                return "RX to RW changed region";
+            default:
+                return "Translating Error";
+            }
+           
         }
 
     }
