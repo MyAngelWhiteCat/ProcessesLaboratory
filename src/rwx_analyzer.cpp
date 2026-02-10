@@ -6,7 +6,6 @@
 #include <Psapi.h>
 #include <Windows.h>
 
-#include <iostream>
 #include <stdexcept>
 #include <string>
 #include <vector>
