@@ -63,9 +63,17 @@ namespace proc_scan {
             Runtime = 3 // some cylce of scans and analyzers
         };
 
+        enum class Severity {
+            INFO = 0,
+            SUSPICIOUS = 1,
+            MALWARE = 2,
+            CRITICAL = 3
+        };
+
         struct SuspiciousProcess {
             SPProcessInfo proc_info;
             std::string comment;
+            Severity severity;
         };
 
         struct ThreadInfo {
