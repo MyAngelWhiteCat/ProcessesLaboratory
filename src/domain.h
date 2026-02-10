@@ -71,9 +71,9 @@ namespace proc_scan {
         };
 
         struct SuspiciousProcess {
-            SPProcessInfo proc_info;
-            std::string comment;
-            Severity severity;
+            SPProcessInfo proc_info_;
+            std::string comment_;
+            Severity severity_;
         };
 
         struct ThreadInfo {
