@@ -75,12 +75,10 @@ namespace proc_scan {
             SIZE_T address_ = 0;
             SIZE_T size_bytes_ = 0;
 
-            SuspiciousMemory Reset() {
-                SuspiciousMemory copy{ detection_, address_, size_bytes_ };
+            void Reset() {
                 detection_.reset();
                 address_ = 0;
                 size_bytes_ = 0;
-                return copy;
             }
         };
 
