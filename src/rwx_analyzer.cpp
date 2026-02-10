@@ -43,7 +43,7 @@ namespace proc_scan {
             while (VirtualQueryEx(hProcess, (LPVOID)address, &memory_info, sizeof(memory_info))) {
                 address = (SIZE_T)memory_info.BaseAddress + memory_info.RegionSize;
                 if (address == 0) {
-                    throw std::runtime_error("Empty region");
+                    throw std::runtime_error("Memory region can't be empty");
                 }
                 if (memory_info.State != MEM_COMMIT) {
                     continue;
