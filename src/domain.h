@@ -73,6 +73,14 @@ namespace proc_scan {
             MemDetection detection_;
             SIZE_T address_ = 0;
             SIZE_T size_bytes_ = 0;
+
+            SuspiciousMemory Reset() {
+                SuspiciousMemory copy{ detection_, address_, size_bytes_ };
+                detection_.reset();
+                address_ = 0;
+                size_bytes_ = 0;
+                return copy;
+            }
         };
 
         enum class Severity {
