@@ -28,9 +28,9 @@ namespace application {
         std::vector<AnalyzeResult> formated_result;
         for (auto& suspect : suspects) {
             formated_result.emplace_back(
-                std::string(suspect.proc_info->GetProcessName()),
-                std::move(suspect.comment),
-                std::to_string(suspect.proc_info->GetPid()));
+                std::string(suspect.proc_info_->GetProcessName()),
+                std::move(suspect.comment_),
+                std::to_string(suspect.proc_info_->GetPid()));
         }
         return formated_result;
     }
