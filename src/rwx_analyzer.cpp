@@ -99,7 +99,26 @@ namespace proc_scan {
             return modules;
         }
 
-        std::string RWXAnalyzer::CheckRegions(std::vector<SIZE_T> regions, std::string_view comment) {
+        void RWXAnalyzer::HandleSuspiciosMemory(
+            std::vector<domain::SuspiciousMemory>&
+            suspicious_memory,
+            MEMORY_BASIC_INFORMATION& memory_info,
+            domain::MemDetection detection) const
+        {
+            if (!suspicious_memory.empty() &&
+                suspicious_memory.back().detection_ == detection) {
+                suspicious_memory.back().size_bytes_ += memory_info.RegionSize;
+            }
+            else {
+                suspicious_memory.emplace_back(
+                    detection,
+                    (SIZE_T)memory_info.BaseAddress,
+                    memory_info.RegionSize
+                );
+            }
+        }
+
+        std::string RWXAnalyzer::TranslateResult(std::vector<domain::SuspiciousMemory> regions) const {
             std::string result;
             for (auto& region : regions) {
                 auto [count, mesure] = ConvertBytesUpscale(region.size_bytes_);
