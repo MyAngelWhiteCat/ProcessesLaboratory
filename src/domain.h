@@ -71,8 +71,8 @@ namespace proc_scan {
 
         struct SuspiciousMemory {
             MemDetection detection_;
-            SIZE_T address_;
-            SIZE_T size_bytes_;
+            SIZE_T address_ = 0;
+            SIZE_T size_bytes_ = 0;
         };
 
         enum class Severity {
