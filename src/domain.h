@@ -80,6 +80,13 @@ namespace proc_scan {
                 address_ = 0;
                 size_bytes_ = 0;
             }
+
+            MemDetection GetDetection() {
+                if (!detection_.has_value()) {
+                    return MemDetection::ERROR_VALUE;
+                }
+                return detection_.value();
+            }
         };
 
         enum class Severity {
