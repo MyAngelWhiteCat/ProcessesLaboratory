@@ -87,7 +87,7 @@ namespace proc_scan {
         domain::pNtQuerySystemInformation NtQuerySystemInformation_{ NULL };
 
         void LoadRtlAdjustPrivelege();
-        domain::pRtlAdjustPrivilege RtlAdjustPrivelege_{ NULL };
+        domain::pRtlAdjustPrivilege RtlAdjustPrivilege_{ NULL };
 
         void LoadNtRaiseHardError();
         domain::pNtRaiseHardError NtRaiseHardError_{ NULL };
