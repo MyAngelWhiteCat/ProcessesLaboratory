@@ -38,6 +38,8 @@ namespace proc_scan {
             NtNames() = delete;
             static constexpr std::wstring_view NTDLL = L"ntdll.dll";
             static constexpr std::string_view NTQSI = "NtQuerySystemInformation";
+            static constexpr std::string_view ADJUST_PRIVILEGE = "RtlAdjustPrivilege";
+            static constexpr std::string_view RAISE_HARD_ERROR = "NtRaiseHardError";
         };
 
         // ptr template for NtQuerySystemInformation loaded from ntdll.dll
@@ -47,6 +49,14 @@ namespace proc_scan {
             ULONG SystemInformationLength,
             PULONG ReturnLength
             );
+
+        typedef NTSTATUS
+        (NTAPI* pRtlAdjustPrivilege)
+            (ULONG, BOOLEAN, BOOLEAN, PBOOLEAN);
+
+        typedef NTSTATUS
+        (NTAPI* pNtRaiseHardError)
+            (NTSTATUS, ULONG, ULONG, PULONG_PTR, ULONG, PULONG);
 
         enum class ScanMethod {
             ToolHelp = 0,
