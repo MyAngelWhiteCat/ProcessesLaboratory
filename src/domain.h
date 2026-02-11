@@ -12,6 +12,8 @@
 #include <unordered_map>
 #include <utility>
 #include <vector>
+#include "logger.h"
+#include <stdexcept>
 
 
 namespace proc_scan {
