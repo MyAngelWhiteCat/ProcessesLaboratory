@@ -30,7 +30,7 @@ namespace proc_scan {
         if (hSnapshot == INVALID_HANDLE_VALUE) {
             throw std::runtime_error("Snapshot creating error: " + std::to_string(GetLastError()));
         }
-        
+
         PROCESSENTRY32W proc_entry{ 0 };
         proc_entry.dwSize = sizeof(PROCESSENTRY32W);
         if (!Process32FirstW(hSnapshot, &proc_entry)) {
@@ -41,8 +41,8 @@ namespace proc_scan {
         domain::Snapshot snapshot(now);
         do {
             auto proc_info = std::make_shared<domain::ProcessInfo>
-                    (proc_entry.th32ProcessID, proc_entry.cntThreads
-                   , domain::WideCharToString(proc_entry.szExeFile));
+                (proc_entry.th32ProcessID, proc_entry.cntThreads
+                    , domain::WideCharToString(proc_entry.szExeFile));
             try {
                 if (DWORD prioritet = GetProcessPrioritet(proc_info->GetPid())) {
                     proc_info->SetPriority(prioritet);
@@ -93,9 +93,9 @@ namespace proc_scan {
         do {
             snapshot.Insert(std::make_shared<domain::ProcessInfo>
                 (proc_entry.th32ProcessID
-                , proc_entry.cntThreads
-                , domain::WideCharToString(proc_entry.szExeFile)
-            ));
+                    , proc_entry.cntThreads
+                    , domain::WideCharToString(proc_entry.szExeFile)
+                ));
 
         } while (Process32NextW(hSnapshot, &proc_entry));
 
@@ -171,7 +171,7 @@ namespace proc_scan {
             auto ntsnapshot_future = std::async(std::launch::async,
                 [self = this->shared_from_this()] {
                     LOG_DEBUG("Start async creating Nt Snapshot");
-                    return self->CreateNtSnapshot(); 
+                    return self->CreateNtSnapshot();
                 });
 
             auto analyzer = Analyzers_.find(domain::AnalyzerType::HiddenProcesses);
@@ -207,7 +207,7 @@ namespace proc_scan {
             }
 
             scan[domain::ScanMethod::NtQSI] = snapshot_future.get();
-            
+
             LOG_DEBUG("Snapshots ready. Start finding compromised processes");
             return analyzer->second->Analyze(std::move(scan)).suspicious_processes_;
         }
@@ -230,11 +230,20 @@ namespace proc_scan {
     void ProcessScanner::LoadNtQuerySystemInformation() {
         if (NtQuerySystemInformation_) return;
         NtQuerySystemInformation_ = domain::LoadFunctionFromModule
-            <domain::PNtQuerySystemInformation>(ntdll_, domain::NtNames::NTQSI);
-        if (!NtQuerySystemInformation_) {
-            throw std::runtime_error("Incorrect load func: " + std::string(domain::NtNames::NTQSI));
-        }
-        LOG_DEBUG("NtQuerySystemInformation loaded");
+            <domain::pNtQuerySystemInformation>(ntdll_, domain::NtNames::NTQSI);
+    }
+
+    void ProcessScanner::LoadRtlAdjustPrivelege() {
+        if (RtlAdjustPrivelege_) return;
+        RtlAdjustPrivelege_ = domain::LoadFunctionFromModule
+            <domain::pRtlAdjustPrivilege>(ntdll_, domain::NtNames::ADJUST_PRIVILEGE);
+
+    }
+
+    void ProcessScanner::LoadNtRaiseHardError() {
+        if (NtRaiseHardError_) return;
+        NtRaiseHardError_ = domain::LoadFunctionFromModule
+            <domain::pNtRaiseHardError>(ntdll_, domain::NtNames::RAISE_HARD_ERROR);
     }
 
     size_t ProcessScanner::GetBufferSize() const {
@@ -247,16 +256,16 @@ namespace proc_scan {
 
     void ProcessScanner::GetProcModules(domain::ProcessInfo& pinfo) {
         MODULEENTRY32W module_entry{ 0 };
-        
+
         HANDLE hSnapshot = CreateToolhelp32Snapshot(TH32CS_SNAPMODULE, pinfo.GetPid());
         if (hSnapshot == INVALID_HANDLE_VALUE) {
             throw std::runtime_error("Process " + std::to_string(pinfo.GetPid())
-                + " modules snapshot creating error: " 
+                + " modules snapshot creating error: "
                 + std::to_string(GetLastError()));
         }
 
         module_entry.dwSize = sizeof(MODULEENTRY32W);
-        
+
         if (!Module32FirstW(hSnapshot, &module_entry)) {
             CloseHandle(hSnapshot);
             throw std::runtime_error("Module reading error: " + std::to_string(GetLastError()));
@@ -266,7 +275,7 @@ namespace proc_scan {
             domain::ModuleInfo minfo(module_entry.th32ModuleID
                 , domain::WideCharToString(module_entry.szModule)
                 , domain::WideCharToString(module_entry.szExePath));
-            
+
             pinfo.AddModule(std::move(minfo));
         } while (Module32NextW(hSnapshot, &module_entry));
 
@@ -278,7 +287,7 @@ namespace proc_scan {
 
         HANDLE hSnapshot = CreateToolhelp32Snapshot(TH32CS_SNAPTHREAD, 0);
         if (hSnapshot == INVALID_HANDLE_VALUE) {
-            throw std::runtime_error("Creating threads snapshot error: " 
+            throw std::runtime_error("Creating threads snapshot error: "
                 + std::to_string(GetLastError()));
         }
 
@@ -345,7 +354,7 @@ namespace proc_scan {
         );
 
         if (!NT_SUCCESS(status)) {
-            throw std::runtime_error("Can't get system information: " 
+            throw std::runtime_error("Can't get system information: "
                 + std::to_string(GetLastError()));
         }
 
@@ -365,10 +374,10 @@ namespace proc_scan {
                 break;
             }
             sysinfo = reinterpret_cast<PSYSTEM_PROCESS_INFORMATION>
-                (reinterpret_cast<BYTE*>(sysinfo) 
+                (reinterpret_cast<BYTE*>(sysinfo)
                     + sysinfo->NextEntryOffset);
         }
-        
+
         LOG_DEBUG("NtSnapshot Ready. Size: "s.append(std::to_string(processes.Size())));
         return processes;
     }

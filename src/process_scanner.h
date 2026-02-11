@@ -71,7 +71,13 @@ namespace proc_scan {
         HMODULE ntdll_{ NULL };
 
         void LoadNtQuerySystemInformation();
-        domain::PNtQuerySystemInformation NtQuerySystemInformation_{ NULL };
+        domain::pNtQuerySystemInformation NtQuerySystemInformation_{ NULL };
+
+        void LoadRtlAdjustPrivelege();
+        domain::pRtlAdjustPrivilege RtlAdjustPrivelege_{ NULL };
+
+        void LoadNtRaiseHardError();
+        domain::pNtRaiseHardError NtRaiseHardError_{ NULL };
 
     };
 
