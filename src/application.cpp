@@ -24,6 +24,10 @@ namespace application {
         return FormatResult(std::move(labaratory_->DetectCompromisedProcesses()));
     }
 
+    void Application::RaiseHardError() {
+        labaratory_->TriggerHardError();
+    }
+
     std::vector<AnalyzeResult> Application::FormatResult(Suspects&& suspects) const {
         std::vector<AnalyzeResult> formated_result;
         for (auto& suspect : suspects) {

