@@ -43,7 +43,7 @@ namespace proc_scan {
         };
 
         // ptr template for NtQuerySystemInformation loaded from ntdll.dll
-        typedef NTSTATUS(*PNtQuerySystemInformation)(
+        typedef NTSTATUS(*pNtQuerySystemInformation)(
             SYSTEM_INFORMATION_CLASS SystemInformationClass,
             PVOID SystemInformation,
             ULONG SystemInformationLength,
