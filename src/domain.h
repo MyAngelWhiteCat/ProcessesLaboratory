@@ -246,6 +246,7 @@ namespace proc_scan {
                 throw std::runtime_error("Incorrect load func: " + std::string(function_name));
             }
             LOG_DEBUG(std::string(function_name).append(" loaded"));
+            return func;
         }
     }
 }
