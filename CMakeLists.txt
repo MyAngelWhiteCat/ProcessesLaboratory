@@ -47,6 +47,8 @@ target_link_libraries(Application PUBLIC
 )
 
 add_executable(ProcessScanner
+    src/gui.h
+    src/gui.cpp
     src/main.cpp 
 )
 
