@@ -229,7 +229,11 @@ namespace proc_scan {
 
         template<typename Fn>
         Fn LoadFunctionFromModule(HMODULE hModule, std::string_view function_name) {
-            return reinterpret_cast<Fn>(GetProcAddress(hModule, function_name.data()));
+            Fn func = reinterpret_cast<Fn>(GetProcAddress(hModule, function_name.data()));
+            if (!func) {
+                throw std::runtime_error("Incorrect load func: " + std::string(function_name));
+            }
+            LOG_DEBUG(std::string(function_name).append(" loaded"));
         }
     }
 }
