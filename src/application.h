@@ -35,7 +35,6 @@ namespace application {
         
         std::vector<AnalyzeResult> DetectHiddenProcesses();
         std::vector<AnalyzeResult> DetectCompromisedProcesses();
-        void RaiseHardError();
 
     private:
         std::shared_ptr<proc_scan::ProcessScanner> labaratory_;

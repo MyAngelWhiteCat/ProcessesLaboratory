@@ -45,6 +45,5 @@ private:
     void StartFullScan();
     void StartScanForHiddenProcesses();
     void StartScanForCompromisedProcesses();
-    void EmulateHardErrorHandling();
 };
 

@@ -70,13 +70,9 @@ void GUI::CreateControls() {
         25, 165, 100, 50,
         hWnd_, (HMENU)1003, NULL, NULL);
 
-    CreateWindowW(L"BUTTON", L"Test BDOS", WS_CHILD | WS_VISIBLE,
-        25, 260, 100, 50,
-        hWnd_, (HMENU)1004, NULL, NULL);
-
     CreateWindowW(L"BUTTON", L"Clear LOGS", WS_CHILD | WS_VISIBLE,
         25, 500, 100, 50,
-        hWnd_, (HMENU)1005, NULL, NULL);
+        hWnd_, (HMENU)1004, NULL, NULL);
 
     listbox_ = CreateWindowW(L"LISTBOX", NULL, WS_CHILD | WS_VISIBLE | WS_VSCROLL | WS_HSCROLL,
         150, 25, 595, 500,
@@ -109,12 +105,6 @@ LRESULT GUI::HandleMessage(UINT message, WPARAM wParam, LPARAM lParam) {
                 }).detach();
         }
         else if (LOWORD(wParam) == 1004) {
-            LOG_DEBUG("Pressed fatal system error...");
-            std::jthread([this]() {
-                EmulateHardErrorHandling();
-                }).detach();
-        }
-        else if (LOWORD(wParam) == 1005) {
             LOG_DEBUG("Clearing logs...");
             SendMessageW(listbox_, LB_RESETCONTENT, 0, 0);
         }
@@ -240,27 +230,6 @@ void GUI::StartScanForCompromisedProcesses() {
         LogToGUI(L"Scan for compromised processes started");
         ScanForCompromisedProcesses();
         LogToGUI(L"Scan for compromised processes complete");
-    }
-    catch (const std::exception& e) {
-        LOG_ERROR(e.what());
-        MessageBox(NULL, e.what(), "Error", MB_ICONERROR);
-    }
-}
-
-void GUI::EmulateHardErrorHandling() {
-    try {
-        LogToGUI(L"Sending fatal system error...");
-        int result = MessageBox(NULL, 
-            "This is a test of \"last-chance to stop an aggressive malware attack\"!"
-            "This will cause your PC to crash! "
-            "All unsaved data will be permanently lost! ", "Warning!",
-            MB_ICONWARNING | MB_OKCANCEL);
-        if (result == IDOK) {
-            application_.RaiseHardError();
-        }
-        else {
-            LogToGUI(L"BSOD testing cancelled");
-        }
     }
     catch (const std::exception& e) {
         LOG_ERROR(e.what());

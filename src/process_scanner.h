@@ -18,17 +18,6 @@
 
 namespace proc_scan {
 
-#define STATUS_FLOAT_MULTIPLE_FAULTS     0xC0000094
-#define STATUS_ASSERTION_FAILURE         0xC0000420
-#define STATUS_SYSTEM_PROCESS_TERMINATED 0xC000021A  
-#define STATUS_DATA_CORRUPTION_ERROR     0xC00002C4 
-
-#define SE_SHUTDOWN_PRIVILEGE            0x13
-#define SE_DEBUG_PRIVILEGE               0x14
-#define SE_TCB_PRIVILEGE                 0x17
-
-#define STATUS_PRIVILEGE_NOT_HELD        0xC0000060
-
     using namespace std::literals;
 
     using SystemClock = std::chrono::system_clock;
@@ -60,8 +49,6 @@ namespace proc_scan {
         size_t GetBufferSize() const;
         void SetBufferSize(const size_t new_size);
 
-        void TriggerHardError();
-
     private:
         size_t buffer_size_ = 10;
         std::deque<domain::Snapshot> last_full_snapshots_;
@@ -85,12 +72,6 @@ namespace proc_scan {
 
         void LoadNtQuerySystemInformation();
         domain::pNtQuerySystemInformation NtQuerySystemInformation_{ NULL };
-
-        void LoadRtlAdjustPrivelege();
-        domain::pRtlAdjustPrivilege RtlAdjustPrivilege_{ NULL };
-
-        void LoadNtRaiseHardError();
-        domain::pNtRaiseHardError NtRaiseHardError_{ NULL };
 
     };
 
