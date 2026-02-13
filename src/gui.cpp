@@ -74,6 +74,10 @@ void GUI::CreateControls() {
         25, 500, 100, 50,
         hWnd_, (HMENU)1004, NULL, NULL);
 
+    debug_console_ = CreateWindowW(L"BUTTON", L"Show Console", WS_CHILD | WS_VISIBLE,
+        25, 400, 100, 50,
+        hWnd_, (HMENU)1005, NULL, NULL);
+
     listbox_ = CreateWindowW(L"LISTBOX", NULL, WS_CHILD | WS_VISIBLE | WS_VSCROLL | WS_HSCROLL,
         150, 25, 595, 500,
         hWnd_, (HMENU)1006, NULL, NULL);
@@ -107,6 +111,22 @@ LRESULT GUI::HandleMessage(UINT message, WPARAM wParam, LPARAM lParam) {
         else if (LOWORD(wParam) == 1004) {
             LOG_DEBUG("Clearing logs...");
             SendMessageW(listbox_, LB_RESETCONTENT, 0, 0);
+        }
+        else if (LOWORD(wParam) == 1005) {
+            LOG_DEBUG("Show console");
+            ShowWindow(GetConsoleWindow(), SW_NORMAL);
+            DestroyWindow(debug_console_);
+            debug_console_ = CreateWindowW(L"BUTTON", L"Hide Console", WS_CHILD | WS_VISIBLE,
+                25, 400, 100, 50,
+                hWnd_, (HMENU)1007, NULL, NULL);
+        }
+        else if (LOWORD(wParam) == 1007) {
+            LOG_DEBUG("Hide console");
+            ShowWindow(GetConsoleWindow(), SW_HIDE);
+            DestroyWindow(debug_console_);
+            debug_console_ = CreateWindowW(L"BUTTON", L"Show Console", WS_CHILD | WS_VISIBLE,
+                25, 400, 100, 50,
+                hWnd_, (HMENU)1005, NULL, NULL);
         }
     }
     break;

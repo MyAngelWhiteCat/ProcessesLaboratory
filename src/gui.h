@@ -28,6 +28,7 @@ private:
     application::Application application_;
     HWND hWnd_{ nullptr };
     HWND listbox_{ nullptr };
+    HWND debug_console_{ nullptr };
     SIZE_T max_horizontal_size_{ 0 };
 
     static LRESULT CALLBACK WndProc(HWND hWnd, UINT message, WPARAM wParam, LPARAM lParam);
