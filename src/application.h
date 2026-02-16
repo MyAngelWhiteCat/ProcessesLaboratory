@@ -2,11 +2,14 @@
 
 #include "domain.h"
 #include "ProcessScanner/process_scanner.h"
+#include "ThreadPool/thread_pool.h"
 
 #include <memory>
 #include <string>
 #include <utility>
 #include <vector>
+
+#include <Windows.h>
 
 
 namespace application {
@@ -37,6 +40,7 @@ namespace application {
         std::vector<AnalyzeResult> DetectCompromisedProcesses();
 
     private:
+        ThreadPool thread_pool_{ GetMaximumProcessorCount(ALL_PROCESSOR_GROUPS) };
         std::shared_ptr<proc_scan::ProcessScanner> labaratory_;
         std::vector<AnalyzeResult> FormatResult(Suspects&& suspects) const;
     };
