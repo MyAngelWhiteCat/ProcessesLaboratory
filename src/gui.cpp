@@ -1,6 +1,6 @@
 #include "domain.h"
 #include "gui.h"
-#include "logger.h"
+#include "Logger/logger.h"
 
 #include <exception>
 #include <sstream>

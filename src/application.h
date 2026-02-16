@@ -1,7 +1,7 @@
 #pragma once
 
 #include "domain.h"
-#include "process_scanner.h"
+#include "ProcessScanner/process_scanner.h"
 
 #include <memory>
 #include <string>

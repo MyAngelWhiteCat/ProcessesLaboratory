@@ -1,7 +1,7 @@
-#include "analyzer.h"
-#include "domain.h"
+#include "../analyzer.h"
+#include "../../domain.h"
 #include "rwx_analyzer.h"
-#include "logger.h"
+#include "../../Logger/logger.h"
 
 #include <Psapi.h>
 #include <Windows.h>

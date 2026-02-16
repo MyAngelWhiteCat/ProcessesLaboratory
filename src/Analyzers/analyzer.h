@@ -6,7 +6,7 @@
 #include <unordered_map>
 #include <vector>
 
-#include "domain.h"
+#include "../domain.h"
 
 namespace proc_scan {
 

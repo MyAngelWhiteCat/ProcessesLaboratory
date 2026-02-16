@@ -1,7 +1,7 @@
 #include "hidden_processes_analyzer.h"
-#include "analyzer.h"
-#include "domain.h"
-#include "logger.h"
+#include "../analyzer.h"
+#include "../../domain.h"
+#include "../../Logger/logger.h"
 
 #include <stdexcept>
 

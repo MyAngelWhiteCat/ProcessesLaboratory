@@ -1,7 +1,7 @@
 #include "application.h"
 #include "domain.h"
-#include "logger.h"
-#include "process_scanner.h"
+#include "Logger/logger.h"
+#include "ProcessScanner/process_scanner.h"
 
 #include <memory>
 #include <string>

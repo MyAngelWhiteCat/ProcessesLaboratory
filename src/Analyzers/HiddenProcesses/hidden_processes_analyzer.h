@@ -1,7 +1,7 @@
 #pragma once
 
-#include "analyzer.h"
-#include "domain.h"
+#include "../analyzer.h"
+#include "../../domain.h"
 
 namespace proc_scan {
 

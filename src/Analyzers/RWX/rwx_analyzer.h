@@ -1,7 +1,7 @@
 #pragma once
 
-#include "analyzer.h"
-#include "domain.h"
+#include "../analyzer.h"
+#include "../../domain.h"
 
 #include <vector>
 #include <string>

@@ -11,10 +11,10 @@
 
 #include <Windows.h>
 
-#include "analyzer.h"
-#include "domain.h"
-#include "hidden_processes_analyzer.h"
-#include "rwx_analyzer.h"
+#include "../Analyzers/analyzer.h"
+#include "../domain.h"
+#include "../Analyzers/HiddenProcesses/hidden_processes_analyzer.h"
+#include "../Analyzers/RWX/rwx_analyzer.h"
 
 namespace proc_scan {
 

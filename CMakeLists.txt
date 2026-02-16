@@ -8,8 +8,8 @@ include(${CMAKE_BINARY_DIR}/conan_toolchain.cmake)
 find_package(spdlog REQUIRED)
 
 add_library(Logger 
-    src/logger.h
-    src/logger.cpp
+    src/Logger/logger.h
+    src/Logger/logger.cpp
 )
 
 target_link_libraries(Logger PUBLIC 
@@ -17,17 +17,17 @@ target_link_libraries(Logger PUBLIC
 )
 
 add_library(ProcScan
-    src/process_scanner.h 
-    src/process_scanner.cpp 
+    src/ProcessScanner/process_scanner.h 
+    src/ProcessScanner/process_scanner.cpp 
 
-    src/analyzer.h
-    src/analyzer.cpp
+    src/Analyzers/analyzer.h
+    src/Analyzers/analyzer.cpp
 
-    src/rwx_analyzer.h
-    src/rwx_analyzer.cpp
+    src/Analyzers/RWX/rwx_analyzer.h
+    src/Analyzers/RWX/rwx_analyzer.cpp
 
-    src/hidden_processes_analyzer.h
-    src/hidden_processes_analyzer.cpp
+    src/Analyzers/HiddenProcesses/hidden_processes_analyzer.h
+    src/Analyzers/HiddenProcesses/hidden_processes_analyzer.cpp
 
     src/domain.h
     src/domain.cpp
@@ -37,6 +37,11 @@ target_link_libraries(ProcScan PUBLIC
     Logger
 )
 
+add_library(ThreadPool 
+    src/ThreadPool/thread_pool.h
+    src/ThreadPool/thread_pool.cpp 
+)
+
 add_library(Application
     src/application.h 
     src/application.cpp
@@ -44,6 +49,7 @@ add_library(Application
 
 target_link_libraries(Application PUBLIC 
     ProcScan 
+    ThreadPool
 )
 
 add_executable(ProcessScanner

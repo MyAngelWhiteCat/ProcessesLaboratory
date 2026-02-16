@@ -1,5 +1,5 @@
-#include "domain.h"
-#include "logger.h"
+#include "../domain.h"
+#include "../Logger/logger.h"
 #include "process_scanner.h"
 
 #include <iostream>
