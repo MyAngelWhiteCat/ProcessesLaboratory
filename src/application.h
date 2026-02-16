@@ -35,14 +35,36 @@ namespace application {
     class Application {
     public:
         Application();
-        
-        std::vector<AnalyzeResult> DetectHiddenProcesses();
-        std::vector<AnalyzeResult> DetectCompromisedProcesses();
+
+        template <typename Callback>
+        void AsyncDetectHiddenProcesses(Callback&& callback);
+        template <typename Callback>
+        void AsyncDetectCompromisedProcesses(Callback&& callback);
 
     private:
         ThreadPool thread_pool_{ GetMaximumProcessorCount(ALL_PROCESSOR_GROUPS) };
         std::shared_ptr<proc_scan::ProcessScanner> labaratory_;
         std::vector<AnalyzeResult> FormatResult(Suspects&& suspects) const;
+
+
+        std::vector<AnalyzeResult> DetectHiddenProcesses();
+        std::vector<AnalyzeResult> DetectCompromisedProcesses();
     };
+
+    template<typename Callback>
+    inline void Application::AsyncDetectHiddenProcesses(Callback&& callback) {
+        auto detect_func = [callback = std::forward<Callback>(callback), this] {
+            callback(DetectHiddenProcesses());
+            };
+        thread_pool_.AddTask(detect_func);
+    }
+
+    template<typename Callback>
+    inline void Application::AsyncDetectCompromisedProcesses(Callback&& callback) {
+        auto detect_func = [callback = std::forward<Callback>(callback), this] {
+            callback(DetectCompromisedProcesses());
+            };
+        thread_pool_.AddTask(detect_func);
+    }
 
 }

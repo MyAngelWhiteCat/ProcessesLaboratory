@@ -3,9 +3,9 @@
 #include "application.h"
 
 #include <Windows.h>
-#include <mutex>
 #include <string>
 #include <string_view>
+#include <vector>
 
 #define WM_APP_LOG_MESSAGE (WM_APP + 1)
 
@@ -40,11 +40,8 @@ private:
 
     // Application interactions =======================================================================
 
-    void ScanForHiddenProcesses();
-    void ScanForCompromisedProcesses();
-
-    void StartFullScan();
-    void StartScanForHiddenProcesses();
-    void StartScanForCompromisedProcesses();
+    void OutputHiddenProcessesScanResult(const std::vector<application::AnalyzeResult>& hp);
+    void OutputCompromisedProcessesScanResult(const std::vector<application::AnalyzeResult>& cp);
+    void OutputFullScanResult(const std::vector<application::AnalyzeResult>& fsr);
 };
 
