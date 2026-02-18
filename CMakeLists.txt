@@ -17,6 +17,9 @@ target_link_libraries(Logger PUBLIC
 )
 
 add_library(ProcessesLabaratory
+    src/ProcessesLabaratory/processes_labaratory.h
+    src/ProcessesLabaratory/processes_labaratory.cpp
+
     src/SnapshotsProvider/snapshots_provider.h
     src/SnapshotsProvider/snapshots_provider.cpp 
 
