@@ -12,9 +12,9 @@
 
 namespace proc_scan {
 
-    namespace labaratory {
+    namespace analyze {
 
-        AnalyzeResult proc_scan::labaratory::RWXAnalyzer::StartAnalyze(domain::Scan&& scans) {
+        AnalyzeResult proc_scan::analyze::RWXAnalyzer::StartAnalyze(domain::Scan&& scans) {
             auto& snapshot = scans.at(domain::ScanMethod::NtQSI);
 
             AnalyzeResult result;

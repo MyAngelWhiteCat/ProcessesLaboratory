@@ -12,7 +12,7 @@
 
 namespace proc_scan {
 
-    namespace labaratory {
+    namespace analyze {
 
         const SIZE_T KB = 1024;
         const SIZE_T MB = KB * 1024;

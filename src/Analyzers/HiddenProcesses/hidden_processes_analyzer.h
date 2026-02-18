@@ -5,7 +5,7 @@
 
 namespace proc_scan {
 
-    namespace labaratory {
+    namespace analyze {
 
         class HiddenProcessesAnalyzer : public Analyzer {
         public:

@@ -8,7 +8,7 @@
 
 namespace proc_scan {
 
-    namespace labaratory {
+    namespace analyze {
 
         AnalyzeResult HiddenProcessesAnalyzer::StartAnalyze(domain::Scan&& scan) {
             LOG_DEBUG("Start hidden processes analyze");

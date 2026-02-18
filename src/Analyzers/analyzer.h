@@ -10,7 +10,7 @@
 
 namespace proc_scan {
 
-    namespace labaratory {
+    namespace analyze {
 
         using Clock = std::chrono::high_resolution_clock;
 

@@ -9,7 +9,7 @@
 
 namespace proc_scan {
 
-    namespace labaratory {
+    namespace analyze {
 
         AnalyzeResult Analyzer::Analyze(domain::Scan&& scans) {
             auto result = StartAnalyze(std::move(scans));

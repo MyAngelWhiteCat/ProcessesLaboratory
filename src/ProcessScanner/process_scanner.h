@@ -29,9 +29,9 @@ namespace proc_scan {
     public:
         ProcessScanner() {
             Analyzers_[domain::AnalyzerType::HiddenProcesses]
-                = std::make_unique<labaratory::HiddenProcessesAnalyzer>();
+                = std::make_unique<analyze::HiddenProcessesAnalyzer>();
             Analyzers_[domain::AnalyzerType::CompromisedProcesses]
-                = std::make_unique<labaratory::RWXAnalyzer>();
+                = std::make_unique<analyze::RWXAnalyzer>();
             LoadNtModule();
             LoadNtQuerySystemInformation();
         }
@@ -53,7 +53,7 @@ namespace proc_scan {
         size_t buffer_size_ = 10;
         std::deque<domain::Snapshot> last_full_snapshots_;
 
-        labaratory::Analyzers Analyzers_;
+        analyze::Analyzers Analyzers_;
 
         void CreateToolHelpSnapshot();
         domain::Snapshot CreateQuickToolHelpSnapshot();
