@@ -1,7 +1,7 @@
 #include "application.h"
 #include "domain.h"
 #include "Logger/logger.h"
-#include "SnapshotsProvider/snapshots_provider.cpp"
+#include "ProcessesLabaratory/processes_labaratory.h"
 
 #include <memory>
 #include <string>
@@ -11,8 +11,9 @@
 namespace application {
 
     Application::Application()
-        : labaratory_(std::make_shared<labaratory::SnapshotsProvider>())
+        : labaratory_(std::make_shared<labaratory::ProcessesLabaratory>())
     {
+        LOG_DEBUG("Application constructed");
     }
 
     std::vector<AnalyzeResult> Application::DetectHiddenProcesses() {

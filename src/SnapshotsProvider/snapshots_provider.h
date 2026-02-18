@@ -11,10 +11,9 @@
 
 #include <Windows.h>
 
-#include "../Analyzers/analyzer.h"
 #include "../domain.h"
-#include "../Analyzers/HiddenProcesses/hidden_processes_analyzer.h"
-#include "../Analyzers/RWX/rwx_analyzer.h"
+#include "../NtDll/ntdll.h"
+
 
 namespace labaratory {
 
@@ -25,16 +24,16 @@ namespace labaratory {
     using SPProcessInfo = std::shared_ptr<domain::ProcessInfo>;
 
 
-    class SnapshotsProvider : public std::enable_shared_from_this<SnapshotsProvider> {
+    class SnapshotsProvider {
     public:
-        SnapshotsProvider() {
-            Analyzers_[domain::AnalyzerType::HiddenProcesses]
-                = std::make_unique<analyze::HiddenProcessesAnalyzer>();
-            Analyzers_[domain::AnalyzerType::CompromisedProcesses]
-                = std::make_unique<analyze::RWXAnalyzer>();
-            LoadNtModule();
-            LoadNtQuerySystemInformation();
+        SnapshotsProvider(maltech::ntdll::NtDll& ntdll)
+            : ntdll_(ntdll)
+        {
         }
+
+        domain::Snapshot GetNtSnapshot();
+        domain::Snapshot GetToolHelpSnapshot();
+        domain::Snapshot GetLastFullSnapshot();
 
         void PrintLastFullSnapshot(std::ostream& out);
         void SetFullSnapshotsBufferSize(size_t size);
@@ -43,35 +42,23 @@ namespace labaratory {
         domain::SPProcessInfo GetProcessInfo(DWORD pid) const;
         void ClearBuffer();
 
-        std::vector<domain::SuspiciousProcess> DetectHiddenProcesses();
-        std::vector<domain::SuspiciousProcess> DetectCompromisedProcesses();
-
         size_t GetBufferSize() const;
         void SetBufferSize(const size_t new_size);
 
     private:
+        maltech::ntdll::NtDll& ntdll_;
         size_t buffer_size_ = 10;
         std::deque<domain::Snapshot> last_full_snapshots_;
 
-        analyze::Analyzers Analyzers_;
-
-        void CreateToolHelpSnapshot();
+        void CreateToolHelpFullSnapshot();
         domain::Snapshot CreateQuickToolHelpSnapshot();
+
         domain::Snapshot CreateNtSnapshot();
 
         void GetProcModules(domain::ProcessInfo& pinfo);
         void GetProcThreads(domain::ProcessInfo& pinfo);
 
         DWORD GetProcessPrioritet(DWORD pid);
-
-        std::vector<domain::SuspiciousProcess> FindHidenProcesses();
-        std::vector<domain::SuspiciousProcess> FindCompromisedProcesses();
-
-        void LoadNtModule();
-        HMODULE ntdll_{ NULL };
-
-        void LoadNtQuerySystemInformation();
-        domain::pNtQuerySystemInformation NtQuerySystemInformation_{ NULL };
 
     };
 

@@ -1,7 +1,7 @@
 #pragma once
 
 #include "domain.h"
-#include "SnapshotsProvider/snapshots_provider.h"
+#include "ProcessesLabaratory/processes_labaratory.h"
 #include "ThreadPool/thread_pool.h"
 
 #include <memory>
@@ -43,7 +43,7 @@ namespace application {
 
     private:
         ThreadPool thread_pool_{ GetMaximumProcessorCount(ALL_PROCESSOR_GROUPS) };
-        std::shared_ptr<labaratory::SnapshotsProvider> labaratory_;
+        std::shared_ptr<labaratory::ProcessesLabaratory> labaratory_;
         std::vector<AnalyzeResult> FormatResult(Suspects&& suspects) const;
 
 

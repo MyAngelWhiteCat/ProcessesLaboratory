@@ -1,6 +1,6 @@
 cmake_minimum_required(VERSION 3.11)
 
-project(SnapshotsProvider CXX)
+project(ProcessesLabaratory CXX)
 
 set(CMAKE_CXX_STANDARD 20)
 
@@ -14,6 +14,15 @@ add_library(Logger
 
 target_link_libraries(Logger PUBLIC 
     spdlog::spdlog
+)
+
+add_library(NtDll 
+    src/NtDll/ntdll.h
+    src/NtDll/ntdll.cpp
+)
+
+target_link_libraries(NtDll PRIVATE
+    Logger
 )
 
 add_library(ProcessesLabaratory
@@ -38,6 +47,7 @@ add_library(ProcessesLabaratory
 
 target_link_libraries(ProcessesLabaratory PUBLIC 
     Logger
+    NtDll
 )
 
 add_library(ThreadPool 
@@ -55,12 +65,12 @@ target_link_libraries(Application PUBLIC
     ThreadPool
 )
 
-add_executable(SnapshotsProvider
+add_executable(ProcLab
     src/gui.h
     src/gui.cpp
     src/main.cpp 
 )
 
-target_link_libraries(SnapshotsProvider PRIVATE
+target_link_libraries(ProcLab PRIVATE
     Application
 )

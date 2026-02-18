@@ -32,22 +32,6 @@ namespace labaratory {
         enum class ScanMethod;
         struct Snapshot;
         using Scan = std::unordered_map<ScanMethod, Snapshot>;
-        
-        // names of functions from ntdll.dll for loading
-        struct NtNames {
-            NtNames() = delete;
-            static constexpr std::wstring_view NTDLL = L"ntdll.dll";
-            static constexpr std::string_view NTQSI = "NtQuerySystemInformation";
-        };
-
-        // ptr template for NtQuerySystemInformation loaded from ntdll.dll
-        typedef NTSTATUS(*pNtQuerySystemInformation)(
-            SYSTEM_INFORMATION_CLASS SystemInformationClass,
-            PVOID SystemInformation,
-            ULONG SystemInformationLength,
-            PULONG ReturnLength
-            );
-
 
         enum class ScanMethod {
             ToolHelp = 0,

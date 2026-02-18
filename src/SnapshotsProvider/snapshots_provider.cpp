@@ -23,7 +23,7 @@ namespace labaratory {
 
     using namespace std::literals;
 
-    void SnapshotsProvider::CreateToolHelpSnapshot() {
+    void SnapshotsProvider::CreateToolHelpFullSnapshot() {
         HANDLE hSnapshot = CreateToolhelp32Snapshot(TH32CS_SNAPPROCESS, 0);
         auto now = domain::Clock::now();
 
@@ -104,6 +104,21 @@ namespace labaratory {
         return snapshot;
     }
 
+    domain::Snapshot SnapshotsProvider::GetNtSnapshot() {
+        return CreateNtSnapshot();
+    }
+
+    domain::Snapshot SnapshotsProvider::GetToolHelpSnapshot() {
+        return CreateQuickToolHelpSnapshot();
+    }
+
+    domain::Snapshot SnapshotsProvider::GetLastFullSnapshot() {
+        if (!last_full_snapshots_.empty()) {
+            return last_full_snapshots_.back();
+        }
+        return {};
+    }
+
     void SnapshotsProvider::PrintLastFullSnapshot(std::ostream& out) {
         domain::Snapshot& last_snapshot = last_full_snapshots_.back();
         for (const auto& [_, proc] : last_snapshot.pid_to_proc_info_) {
@@ -135,102 +150,6 @@ namespace labaratory {
 
     void SnapshotsProvider::ClearBuffer() {
         last_full_snapshots_.clear();
-    }
-
-    std::vector<domain::SuspiciousProcess> SnapshotsProvider::DetectHiddenProcesses() {
-        std::vector<domain::SuspiciousProcess> hidden_processes;
-        try {
-            hidden_processes = FindHidenProcesses();
-        }
-        catch (const std::exception& e) {
-            LOG_CRITICAL("Error while checking for hidden processes: "s + e.what());
-        }
-
-        return hidden_processes;
-    }
-
-    std::vector<domain::SuspiciousProcess> SnapshotsProvider::DetectCompromisedProcesses() {
-        std::vector<domain::SuspiciousProcess> compromised_processes;
-        try {
-            compromised_processes = FindCompromisedProcesses();
-        }
-        catch (const std::exception& e) {
-            LOG_CRITICAL("Compomised processes detection error: "s + e.what());
-        }
-        return compromised_processes;
-    }
-
-    std::vector<domain::SuspiciousProcess> SnapshotsProvider::FindHidenProcesses() {
-        try {
-            domain::Scan scan;
-            auto snapshot_future = std::async(std::launch::async,
-                [self = this->shared_from_this()] {
-                    LOG_DEBUG("Start async creating ToolHelp Snapshot");
-                    return self->CreateQuickToolHelpSnapshot();
-                });
-            auto ntsnapshot_future = std::async(std::launch::async,
-                [self = this->shared_from_this()] {
-                    LOG_DEBUG("Start async creating Nt Snapshot");
-                    return self->CreateNtSnapshot();
-                });
-
-            auto analyzer = Analyzers_.find(domain::AnalyzerType::HiddenProcesses);
-            if (analyzer == Analyzers_.end()) {
-                throw std::runtime_error("Hidden processes Analyzer not initialized");
-            }
-
-            scan[domain::ScanMethod::ToolHelp] = snapshot_future.get();
-            scan[domain::ScanMethod::NtQSI] = ntsnapshot_future.get();
-
-            LOG_DEBUG("Snapshots ready. Start finding hidden processes");
-            return analyzer->second->Analyze(std::move(scan)).suspicious_processes_;
-        }
-        catch (const std::exception& e) {
-            LOG_CRITICAL("Hidden processes analyze error: "s + e.what());
-        }
-
-        return {}; // Dummy for no warning
-    }
-
-    std::vector<domain::SuspiciousProcess> SnapshotsProvider::FindCompromisedProcesses() {
-        domain::Scan scan;
-        try {
-            auto snapshot_future = std::async(std::launch::async,
-                [self = this->shared_from_this()] {
-                    LOG_DEBUG("Start async creating Nt Snapshot");
-                    return self->CreateNtSnapshot();
-                });
-
-            auto analyzer = Analyzers_.find(domain::AnalyzerType::CompromisedProcesses);
-            if (analyzer == Analyzers_.end()) {
-                throw std::runtime_error("Compromised processes Analyzer not initialized");
-            }
-
-            scan[domain::ScanMethod::NtQSI] = snapshot_future.get();
-
-            LOG_DEBUG("Snapshots ready. Start finding compromised processes");
-            return analyzer->second->Analyze(std::move(scan)).suspicious_processes_;
-        }
-        catch (const std::exception& e) {
-            LOG_CRITICAL("Compromised process analyze error: "s + e.what());
-        }
-        return {}; // Dummy for no warning
-    }
-
-    void SnapshotsProvider::LoadNtModule() {
-        if (ntdll_) return;
-        ntdll_ = domain::LoadModule(domain::NtNames::NTDLL);
-        if (!ntdll_) {
-            throw std::runtime_error("Can't load: "s
-                + domain::WideCharToString(domain::NtNames::NTDLL.data()));
-        }
-        LOG_DEBUG("NtModule loaded");
-    }
-
-    void SnapshotsProvider::LoadNtQuerySystemInformation() {
-        if (NtQuerySystemInformation_) return;
-        NtQuerySystemInformation_ = domain::LoadFunctionFromModule
-            <domain::pNtQuerySystemInformation>(ntdll_, domain::NtNames::NTQSI);
     }
 
     size_t SnapshotsProvider::GetBufferSize() const {
@@ -316,13 +235,8 @@ namespace labaratory {
     }
 
     domain::Snapshot SnapshotsProvider::CreateNtSnapshot() {
-        LOG_DEBUG("In CreateNtSnapshot");
-        if (!NtQuerySystemInformation_) {
-            throw std::logic_error("Should load NtQuerySystemInformation before using NtScan");
-        }
-
         ULONG sysinfo_len = 0;
-        NTSTATUS status = NtQuerySystemInformation_(SystemProcessInformation
+        NTSTATUS status = ntdll_.NtQuerySystemInformation(SystemProcessInformation
             , NULL
             , sysinfo_len
             , &sysinfo_len
@@ -334,7 +248,7 @@ namespace labaratory {
         }
 
         std::vector<BYTE> buffer(sysinfo_len);
-        status = NtQuerySystemInformation_(SystemProcessInformation
+        status = ntdll_.NtQuerySystemInformation(SystemProcessInformation
             , buffer.data()
             , sysinfo_len
             , &sysinfo_len
