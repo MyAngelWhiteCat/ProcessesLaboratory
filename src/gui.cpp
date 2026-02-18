@@ -92,23 +92,28 @@ LRESULT GUI::HandleMessage(UINT message, WPARAM wParam, LPARAM lParam) {
     {
         if (LOWORD(wParam) == 1001) {
             LOG_DEBUG("Pressed full scan");
+            LogToGUI(L"Full scan started...");
             application_.AsyncDetectHiddenProcesses([this](const auto& result) {
                 OutputHiddenProcessesScanResult(result);
+                OutputFullScanProgress();
                 });
             application_.AsyncDetectCompromisedProcesses([this](const auto& result) {
-                OutputCompromisedProcessesScanResult(result); 
+                OutputCompromisedProcessesScanResult(result);
+                OutputFullScanProgress();
                 });
         }
         else if (LOWORD(wParam) == 1002) {
             LOG_DEBUG("Pressed scan for hidden processes");
+            LogToGUI(L"Detecting hidden processes...");
             application_.AsyncDetectHiddenProcesses([this](const auto& result) {
                 OutputHiddenProcessesScanResult(result);
                 });
         }
         else if (LOWORD(wParam) == 1003) {
             LOG_DEBUG("Pressed scan for compromised processes");
+            LogToGUI(L"Detecting compromised processes...");
             application_.AsyncDetectCompromisedProcesses([this](const auto& result) {
-                OutputCompromisedProcessesScanResult(result); 
+                OutputCompromisedProcessesScanResult(result);
                 });
         }
         else if (LOWORD(wParam) == 1004) {
@@ -183,7 +188,19 @@ void GUI::LogToGUI(const std::wstring& text) {
     PostMessageW(hWnd_, WM_APP_LOG_MESSAGE, 0, (LPARAM)msg);
 }
 
+void GUI::OutputFullScanProgress() {
+    if (++completed_scans_ == scan_count_) {
+        LogToGUI(L"Full scan complete");
+        return;
+    }
+    std::wstring progress = std::to_wstring(completed_scans_)
+        + L" / " + std::to_wstring(scan_count_);
+    LogToGUI(L"Full scan progress: " + progress);
+
+}
+
 void GUI::OutputHiddenProcessesScanResult(const std::vector<application::AnalyzeResult>& hp) {
+    LogToGUI(L"Scan for hidden processes complete");
     if (hp.empty()) {
         LOG_INFO("No hidden processes found");
         LogToGUI(L"No hidden processes found");
@@ -202,7 +219,7 @@ void GUI::OutputHiddenProcessesScanResult(const std::vector<application::Analyze
     }
 }
 
-void GUI::OutputCompromisedProcessesScanResult(const std::vector<application::AnalyzeResult>&  cp) {
+void GUI::OutputCompromisedProcessesScanResult(const std::vector<application::AnalyzeResult>& cp) {
     LogToGUI(L"Scan for compromised processes complete");
     if (cp.empty()) {
         LOG_INFO("No compromised processes found");
