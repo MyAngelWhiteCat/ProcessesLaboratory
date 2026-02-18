@@ -5,7 +5,20 @@
 ## Реализованный функционал:
 - Сбор информации о процессах двумя способами - ToolHelp и Nt
 - Поиск скрытых процессов (Базовый)
-- RWX сканнер 
+- RWX сканнер
+
+Для сборки потребуются:
+- cmake
+- conan2
+``` bash
+git clone https://github.com/MyAngelWhiteCat/ProcessesLaboratory.git
+cd ProcessesLaboratory
+mkdir build && cd build
+conan install .. --build=missing -s compiler.runtime=static -s build_type=Release --output-folder=.
+cmake .. --preset conan-default
+cmake --build .
+```
+
 
 ## Current task:
 - Разработка Application - прослойки между лабараторией и UI, предоставляющей интерфейс для интеграции любого удобного UI
