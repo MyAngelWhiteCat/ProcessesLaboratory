@@ -1,7 +1,7 @@
 #include "application.h"
 #include "domain.h"
 #include "Logger/logger.h"
-#include "ProcessScanner/process_scanner.h"
+#include "SnapshotsProvider/snapshots_provider.cpp"
 
 #include <memory>
 #include <string>
@@ -11,7 +11,7 @@
 namespace application {
 
     Application::Application()
-        : labaratory_(std::make_shared<labaratory::ProcessScanner>())
+        : labaratory_(std::make_shared<labaratory::SnapshotsProvider>())
     {
     }
 

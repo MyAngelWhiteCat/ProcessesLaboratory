@@ -25,9 +25,9 @@ namespace labaratory {
     using SPProcessInfo = std::shared_ptr<domain::ProcessInfo>;
 
 
-    class ProcessScanner : public std::enable_shared_from_this<ProcessScanner> {
+    class SnapshotsProvider : public std::enable_shared_from_this<SnapshotsProvider> {
     public:
-        ProcessScanner() {
+        SnapshotsProvider() {
             Analyzers_[domain::AnalyzerType::HiddenProcesses]
                 = std::make_unique<analyze::HiddenProcessesAnalyzer>();
             Analyzers_[domain::AnalyzerType::CompromisedProcesses]

@@ -1,6 +1,6 @@
 #include "../domain.h"
 #include "../Logger/logger.h"
-#include "process_scanner.h"
+#include "snapshots_provider.h"
 
 #include <iostream>
 #include <ranges>
@@ -23,7 +23,7 @@ namespace labaratory {
 
     using namespace std::literals;
 
-    void ProcessScanner::CreateToolHelpSnapshot() {
+    void SnapshotsProvider::CreateToolHelpSnapshot() {
         HANDLE hSnapshot = CreateToolhelp32Snapshot(TH32CS_SNAPPROCESS, 0);
         auto now = domain::Clock::now();
 
@@ -76,7 +76,7 @@ namespace labaratory {
         CloseHandle(hSnapshot);
     }
 
-    domain::Snapshot ProcessScanner::CreateQuickToolHelpSnapshot() {
+    domain::Snapshot SnapshotsProvider::CreateQuickToolHelpSnapshot() {
         HANDLE hSnapshot = CreateToolhelp32Snapshot(TH32CS_SNAPPROCESS, 0);
         if (hSnapshot == INVALID_HANDLE_VALUE) {
             throw std::runtime_error("Quick Snapshot creating error: " + std::to_string(GetLastError()));
@@ -104,18 +104,18 @@ namespace labaratory {
         return snapshot;
     }
 
-    void ProcessScanner::PrintLastFullSnapshot(std::ostream& out) {
+    void SnapshotsProvider::PrintLastFullSnapshot(std::ostream& out) {
         domain::Snapshot& last_snapshot = last_full_snapshots_.back();
         for (const auto& [_, proc] : last_snapshot.pid_to_proc_info_) {
             proc->Print(out);
         }
     }
 
-    void ProcessScanner::SetFullSnapshotsBufferSize(size_t size) {
+    void SnapshotsProvider::SetFullSnapshotsBufferSize(size_t size) {
         buffer_size_ = size;
     }
 
-    SPProcessInfo ProcessScanner::GetProcessInfo(std::string_view process_name) const {
+    SPProcessInfo SnapshotsProvider::GetProcessInfo(std::string_view process_name) const {
         for (const auto& snapshot : last_full_snapshots_ | std::views::reverse) {
             if (auto proc = snapshot.GetProcessInfo(process_name)) {
                 return proc;
@@ -124,7 +124,7 @@ namespace labaratory {
         return nullptr;
     }
 
-    SPProcessInfo ProcessScanner::GetProcessInfo(DWORD pid) const {
+    SPProcessInfo SnapshotsProvider::GetProcessInfo(DWORD pid) const {
         for (const auto& snapshot : last_full_snapshots_ | std::views::reverse) {
             if (auto proc = snapshot.GetProcessInfo(pid)) {
                 return proc;
@@ -133,11 +133,11 @@ namespace labaratory {
         return nullptr;
     }
 
-    void ProcessScanner::ClearBuffer() {
+    void SnapshotsProvider::ClearBuffer() {
         last_full_snapshots_.clear();
     }
 
-    std::vector<domain::SuspiciousProcess> ProcessScanner::DetectHiddenProcesses() {
+    std::vector<domain::SuspiciousProcess> SnapshotsProvider::DetectHiddenProcesses() {
         std::vector<domain::SuspiciousProcess> hidden_processes;
         try {
             hidden_processes = FindHidenProcesses();
@@ -149,7 +149,7 @@ namespace labaratory {
         return hidden_processes;
     }
 
-    std::vector<domain::SuspiciousProcess> ProcessScanner::DetectCompromisedProcesses() {
+    std::vector<domain::SuspiciousProcess> SnapshotsProvider::DetectCompromisedProcesses() {
         std::vector<domain::SuspiciousProcess> compromised_processes;
         try {
             compromised_processes = FindCompromisedProcesses();
@@ -160,7 +160,7 @@ namespace labaratory {
         return compromised_processes;
     }
 
-    std::vector<domain::SuspiciousProcess> ProcessScanner::FindHidenProcesses() {
+    std::vector<domain::SuspiciousProcess> SnapshotsProvider::FindHidenProcesses() {
         try {
             domain::Scan scan;
             auto snapshot_future = std::async(std::launch::async,
@@ -192,7 +192,7 @@ namespace labaratory {
         return {}; // Dummy for no warning
     }
 
-    std::vector<domain::SuspiciousProcess> ProcessScanner::FindCompromisedProcesses() {
+    std::vector<domain::SuspiciousProcess> SnapshotsProvider::FindCompromisedProcesses() {
         domain::Scan scan;
         try {
             auto snapshot_future = std::async(std::launch::async,
@@ -217,7 +217,7 @@ namespace labaratory {
         return {}; // Dummy for no warning
     }
 
-    void ProcessScanner::LoadNtModule() {
+    void SnapshotsProvider::LoadNtModule() {
         if (ntdll_) return;
         ntdll_ = domain::LoadModule(domain::NtNames::NTDLL);
         if (!ntdll_) {
@@ -227,21 +227,21 @@ namespace labaratory {
         LOG_DEBUG("NtModule loaded");
     }
 
-    void ProcessScanner::LoadNtQuerySystemInformation() {
+    void SnapshotsProvider::LoadNtQuerySystemInformation() {
         if (NtQuerySystemInformation_) return;
         NtQuerySystemInformation_ = domain::LoadFunctionFromModule
             <domain::pNtQuerySystemInformation>(ntdll_, domain::NtNames::NTQSI);
     }
 
-    size_t ProcessScanner::GetBufferSize() const {
+    size_t SnapshotsProvider::GetBufferSize() const {
         return buffer_size_;
     }
 
-    void ProcessScanner::SetBufferSize(const size_t new_size) {
+    void SnapshotsProvider::SetBufferSize(const size_t new_size) {
         buffer_size_ = new_size;
     }
 
-    void ProcessScanner::GetProcModules(domain::ProcessInfo& pinfo) {
+    void SnapshotsProvider::GetProcModules(domain::ProcessInfo& pinfo) {
         MODULEENTRY32W module_entry{ 0 };
 
         HANDLE hSnapshot = CreateToolhelp32Snapshot(TH32CS_SNAPMODULE, pinfo.GetPid());
@@ -269,7 +269,7 @@ namespace labaratory {
         CloseHandle(hSnapshot);
     }
 
-    void ProcessScanner::GetProcThreads(domain::ProcessInfo& pinfo) {
+    void SnapshotsProvider::GetProcThreads(domain::ProcessInfo& pinfo) {
         THREADENTRY32 thread_entry{ 0 };
 
         HANDLE hSnapshot = CreateToolhelp32Snapshot(TH32CS_SNAPTHREAD, 0);
@@ -298,7 +298,7 @@ namespace labaratory {
         CloseHandle(hSnapshot);
     }
 
-    DWORD ProcessScanner::GetProcessPrioritet(DWORD pid) {
+    DWORD SnapshotsProvider::GetProcessPrioritet(DWORD pid) {
         DWORD process_prioritet = 0;
         HANDLE hProcess = OpenProcess(PROCESS_QUERY_INFORMATION, false, pid);
         if (hProcess == NULL) {
@@ -315,7 +315,7 @@ namespace labaratory {
         return process_prioritet;
     }
 
-    domain::Snapshot ProcessScanner::CreateNtSnapshot() {
+    domain::Snapshot SnapshotsProvider::CreateNtSnapshot() {
         LOG_DEBUG("In CreateNtSnapshot");
         if (!NtQuerySystemInformation_) {
             throw std::logic_error("Should load NtQuerySystemInformation before using NtScan");
