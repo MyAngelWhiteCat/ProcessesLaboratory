@@ -1,6 +1,6 @@
 cmake_minimum_required(VERSION 3.11)
 
-project(ProcessScanner CXX)
+project(SnapshotsProvider CXX)
 
 set(CMAKE_CXX_STANDARD 20)
 
@@ -16,9 +16,9 @@ target_link_libraries(Logger PUBLIC
     spdlog::spdlog
 )
 
-add_library(ProcScan
-    src/ProcessScanner/process_scanner.h 
-    src/ProcessScanner/process_scanner.cpp 
+add_library(ProcessesLabaratory
+    src/SnapshotsProvider/snapshots_provider.h
+    src/SnapshotsProvider/snapshots_provider.cpp 
 
     src/Analyzers/analyzer.h
     src/Analyzers/analyzer.cpp
@@ -33,7 +33,7 @@ add_library(ProcScan
     src/domain.cpp
 )
 
-target_link_libraries(ProcScan PUBLIC 
+target_link_libraries(ProcessesLabaratory PUBLIC 
     Logger
 )
 
@@ -48,16 +48,16 @@ add_library(Application
 )
 
 target_link_libraries(Application PUBLIC 
-    ProcScan 
+    ProcessesLabaratory 
     ThreadPool
 )
 
-add_executable(ProcessScanner
+add_executable(SnapshotsProvider
     src/gui.h
     src/gui.cpp
     src/main.cpp 
 )
 
-target_link_libraries(ProcessScanner PRIVATE
+target_link_libraries(SnapshotsProvider PRIVATE
     Application
 )
