@@ -7,7 +7,7 @@
 #include "../domain.h"
 
 
-namespace proc_scan {
+namespace labaratory {
 
     namespace analyze {
 

@@ -6,7 +6,7 @@
 #include <stdexcept>
 
 
-namespace proc_scan {
+namespace labaratory {
 
     namespace analyze {
 

@@ -16,7 +16,7 @@
 #include <stdexcept>
 
 
-namespace proc_scan {
+namespace labaratory {
 
     using namespace std::literals;
 

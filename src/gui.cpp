@@ -191,9 +191,9 @@ void GUI::OutputHiddenProcessesScanResult(const std::vector<application::Analyze
     else {
         for (const auto& hidden_proc : hp) {
             std::wstringstream strm{};
-            strm << "[" << proc_scan::domain::StringToWideChar(hidden_proc.pid_)->c_str() << "]["
-                << proc_scan::domain::StringToWideChar(hidden_proc.process_name_)->c_str()
-                << "] " << proc_scan::domain::StringToWideChar(hidden_proc.comment_)->c_str()
+            strm << "[" << labaratory::domain::StringToWideChar(hidden_proc.pid_)->c_str() << "]["
+                << labaratory::domain::StringToWideChar(hidden_proc.process_name_)->c_str()
+                << "] " << labaratory::domain::StringToWideChar(hidden_proc.comment_)->c_str()
                 << "\n";
             auto* wstr = new std::wstring(strm.str());
             SetHorizontalScrollSize(wstr->c_str());
@@ -211,9 +211,9 @@ void GUI::OutputCompromisedProcessesScanResult(const std::vector<application::An
     else {
         for (const auto& compromised_proc : cp) {
             std::wstringstream strm{};
-            strm << "[" << proc_scan::domain::StringToWideChar(compromised_proc.pid_)->c_str() << "]["
-                << proc_scan::domain::StringToWideChar(compromised_proc.process_name_)->c_str()
-                << "] " << proc_scan::domain::StringToWideChar(compromised_proc.comment_)->c_str()
+            strm << "[" << labaratory::domain::StringToWideChar(compromised_proc.pid_)->c_str() << "]["
+                << labaratory::domain::StringToWideChar(compromised_proc.process_name_)->c_str()
+                << "] " << labaratory::domain::StringToWideChar(compromised_proc.comment_)->c_str()
                 << "\n";
             auto* wstr = new std::wstring(strm.str());
             SetHorizontalScrollSize(wstr->c_str());

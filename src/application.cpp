@@ -10,9 +10,8 @@
 
 namespace application {
 
-
     Application::Application()
-        : labaratory_(std::make_shared<proc_scan::ProcessScanner>())
+        : labaratory_(std::make_shared<labaratory::ProcessScanner>())
     {
     }
 

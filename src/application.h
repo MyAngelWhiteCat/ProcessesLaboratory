@@ -14,7 +14,7 @@
 
 namespace application {
 
-    using Suspects = std::vector<proc_scan::domain::SuspiciousProcess>;
+    using Suspects = std::vector<labaratory::domain::SuspiciousProcess>;
 
     struct AnalyzeResult {
         AnalyzeResult(
@@ -43,7 +43,7 @@ namespace application {
 
     private:
         ThreadPool thread_pool_{ GetMaximumProcessorCount(ALL_PROCESSOR_GROUPS) };
-        std::shared_ptr<proc_scan::ProcessScanner> labaratory_;
+        std::shared_ptr<labaratory::ProcessScanner> labaratory_;
         std::vector<AnalyzeResult> FormatResult(Suspects&& suspects) const;
 
 

@@ -16,7 +16,7 @@
 #include "../Analyzers/HiddenProcesses/hidden_processes_analyzer.h"
 #include "../Analyzers/RWX/rwx_analyzer.h"
 
-namespace proc_scan {
+namespace labaratory {
 
     using namespace std::literals;
 
@@ -75,4 +75,4 @@ namespace proc_scan {
 
     };
 
-} // namespace proc_scan
+} // namespace labaratory

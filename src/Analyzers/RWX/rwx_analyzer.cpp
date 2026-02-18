@@ -10,11 +10,11 @@
 #include <string>
 #include <vector>
 
-namespace proc_scan {
+namespace labaratory {
 
     namespace analyze {
 
-        AnalyzeResult proc_scan::analyze::RWXAnalyzer::StartAnalyze(domain::Scan&& scans) {
+        AnalyzeResult labaratory::analyze::RWXAnalyzer::StartAnalyze(domain::Scan&& scans) {
             auto& snapshot = scans.at(domain::ScanMethod::NtQSI);
 
             AnalyzeResult result;

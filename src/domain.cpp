@@ -14,7 +14,7 @@
 #include <vector>
 #include <chrono>
 
-namespace proc_scan {
+namespace labaratory {
 
     namespace domain {
 
