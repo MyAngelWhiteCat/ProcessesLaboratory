@@ -20,6 +20,7 @@ namespace maltech {
             static constexpr std::string_view ADJUST_PRIVILEGE = "RtlAdjustPrivilege"sv;
             static constexpr std::string_view NTQSI = "NtQuerySystemInformation"sv;
             static constexpr std::string_view OPEN_PROCESS = "OpenProcess"sv;
+            static constexpr std::string_view OPEN_PROCESS_TOKEN = "OpenProcessToken"sv;
         };
 
         HMODULE LoadModule(std::string_view module_name);
@@ -48,6 +49,12 @@ namespace maltech {
             ACCESS_MASK DesiredAccess,
             POBJECT_ATTRIBUTES ObjectAttributes,
             CLIENT_ID* Client
+            );
+
+        typedef NTSTATUS(*pNtOpenProcessToken) (
+            HANDLE ProcessHandle,
+            ACCESS_MASK DesiredAccess,
+            PHANDLE TokenHandle
             );
 
     }

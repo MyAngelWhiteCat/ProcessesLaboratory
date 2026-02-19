@@ -29,9 +29,15 @@ namespace maltech {
 
             NTSTATUS NtOpenProcess(
                 PHANDLE hProcess,
-                ACCESS_MASK acess_mask,
+                ACCESS_MASK desired_access,
                 POBJECT_ATTRIBUTES object_attributes,
                 CLIENT_ID* client_id
+            );
+
+            NTSTATUS NtOpenProcessToken(
+                HANDLE hProcess,
+                ACCESS_MASK desired_access,
+                PHANDLE hToken
             );
 
         private:
@@ -39,10 +45,12 @@ namespace maltech {
             pRtlAdjustPrivilege RtlAdjustPrivilege_{ 0 };
             pNtQuerySystemInformation NtQuerySystemInformation_{ 0 };
             pNtOpenProcess NtOpenProcess_{ 0 };
+            pNtOpenProcessToken NtOpenProcessToken_{ 0 };
 
             void LoadRtlAdjustPrivelege();
             void LoadNtQuerySystemInformation();
             void LoadNtOpenProcess();
+            void LoadNtOpenProcessToken();
         };
 
     }

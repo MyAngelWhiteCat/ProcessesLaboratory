@@ -28,9 +28,15 @@ namespace maltech {
         }
 
         NTSTATUS NtDll::NtOpenProcess(PHANDLE hProcess,
-            ACCESS_MASK access_mask, POBJECT_ATTRIBUTES object_attributes, CLIENT_ID* client_id) {
+            ACCESS_MASK desired_access, POBJECT_ATTRIBUTES object_attributes, CLIENT_ID* client_id) {
             LoadNtOpenProcess();
-            return NtOpenProcess(hProcess, access_mask, object_attributes, client_id);
+            return NtOpenProcess(hProcess, desired_access, object_attributes, client_id);
+        }
+
+        NTSTATUS NtDll::NtOpenProcessToken(HANDLE hProcess,
+            ACCESS_MASK desired_access, PHANDLE hToken) {
+            LoadNtOpenProcessToken();
+            return NtOpenProcessToken_(hProcess, desired_access, hToken);
         }
 
         void NtDll::LoadRtlAdjustPrivelege() {
@@ -52,6 +58,14 @@ namespace maltech {
                 return;
             }
             NtOpenProcess_ = LoadFunctionFromModule<pNtOpenProcess>(ntdll_, Names::OPEN_PROCESS);
+        }
+
+        void NtDll::LoadNtOpenProcessToken() {
+            if (NtOpenProcessToken_) {
+                return;
+            }
+            NtOpenProcessToken_ = LoadFunctionFromModule<pNtOpenProcessToken>
+                (ntdll_, Names::OPEN_PROCESS_TOKEN);
         }
 
     }
