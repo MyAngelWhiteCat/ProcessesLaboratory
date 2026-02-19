@@ -89,7 +89,7 @@ namespace laboratory {
                 throw std::runtime_error("Compromised processes Analyzer not initialized");
             }
             LOG_DEBUG("Start finding compromised processes");
-            return analyzer->second->Analyze(std::move(scan)).suspicious_processes_;
+            return analyzer->second->Analyze(scan).suspicious_processes_;
         }
         catch (const std::exception& e) {
             LOG_CRITICAL("Compromised process analyze error: "s + e.what());
