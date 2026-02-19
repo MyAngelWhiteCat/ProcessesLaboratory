@@ -41,7 +41,8 @@ namespace laboratory {
     std::vector<domain::SuspiciousProcess> ProcessesLaboratory::DetectHiddenProcesses() {
         std::vector<domain::SuspiciousProcess> hidden_processes;
         try {
-            hidden_processes = FindHidenProcesses();
+            auto scans = GetNtAndThSnapshots();
+            hidden_processes = FindHidenProcesses(scans);
         }
         catch (const std::exception& e) {
             LOG_CRITICAL("Error while checking for hidden processes: "s + e.what());
@@ -53,7 +54,8 @@ namespace laboratory {
     std::vector<domain::SuspiciousProcess> ProcessesLaboratory::DetectCompromisedProcesses() {
         std::vector<domain::SuspiciousProcess> compromised_processes;
         try {
-            compromised_processes = FindCompromisedProcesses();
+            auto scans = GetNtAndThSnapshots();
+            compromised_processes = FindCompromisedProcesses(scans);
         }
         catch (const std::exception& e) {
             LOG_CRITICAL("Compomised processes detection error: "s + e.what());
@@ -61,28 +63,16 @@ namespace laboratory {
         return compromised_processes;
     }
 
-    std::vector<domain::SuspiciousProcess> ProcessesLaboratory::FindHidenProcesses() {
+    std::vector<domain::SuspiciousProcess> 
+        ProcessesLaboratory::FindHidenProcesses(const domain::Scan& scan) {
         try {
-            domain::Scan scan;
-            auto snapshot_future = std::async(std::launch::async,
-                [self = this->shared_from_this()] {
-                    return self->snapshots_provider_.GetToolHelpSnapshot();
-                });
-            auto ntsnapshot_future = std::async(std::launch::async,
-                [self = this->shared_from_this()] {
-                    return self->snapshots_provider_.GetNtSnapshot();
-                });
-
             auto analyzer = Analyzers_.find(domain::AnalyzerType::HiddenProcesses);
             if (analyzer == Analyzers_.end()) {
                 throw std::runtime_error("Hidden processes Analyzer not initialized");
             }
 
-            scan[domain::ScanMethod::ToolHelp] = snapshot_future.get();
-            scan[domain::ScanMethod::NtQSI] = ntsnapshot_future.get();
-
-            LOG_DEBUG("Snapshots ready. Start finding hidden processes");
-            return analyzer->second->Analyze(std::move(scan)).suspicious_processes_;
+            LOG_DEBUG("Start finding hidden processes");
+            return analyzer->second->Analyze(scan).suspicious_processes_;
         }
         catch (const std::exception& e) {
             LOG_CRITICAL("Hidden processes analyze error: "s + e.what());
@@ -91,22 +81,14 @@ namespace laboratory {
         return {}; // Dummy for no warning
     }
 
-    std::vector<domain::SuspiciousProcess> ProcessesLaboratory::FindCompromisedProcesses() {
-        domain::Scan scan;
+    std::vector<domain::SuspiciousProcess> 
+        ProcessesLaboratory::FindCompromisedProcesses(const domain::Scan& scan) {
         try {
-            auto snapshot_future = std::async(std::launch::async,
-                [self = this->shared_from_this()] {
-                    return self->snapshots_provider_.GetNtSnapshot();
-                });
-
             auto analyzer = Analyzers_.find(domain::AnalyzerType::CompromisedProcesses);
             if (analyzer == Analyzers_.end()) {
                 throw std::runtime_error("Compromised processes Analyzer not initialized");
             }
-
-            scan[domain::ScanMethod::NtQSI] = snapshot_future.get();
-
-            LOG_DEBUG("Snapshots ready. Start finding compromised processes");
+            LOG_DEBUG("Start finding compromised processes");
             return analyzer->second->Analyze(std::move(scan)).suspicious_processes_;
         }
         catch (const std::exception& e) {

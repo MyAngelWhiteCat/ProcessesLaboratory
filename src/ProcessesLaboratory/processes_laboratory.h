@@ -37,8 +37,8 @@ namespace laboratory {
         analyze::Analyzers Analyzers_;
         SnapshotsProvider snapshots_provider_{ ntdll_ };
 
-        std::vector<domain::SuspiciousProcess> FindHidenProcesses();
-        std::vector<domain::SuspiciousProcess> FindCompromisedProcesses();
+        std::vector<domain::SuspiciousProcess> FindHidenProcesses(const domain::Scan& scan);
+        std::vector<domain::SuspiciousProcess> FindCompromisedProcesses(const domain::Scan& scan);
 
         domain::Scan GetNtAndThSnapshots();
     };
