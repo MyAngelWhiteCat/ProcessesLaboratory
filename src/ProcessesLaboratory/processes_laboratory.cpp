@@ -90,4 +90,19 @@ namespace laboratory {
         return {}; // Dummy for no warning
     }
 
+    domain::Scan ProcessesLaboratory::GetNtAndThSnapshots() {
+        domain::Scan scan;
+        auto snapshot_future = std::async(std::launch::async,
+            [self = this->shared_from_this()] {
+                return self->snapshots_provider_.GetToolHelpSnapshot();
+            });
+        auto ntsnapshot_future = std::async(std::launch::async,
+            [self = this->shared_from_this()] {
+                return self->snapshots_provider_.GetNtSnapshot();
+            });
+        scan[domain::ScanMethod::ToolHelp] = snapshot_future.get();
+        scan[domain::ScanMethod::NtQSI] = ntsnapshot_future.get();
+        return scan;
+    }
+
 }

@@ -39,6 +39,7 @@ namespace laboratory {
         std::vector<domain::SuspiciousProcess> FindHidenProcesses();
         std::vector<domain::SuspiciousProcess> FindCompromisedProcesses();
 
+        domain::Scan GetNtAndThSnapshots();
     };
 
 }
