@@ -14,13 +14,13 @@ namespace maltech {
 
         struct Names {
             Names() = delete;
-            static constexpr std::wstring_view NTDLL = L"ntdll.dll"sv;
+            static constexpr std::string_view NTDLL = "ntdll.dll"sv;
             static constexpr std::string_view ADJUST_PRIVILEGE = "RtlAdjustPrivilege"sv;
             static constexpr std::string_view NTQSI = "NtQuerySystemInformation"sv;
             static constexpr std::string_view OPEN_PROCESS = "OpenProcess"sv;
         };
 
-        HMODULE LoadModule(std::wstring_view module_name);
+        HMODULE LoadModule(std::string_view module_name);
 
         template<typename Fn>
         Fn LoadFunctionFromModule(HMODULE hModule, std::string_view function_name) {
@@ -28,7 +28,6 @@ namespace maltech {
             if (!func) {
                 throw std::runtime_error("Incorrect load func: " + std::string(function_name));
             }
-            LOG_DEBUG(std::string(function_name).append(" loaded"));
             return func;
         }
 
