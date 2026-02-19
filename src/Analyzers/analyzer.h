@@ -25,12 +25,12 @@ namespace laboratory {
 
         class Analyzer {
         public:
-            virtual AnalyzeResult Analyze(domain::Scan&& scans) final;
+            virtual AnalyzeResult Analyze(const domain::Scan& scans) final;
             virtual std::optional<Clock::time_point> GeLastAnalyzeTimestamp();
             virtual ~Analyzer() = default;
 
         protected:
-            virtual AnalyzeResult StartAnalyze(domain::Scan&& scans) = 0;
+            virtual AnalyzeResult StartAnalyze(const domain::Scan& scans) = 0;
 
         private:
             std::optional<Clock::time_point> last_analyze_timestamp_;

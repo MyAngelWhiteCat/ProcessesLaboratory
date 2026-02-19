@@ -1,6 +1,7 @@
 #pragma once
 
 #include "../analyzer.h"
+#include "../../domain.h"
 
 namespace laboratory {
 
@@ -11,7 +12,7 @@ namespace laboratory {
         public:
 
         private:
-            
+            AnalyzeResult StartAnalyze(const domain::Scan& scan) override;
 
         };
 

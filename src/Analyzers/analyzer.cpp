@@ -11,8 +11,8 @@ namespace laboratory {
 
     namespace analyze {
 
-        AnalyzeResult Analyzer::Analyze(domain::Scan&& scans) {
-            auto result = StartAnalyze(std::move(scans));
+        AnalyzeResult Analyzer::Analyze(const domain::Scan& scans) {
+            auto result = StartAnalyze(scans);
             last_analyze_timestamp_ = Clock::now();
             return result;
         }

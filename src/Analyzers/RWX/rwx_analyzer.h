@@ -20,7 +20,7 @@ namespace laboratory {
         class RWXAnalyzer : public Analyzer {
 
         private:
-            AnalyzeResult StartAnalyze(domain::Scan&& scans) override;
+            AnalyzeResult StartAnalyze(const domain::Scan& scans) override;
 
             std::vector<domain::SuspiciousMemory> AnalyzeProcessMemory(HANDLE hProcess);
             std::vector<HMODULE> GetProcModules(HANDLE hProcess);

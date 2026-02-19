@@ -12,7 +12,7 @@ namespace laboratory {
 
 
         private:
-            AnalyzeResult StartAnalyze(domain::Scan&& scan) override;
+            AnalyzeResult StartAnalyze(const domain::Scan& scan) override;
         };
 
     }

@@ -10,7 +10,7 @@ namespace laboratory {
 
     namespace analyze {
 
-        AnalyzeResult HiddenProcessesAnalyzer::StartAnalyze(domain::Scan&& scan) {
+        AnalyzeResult HiddenProcessesAnalyzer::StartAnalyze(const domain::Scan& scan) {
             LOG_DEBUG("Start hidden processes analyze");
             if (!(scan.contains(domain::ScanMethod::NtQSI)
                 && scan.contains(domain::ScanMethod::ToolHelp))) {

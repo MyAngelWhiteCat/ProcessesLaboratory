@@ -14,7 +14,7 @@ namespace laboratory {
 
     namespace analyze {
 
-        AnalyzeResult laboratory::analyze::RWXAnalyzer::StartAnalyze(domain::Scan&& scans) {
+        AnalyzeResult laboratory::analyze::RWXAnalyzer::StartAnalyze(const domain::Scan& scans) {
             auto& snapshot = scans.at(domain::ScanMethod::NtQSI);
 
             AnalyzeResult result;
