@@ -13,6 +13,31 @@ namespace laboratory {
 
     using namespace std::literals;
 
+    std::vector<domain::SuspiciousProcess> ProcessesLaboratory::StartFullScan() {
+        std::vector<domain::SuspiciousProcess> result;
+        try {
+            domain::Scan scan = GetNtAndThSnapshots();
+            auto hidden_future = std::async(std::launch::async
+                , [&scan, self = shared_from_this()] {
+                return self->FindHidenProcesses(scan);
+                });
+            auto compromised_future = std::async(std::launch::async
+                , [&scan, self = shared_from_this()] {
+                return self->FindCompromisedProcesses(scan);
+                });
+            result = std::move(compromised_future.get());
+            auto hidden = std::move(hidden_future.get());
+            result.reserve(result.size() + hidden.size());
+            for (auto& elem : hidden) {
+                result.push_back(std::move(elem));
+            }
+        }
+        catch (const std::exception& e) {
+            LOG_CRITICAL("Full scan error: "s + e.what());
+        }
+        return result;
+    }
+
     std::vector<domain::SuspiciousProcess> ProcessesLaboratory::DetectHiddenProcesses() {
         std::vector<domain::SuspiciousProcess> hidden_processes;
         try {

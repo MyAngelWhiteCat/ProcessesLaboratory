@@ -28,6 +28,7 @@ namespace laboratory {
                 = std::make_unique<analyze::RWXAnalyzer>();
         }
 
+        std::vector<domain::SuspiciousProcess> StartFullScan();
         std::vector<domain::SuspiciousProcess> DetectHiddenProcesses();
         std::vector<domain::SuspiciousProcess> DetectCompromisedProcesses();
 
