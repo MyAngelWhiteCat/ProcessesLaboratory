@@ -4,6 +4,8 @@
 #include <winternl.h>
 
 #include <string_view>
+#include <stdexcept>
+#include <string>
 
 
 namespace maltech {
