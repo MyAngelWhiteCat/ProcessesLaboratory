@@ -17,6 +17,8 @@ target_link_libraries(Logger PUBLIC
 )
 
 add_library(NtDll 
+    src/NtDll/ntdll_domain.h
+    src/NtDll/ntdll_domain.cpp
     src/NtDll/ntdll.h
     src/NtDll/ntdll.cpp
 )

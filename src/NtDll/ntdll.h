@@ -3,6 +3,7 @@
 #include "ntdll_domain.h"
 
 #include <Windows.h>
+#include <winternl.h>
 
 
 namespace maltech {
@@ -25,6 +26,13 @@ namespace maltech {
                 ULONG SystemInformationLength,
                 PULONG ReturnLength
                 );
+
+            NTSTATUS NtOpenProcess(
+                PHANDLE hProcess,
+                ACCESS_MASK acess_mask,
+                POBJECT_ATTRIBUTES object_attributes,
+                CLIENT_ID* client_id
+            );
 
         private:
             HMODULE ntdll_{ 0 };
