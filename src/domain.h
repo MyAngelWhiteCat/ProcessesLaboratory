@@ -169,7 +169,7 @@ namespace laboratory {
             void SetTimestamp();
             Clock::time_point GetTimestamp() const;
 
-            HANDLE Open(DWORD access);
+            HANDLE Open(DWORD accessz);
             BOOL Close() const;
 
         private:
