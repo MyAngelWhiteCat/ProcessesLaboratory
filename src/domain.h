@@ -88,8 +88,8 @@ namespace laboratory {
         struct SuspiciousProcess {
             SPProcessInfo proc_info_;
             std::string comment_;
-            std::vector<SuspiciousMemory> suspicious_memory_;
             Severity severity_;
+            std::vector<SuspiciousMemory> suspicious_memory_;
         };
 
         struct ThreadInfo {
