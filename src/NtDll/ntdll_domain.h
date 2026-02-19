@@ -16,6 +16,7 @@ namespace maltech {
             static constexpr std::wstring_view NTDLL = L"ntdll.dll"sv;
             static constexpr std::string_view ADJUST_PRIVILEGE = "RtlAdjustPrivilege"sv;
             static constexpr std::string_view NTQSI = "NtQuerySystemInformation"sv;
+            static constexpr std::string_view OPEN_PROCESS = "OpenProcess"sv;
         };
 
         typedef NTSTATUS(*pNtQuerySystemInformation)(
@@ -25,8 +26,15 @@ namespace maltech {
             PULONG ReturnLength
             );
 
-        typedef NTSTATUS(NTAPI* pRtlAdjustPrivilege)
+        typedef NTSTATUS(*pRtlAdjustPrivilege)
             (ULONG, BOOLEAN, BOOLEAN, PBOOLEAN);
+
+        typedef NTSTATUS(*pNtOpenProcess)(
+            PHANDLE hProcess,
+            ACCESS_MASK DesiredAccess,
+            POBJECT_ATTRIBUTES ObjectAttributes,
+            CLIENT_ID* Client
+            );
 
     }
 
