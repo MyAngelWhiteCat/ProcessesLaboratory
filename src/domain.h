@@ -40,7 +40,8 @@ namespace labaratory {
 
         enum class AnalyzerType {
             HiddenProcesses = 0,
-            CompromisedProcesses = 1
+            CompromisedProcesses = 1,
+            EscalatedPrivileges = 2
         };
 
         // WIP
