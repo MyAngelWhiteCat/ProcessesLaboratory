@@ -15,7 +15,7 @@
 #include "../NtDll/ntdll.h"
 
 
-namespace labaratory {
+namespace laboratory {
 
     using namespace std::literals;
 
@@ -62,4 +62,4 @@ namespace labaratory {
 
     };
 
-} // namespace labaratory
+} // namespace laboratory

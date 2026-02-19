@@ -10,7 +10,7 @@
 #include <vector>
 #include <memory>
 
-namespace labaratory {
+namespace laboratory {
 
     using namespace std::literals;
 
@@ -19,9 +19,9 @@ namespace labaratory {
     using SPProcessInfo = std::shared_ptr<domain::ProcessInfo>;
 
 
-    class ProcessesLabaratory : public std::enable_shared_from_this<ProcessesLabaratory> {
+    class ProcessesLaboratory : public std::enable_shared_from_this<ProcessesLaboratory> {
     public:
-        ProcessesLabaratory() {
+        ProcessesLaboratory() {
             Analyzers_[domain::AnalyzerType::HiddenProcesses]
                 = std::make_unique<analyze::HiddenProcessesAnalyzer>();
             Analyzers_[domain::AnalyzerType::CompromisedProcesses]

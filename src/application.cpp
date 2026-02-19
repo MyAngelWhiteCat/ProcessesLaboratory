@@ -1,7 +1,7 @@
 #include "application.h"
 #include "domain.h"
 #include "Logger/logger.h"
-#include "ProcessesLabaratory/processes_labaratory.h"
+#include "ProcessesLaboratory/processes_laboratory.h"
 
 #include <memory>
 #include <string>
@@ -11,17 +11,17 @@
 namespace application {
 
     Application::Application()
-        : labaratory_(std::make_shared<labaratory::ProcessesLabaratory>())
+        : laboratory_(std::make_shared<laboratory::ProcessesLaboratory>())
     {
         LOG_DEBUG("Application constructed");
     }
 
     std::vector<AnalyzeResult> Application::DetectHiddenProcesses() {
-        return FormatResult(std::move(labaratory_->DetectHiddenProcesses()));
+        return FormatResult(std::move(laboratory_->DetectHiddenProcesses()));
     }
 
     std::vector<AnalyzeResult> Application::DetectCompromisedProcesses() {
-        return FormatResult(std::move(labaratory_->DetectCompromisedProcesses()));
+        return FormatResult(std::move(laboratory_->DetectCompromisedProcesses()));
     }
 
     std::vector<AnalyzeResult> Application::FormatResult(Suspects&& suspects) const {

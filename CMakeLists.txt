@@ -1,6 +1,6 @@
 cmake_minimum_required(VERSION 3.11)
 
-project(ProcessesLabaratory CXX)
+project(ProcessesLaboratory CXX)
 
 set(CMAKE_CXX_STANDARD 20)
 
@@ -25,9 +25,9 @@ target_link_libraries(NtDll PRIVATE
     Logger
 )
 
-add_library(ProcessesLabaratory
-    src/ProcessesLabaratory/processes_labaratory.h
-    src/ProcessesLabaratory/processes_labaratory.cpp
+add_library(ProcessesLaboratory
+    src/ProcessesLaboratory/processes_laboratory.h
+    src/ProcessesLaboratory/processes_laboratory.cpp
 
     src/SnapshotsProvider/snapshots_provider.h
     src/SnapshotsProvider/snapshots_provider.cpp 
@@ -48,7 +48,7 @@ add_library(ProcessesLabaratory
     src/domain.cpp
 )
 
-target_link_libraries(ProcessesLabaratory PUBLIC 
+target_link_libraries(ProcessesLaboratory PUBLIC 
     Logger
     NtDll
 )
@@ -64,7 +64,7 @@ add_library(Application
 )
 
 target_link_libraries(Application PUBLIC 
-    ProcessesLabaratory 
+    ProcessesLaboratory 
     ThreadPool
 )
 

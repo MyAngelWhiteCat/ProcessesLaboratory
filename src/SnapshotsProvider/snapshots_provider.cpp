@@ -19,7 +19,7 @@
 #include <vector>
 
 
-namespace labaratory {
+namespace laboratory {
 
     using namespace std::literals;
 

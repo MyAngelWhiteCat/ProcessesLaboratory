@@ -14,7 +14,7 @@
 #include <vector>
 #include <chrono>
 
-namespace labaratory {
+namespace laboratory {
 
     namespace domain {
 

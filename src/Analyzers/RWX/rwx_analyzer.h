@@ -10,7 +10,7 @@
 #include <string_view>
 #include <utility>
 
-namespace labaratory {
+namespace laboratory {
 
     namespace analyze {
 

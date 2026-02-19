@@ -10,11 +10,11 @@
 #include <string>
 #include <vector>
 
-namespace labaratory {
+namespace laboratory {
 
     namespace analyze {
 
-        AnalyzeResult labaratory::analyze::RWXAnalyzer::StartAnalyze(domain::Scan&& scans) {
+        AnalyzeResult laboratory::analyze::RWXAnalyzer::StartAnalyze(domain::Scan&& scans) {
             auto& snapshot = scans.at(domain::ScanMethod::NtQSI);
 
             AnalyzeResult result;

@@ -8,7 +8,7 @@ namespace maltech {
     namespace ntdll {
 
         NtDll::NtDll() {
-            ntdll_ = labaratory::domain::LoadModule(Names::NTDLL);
+            ntdll_ = laboratory::domain::LoadModule(Names::NTDLL);
             LOG_DEBUG("NtModule loaded");
         }
 
@@ -29,7 +29,7 @@ namespace maltech {
 
         void NtDll::LoadRtlAdjustPrivelege() {
             if (RtlAdjustPrivilege_) return;
-            RtlAdjustPrivilege_ = labaratory::domain::LoadFunctionFromModule
+            RtlAdjustPrivilege_ = laboratory::domain::LoadFunctionFromModule
                 <pRtlAdjustPrivilege>(ntdll_, Names::ADJUST_PRIVILEGE);
         }
 
@@ -37,7 +37,7 @@ namespace maltech {
             if (NtQuerySystemInformation_) {
                 return;
             }
-            NtQuerySystemInformation_ = labaratory::domain::LoadFunctionFromModule
+            NtQuerySystemInformation_ = laboratory::domain::LoadFunctionFromModule
                 <pNtQuerySystemInformation>(ntdll_, Names::NTQSI);
         }
 

@@ -6,7 +6,7 @@
 #include <stdexcept>
 
 
-namespace labaratory {
+namespace laboratory {
 
     namespace analyze {
 

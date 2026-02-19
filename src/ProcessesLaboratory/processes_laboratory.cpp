@@ -1,4 +1,4 @@
-#include "processes_labaratory.h"
+#include "processes_laboratory.h"
 #include "../Logger/logger.h"
 #include "../domain.h"
 
@@ -9,11 +9,11 @@
 #include <utility>
 
 
-namespace labaratory {
+namespace laboratory {
 
     using namespace std::literals;
 
-    std::vector<domain::SuspiciousProcess> ProcessesLabaratory::DetectHiddenProcesses() {
+    std::vector<domain::SuspiciousProcess> ProcessesLaboratory::DetectHiddenProcesses() {
         std::vector<domain::SuspiciousProcess> hidden_processes;
         try {
             hidden_processes = FindHidenProcesses();
@@ -25,7 +25,7 @@ namespace labaratory {
         return hidden_processes;
     }
 
-    std::vector<domain::SuspiciousProcess> ProcessesLabaratory::DetectCompromisedProcesses() {
+    std::vector<domain::SuspiciousProcess> ProcessesLaboratory::DetectCompromisedProcesses() {
         std::vector<domain::SuspiciousProcess> compromised_processes;
         try {
             compromised_processes = FindCompromisedProcesses();
@@ -36,7 +36,7 @@ namespace labaratory {
         return compromised_processes;
     }
 
-    std::vector<domain::SuspiciousProcess> ProcessesLabaratory::FindHidenProcesses() {
+    std::vector<domain::SuspiciousProcess> ProcessesLaboratory::FindHidenProcesses() {
         try {
             domain::Scan scan;
             auto snapshot_future = std::async(std::launch::async,
@@ -66,7 +66,7 @@ namespace labaratory {
         return {}; // Dummy for no warning
     }
 
-    std::vector<domain::SuspiciousProcess> ProcessesLabaratory::FindCompromisedProcesses() {
+    std::vector<domain::SuspiciousProcess> ProcessesLaboratory::FindCompromisedProcesses() {
         domain::Scan scan;
         try {
             auto snapshot_future = std::async(std::launch::async,

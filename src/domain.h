@@ -16,7 +16,7 @@
 #include <stdexcept>
 
 
-namespace labaratory {
+namespace laboratory {
 
     using namespace std::literals;
 

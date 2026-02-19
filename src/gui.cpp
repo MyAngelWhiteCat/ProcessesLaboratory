@@ -24,7 +24,7 @@ void GUI::Create(LPCWSTR wnd_name, HINSTANCE hInstance) {
         throw std::runtime_error("Window register error: "s.append(std::to_string(GetLastError())));
     }
 
-    HWND hWnd = CreateWindowExW(0, wnd_name, L"Processes Labaratory",
+    HWND hWnd = CreateWindowExW(0, wnd_name, L"Processes laboratory",
         WS_OVERLAPPEDWINDOW | WS_VISIBLE, 250, 250,
         800, 600, NULL, NULL, hInstance, this
     );
@@ -208,9 +208,9 @@ void GUI::OutputHiddenProcessesScanResult(const std::vector<application::Analyze
     else {
         for (const auto& hidden_proc : hp) {
             std::wstringstream strm{};
-            strm << "[" << labaratory::domain::StringToWideChar(hidden_proc.pid_)->c_str() << "]["
-                << labaratory::domain::StringToWideChar(hidden_proc.process_name_)->c_str()
-                << "] " << labaratory::domain::StringToWideChar(hidden_proc.comment_)->c_str()
+            strm << "[" << laboratory::domain::StringToWideChar(hidden_proc.pid_)->c_str() << "]["
+                << laboratory::domain::StringToWideChar(hidden_proc.process_name_)->c_str()
+                << "] " << laboratory::domain::StringToWideChar(hidden_proc.comment_)->c_str()
                 << "\n";
             auto* wstr = new std::wstring(strm.str());
             SetHorizontalScrollSize(wstr->c_str());
@@ -228,9 +228,9 @@ void GUI::OutputCompromisedProcessesScanResult(const std::vector<application::An
     else {
         for (const auto& compromised_proc : cp) {
             std::wstringstream strm{};
-            strm << "[" << labaratory::domain::StringToWideChar(compromised_proc.pid_)->c_str() << "]["
-                << labaratory::domain::StringToWideChar(compromised_proc.process_name_)->c_str()
-                << "] " << labaratory::domain::StringToWideChar(compromised_proc.comment_)->c_str()
+            strm << "[" << laboratory::domain::StringToWideChar(compromised_proc.pid_)->c_str() << "]["
+                << laboratory::domain::StringToWideChar(compromised_proc.process_name_)->c_str()
+                << "] " << laboratory::domain::StringToWideChar(compromised_proc.comment_)->c_str()
                 << "\n";
             auto* wstr = new std::wstring(strm.str());
             SetHorizontalScrollSize(wstr->c_str());

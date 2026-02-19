@@ -8,7 +8,7 @@
 
 #include "../domain.h"
 
-namespace labaratory {
+namespace laboratory {
 
     namespace analyze {
 

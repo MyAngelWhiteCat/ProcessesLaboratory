@@ -2,7 +2,7 @@
 
 #include "../analyzer.h"
 
-namespace labaratory {
+namespace laboratory {
 
     namespace analyze {
 
@@ -11,7 +11,7 @@ namespace labaratory {
         public:
 
         private:
-
+            
 
         };
 
