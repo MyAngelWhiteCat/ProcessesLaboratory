@@ -1,6 +1,7 @@
 #pragma once
 
 #include <Windows.h>
+#include <winternl.h>
 
 #include <string_view>
 
