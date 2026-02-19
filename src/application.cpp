@@ -16,6 +16,10 @@ namespace application {
         LOG_DEBUG("Application constructed");
     }
 
+    std::vector<AnalyzeResult> Application::FullScan() {
+        return FormatResult(std::move(laboratory_->StartFullScan()));
+    }
+
     std::vector<AnalyzeResult> Application::DetectHiddenProcesses() {
         return FormatResult(std::move(laboratory_->DetectHiddenProcesses()));
     }

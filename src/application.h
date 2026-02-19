@@ -37,6 +37,8 @@ namespace application {
         Application();
 
         template <typename Callback>
+        void AsyncFullScan(Callback&& callback);
+        template <typename Callback>
         void AsyncDetectHiddenProcesses(Callback&& callback);
         template <typename Callback>
         void AsyncDetectCompromisedProcesses(Callback&& callback);
@@ -46,10 +48,18 @@ namespace application {
         std::shared_ptr<laboratory::ProcessesLaboratory> laboratory_;
         std::vector<AnalyzeResult> FormatResult(Suspects&& suspects) const;
 
-
+        std::vector<AnalyzeResult> FullScan();
         std::vector<AnalyzeResult> DetectHiddenProcesses();
         std::vector<AnalyzeResult> DetectCompromisedProcesses();
     };
+
+    template<typename Callback>
+    inline void Application::AsyncFullScan(Callback&& callback) {
+        auto detect_func = [callback = std::forward<Callback>(callback), this] {
+            callback(FullScan());
+            };
+        thread_pool_.AddTask(detect_func);
+    }
 
     template<typename Callback>
     inline void Application::AsyncDetectHiddenProcesses(Callback&& callback) {
