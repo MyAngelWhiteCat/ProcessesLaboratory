@@ -100,7 +100,7 @@ namespace laboratory {
         } while (Process32NextW(hSnapshot, &proc_entry));
 
         CloseHandle(hSnapshot);
-        LOG_INFO("Quick snapshot Ready");
+        LOG_INFO("Quick toolhelp snapshot Ready. Size: " + std::to_string(snapshot.Size()));
         return snapshot;
     }
 
