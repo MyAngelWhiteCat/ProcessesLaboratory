@@ -38,9 +38,11 @@ namespace maltech {
             HMODULE ntdll_{ 0 };
             pRtlAdjustPrivilege RtlAdjustPrivilege_{ 0 };
             pNtQuerySystemInformation NtQuerySystemInformation_{ 0 };
+            pNtOpenProcess NtOpenProcess_{ 0 };
 
             void LoadRtlAdjustPrivelege();
             void LoadNtQuerySystemInformation();
+            void LoadNtOpenProcess();
         };
 
     }

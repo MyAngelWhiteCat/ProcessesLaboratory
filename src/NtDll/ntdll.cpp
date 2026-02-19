@@ -2,14 +2,14 @@
 #include "../domain.h"
 
 #include <Windows.h>
+#include "ntdll_domain.h"
 
 namespace maltech {
 
     namespace ntdll {
 
         NtDll::NtDll() {
-            ntdll_ = laboratory::domain::LoadModule(Names::NTDLL);
-            LOG_DEBUG("NtModule loaded");
+            ntdll_ = LoadModule(Names::NTDLL);
         }
 
         NTSTATUS NtDll::RtlAdjustPrivilege(ULONG privilege,
@@ -27,9 +27,15 @@ namespace maltech {
                 SystemInformation, SystemInformationLength, ReturnLength);
         }
 
+        NTSTATUS NtDll::NtOpenProcess(PHANDLE hProcess,
+            ACCESS_MASK access_mask, POBJECT_ATTRIBUTES object_attributes, CLIENT_ID* client_id) {
+            LoadNtOpenProcess();
+            return NtOpenProcess(hProcess, access_mask, object_attributes, client_id);
+        }
+
         void NtDll::LoadRtlAdjustPrivelege() {
             if (RtlAdjustPrivilege_) return;
-            RtlAdjustPrivilege_ = laboratory::domain::LoadFunctionFromModule
+            RtlAdjustPrivilege_ = LoadFunctionFromModule
                 <pRtlAdjustPrivilege>(ntdll_, Names::ADJUST_PRIVILEGE);
         }
 
@@ -37,8 +43,15 @@ namespace maltech {
             if (NtQuerySystemInformation_) {
                 return;
             }
-            NtQuerySystemInformation_ = laboratory::domain::LoadFunctionFromModule
+            NtQuerySystemInformation_ = LoadFunctionFromModule
                 <pNtQuerySystemInformation>(ntdll_, Names::NTQSI);
+        }
+
+        void NtDll::LoadNtOpenProcess() {
+            if (NtOpenProcess_) {
+                return;
+            }
+            NtOpenProcess_ = LoadFunctionFromModule<pNtOpenProcess>(ntdll_, Names::OPEN_PROCESS);
         }
 
     }
