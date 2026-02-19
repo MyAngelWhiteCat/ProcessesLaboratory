@@ -41,6 +41,9 @@ add_library(ProcessesLabaratory
     src/Analyzers/HiddenProcesses/hidden_processes_analyzer.h
     src/Analyzers/HiddenProcesses/hidden_processes_analyzer.cpp
 
+    src/Analyzers/EscalatedPrivileges/privilege_analyzer.h
+    src/Analyzers/EscalatedPrivileges/privilege_analyzer.cpp
+
     src/domain.h
     src/domain.cpp
 )
