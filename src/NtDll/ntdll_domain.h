@@ -21,6 +21,7 @@ namespace maltech {
             static constexpr std::string_view NTQSI = "NtQuerySystemInformation"sv;
             static constexpr std::string_view OPEN_PROCESS = "OpenProcess"sv;
             static constexpr std::string_view OPEN_PROCESS_TOKEN = "OpenProcessToken"sv;
+            static constexpr std::string_view NTQIT = "NtQueryInformationToken"sv;
         };
 
         HMODULE LoadModule(std::string_view module_name);
@@ -55,6 +56,14 @@ namespace maltech {
             HANDLE ProcessHandle,
             ACCESS_MASK DesiredAccess,
             PHANDLE TokenHandle
+            );
+
+        typedef NTSTATUS(*pNtQueryInformationToken) (
+            HANDLE TokenHandle,
+            TOKEN_INFORMATION_CLASS TokenInformationClass,
+            PVOID TokenInformation,
+            ULONG TokenInformationLength,
+            PULONG ReturnLength
             );
 
     }

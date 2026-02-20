@@ -39,6 +39,16 @@ namespace maltech {
             return NtOpenProcessToken_(hProcess, desired_access, hToken);
         }
 
+        NTSTATUS NtDll::NtQueryInformationToken(
+            HANDLE hToken, 
+            TOKEN_INFORMATION_CLASS requested_info,
+            PVOID token_info, ULONG token_size, PULONG returned_size)
+        {
+            LoadNtQueryInformationToken();
+            return NtQueryInformationToken_
+            (hToken, requested_info, token_info, token_size, returned_size);
+        }
+
         void NtDll::LoadRtlAdjustPrivelege() {
             if (RtlAdjustPrivilege_) return;
             RtlAdjustPrivilege_ = LoadFunctionFromModule
@@ -66,6 +76,14 @@ namespace maltech {
             }
             NtOpenProcessToken_ = LoadFunctionFromModule<pNtOpenProcessToken>
                 (ntdll_, Names::OPEN_PROCESS_TOKEN);
+        }
+
+        void NtDll::LoadNtQueryInformationToken() {
+            if (NtQueryInformationToken_) {
+                return;
+            }
+            NtQueryInformationToken_ = LoadFunctionFromModule<pNtQueryInformationToken>
+                (ntdll_, Names::NTQIT);
         }
 
     }

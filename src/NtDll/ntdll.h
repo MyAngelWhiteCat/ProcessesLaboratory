@@ -40,17 +40,27 @@ namespace maltech {
                 PHANDLE hToken
             );
 
+            NTSTATUS NtQueryInformationToken(
+                HANDLE hToken,
+                TOKEN_INFORMATION_CLASS requested_info,
+                PVOID token_info,
+                ULONG token_size,
+                PULONG returned_size
+            );
+
         private:
             HMODULE ntdll_{ 0 };
             pRtlAdjustPrivilege RtlAdjustPrivilege_{ 0 };
             pNtQuerySystemInformation NtQuerySystemInformation_{ 0 };
             pNtOpenProcess NtOpenProcess_{ 0 };
             pNtOpenProcessToken NtOpenProcessToken_{ 0 };
+            pNtQueryInformationToken NtQueryInformationToken_{ 0 };
 
             void LoadRtlAdjustPrivelege();
             void LoadNtQuerySystemInformation();
             void LoadNtOpenProcess();
             void LoadNtOpenProcessToken();
+            void LoadNtQueryInformationToken();
         };
 
     }
