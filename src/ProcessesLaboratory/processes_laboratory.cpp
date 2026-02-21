@@ -66,9 +66,11 @@ namespace laboratory {
     std::vector<domain::SuspiciousProcess> ProcessesLaboratory::DetectEscalatedPrivileges() {
         std::vector<domain::SuspiciousProcess> procs_with_escalated_privileges;
         try {
+            privilege_escalator.EscalateToDebug();
             domain::Scan scan;
             scan[domain::ScanMethod::NtQSI] = snapshots_provider_.GetNtSnapshot();
             procs_with_escalated_privileges = FindEscalatedPrivileges(scan);
+            privilege_escalator.ResetPrivilege();
         }
         catch (const std::exception& e) {
             LOG_CRITICAL("Escalated privileges detection error: "s + e.what());
