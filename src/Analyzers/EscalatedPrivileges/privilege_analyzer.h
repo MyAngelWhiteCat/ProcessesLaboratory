@@ -6,6 +6,9 @@
 
 #include <Windows.h>
 
+#include <string_view>
+#include <string>
+
 namespace laboratory {
 
     namespace analyze {
@@ -31,7 +34,15 @@ namespace laboratory {
             maltech::ntdll::NtDll& ntdll_;
 
             AnalyzeResult StartAnalyze(const domain::Scan& scan) override;
-            domain::SPProcessInfo AnalyzeProcess(DWORD pid);
+            std::string AnalyzeProcess(DWORD pid);
+
+            HANDLE GetNtHandle(DWORD pid);
+            HANDLE GetProcessToken(HANDLE hProcess);
+            std::vector<std::byte> GetPrivilegesBytes(HANDLE hToken);
+            ULONG GetTokeninfoLen(HANDLE hToken);
+            std::string IsPrivelegeEscalated(LUID luid);
+            LUID GetPrivilegeLUID(const std::string_view privilege_name);
+            bool IsPrivilegeEqual(LUID lhs, LUID rhs);
         };
 
     }
