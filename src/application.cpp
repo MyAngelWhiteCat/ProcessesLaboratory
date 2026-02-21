@@ -28,6 +28,10 @@ namespace application {
         return FormatResult(std::move(laboratory_->DetectCompromisedProcesses()));
     }
 
+    std::vector<AnalyzeResult> Application::DetectEscalatedPrivileges() {
+        return FormatResult(std::move(laboratory_->DetectEscalatedPrivileges()));
+    }
+
     std::vector<AnalyzeResult> Application::FormatResult(Suspects&& suspects) const {
         std::vector<AnalyzeResult> formated_result;
         for (auto& suspect : suspects) {

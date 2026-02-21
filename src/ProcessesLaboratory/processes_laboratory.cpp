@@ -63,11 +63,24 @@ namespace laboratory {
         return compromised_processes;
     }
 
+    std::vector<domain::SuspiciousProcess> ProcessesLaboratory::DetectEscalatedPrivileges() {
+        std::vector<domain::SuspiciousProcess> procs_with_escalated_privileges;
+        try {
+            domain::Scan scan;
+            scan[domain::ScanMethod::NtQSI] = snapshots_provider_.GetNtSnapshot();
+            procs_with_escalated_privileges = FindEscalatedPrivileges(scan);
+        }
+        catch (const std::exception& e) {
+            LOG_CRITICAL("Escalated privileges detection error: "s + e.what());
+        }
+        return procs_with_escalated_privileges;
+    }
+
     std::vector<domain::SuspiciousProcess> 
         ProcessesLaboratory::FindHidenProcesses(const domain::Scan& scan) {
         try {
-            auto analyzer = Analyzers_.find(domain::AnalyzerType::HiddenProcesses);
-            if (analyzer == Analyzers_.end()) {
+            auto analyzer = analyzers_.find(domain::AnalyzerType::HiddenProcesses);
+            if (analyzer == analyzers_.end()) {
                 throw std::runtime_error("Hidden processes Analyzer not initialized");
             }
 
@@ -84,8 +97,8 @@ namespace laboratory {
     std::vector<domain::SuspiciousProcess> 
         ProcessesLaboratory::FindCompromisedProcesses(const domain::Scan& scan) {
         try {
-            auto analyzer = Analyzers_.find(domain::AnalyzerType::CompromisedProcesses);
-            if (analyzer == Analyzers_.end()) {
+            auto analyzer = analyzers_.find(domain::AnalyzerType::CompromisedProcesses);
+            if (analyzer == analyzers_.end()) {
                 throw std::runtime_error("Compromised processes Analyzer not initialized");
             }
             LOG_DEBUG("Start finding compromised processes");
@@ -95,6 +108,22 @@ namespace laboratory {
             LOG_CRITICAL("Compromised process analyze error: "s + e.what());
         }
         return {}; // Dummy for no warning
+    }
+
+    std::vector<domain::SuspiciousProcess> 
+        ProcessesLaboratory::FindEscalatedPrivileges(const domain::Scan& scan) {
+        try {
+            auto analyzer = analyzers_.find(domain::AnalyzerType::EscalatedPrivileges);
+            if (analyzer == analyzers_.end()) {
+                throw std::runtime_error("Escalated priviliges analyzer not init");
+            }
+            LOG_DEBUG("Start finding escalated privileges");
+            return analyzer->second->Analyze(scan).suspicious_processes_;
+        }
+        catch (const std::exception& e) {
+            LOG_CRITICAL("Ecalated privileges analyze error: "s + e.what());
+        }
+        return {};
     }
 
     domain::Scan ProcessesLaboratory::GetNtAndThSnapshots() {

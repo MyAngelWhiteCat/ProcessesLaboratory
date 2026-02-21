@@ -38,10 +38,15 @@ namespace application {
 
         template <typename Callback>
         void AsyncFullScan(Callback&& callback);
+
         template <typename Callback>
         void AsyncDetectHiddenProcesses(Callback&& callback);
+
         template <typename Callback>
         void AsyncDetectCompromisedProcesses(Callback&& callback);
+
+        template <typename Callback>
+        void AsyncDetectEscalatedPrivileges(Callback&& callback);
 
     private:
         ThreadPool thread_pool_{ GetMaximumProcessorCount(ALL_PROCESSOR_GROUPS) };
@@ -51,6 +56,7 @@ namespace application {
         std::vector<AnalyzeResult> FullScan();
         std::vector<AnalyzeResult> DetectHiddenProcesses();
         std::vector<AnalyzeResult> DetectCompromisedProcesses();
+        std::vector<AnalyzeResult> DetectEscalatedPrivileges();
     };
 
     template<typename Callback>
@@ -73,6 +79,14 @@ namespace application {
     inline void Application::AsyncDetectCompromisedProcesses(Callback&& callback) {
         auto detect_func = [callback = std::forward<Callback>(callback), this] {
             callback(DetectCompromisedProcesses());
+            };
+        thread_pool_.AddTask(detect_func);
+    }
+
+    template<typename Callback>
+    inline void Application::AsyncDetectEscalatedPrivileges(Callback&& callback) {
+        auto detect_func = [callback = std::forward<Callback>(callback), this] {
+            callback(DetectEscalatedPrivileges());
             };
         thread_pool_.AddTask(detect_func);
     }
