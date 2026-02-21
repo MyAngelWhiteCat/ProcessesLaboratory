@@ -84,7 +84,7 @@ void GUI::CreateControls() {
 
     listbox_ = CreateWindowW(L"LISTBOX", NULL, WS_CHILD | WS_VISIBLE | WS_VSCROLL | WS_HSCROLL,
         150, 25, 595, 530,
-        hWnd_, (HMENU)1103, NULL, NULL);
+        hWnd_, (HMENU)1104, NULL, NULL);
 }
 
 LRESULT GUI::HandleMessage(UINT message, WPARAM wParam, LPARAM lParam) {
@@ -124,7 +124,7 @@ LRESULT GUI::HandleMessage(UINT message, WPARAM wParam, LPARAM lParam) {
             LOG_DEBUG("Pressed scan for escalated privileges");
             LogToGUI(L"Detecting escalated privileges...");
             application_.AsyncDetectEscalatedPrivileges([this](const auto& result) {
-                OutputCompromisedProcessesScanResult(result);
+                OutputEscalatedPrivilegesScanResult(result);
                 });
         }
         else if (LOWORD(wParam) == 1101) {
@@ -136,16 +136,16 @@ LRESULT GUI::HandleMessage(UINT message, WPARAM wParam, LPARAM lParam) {
             ShowWindow(GetConsoleWindow(), SW_NORMAL);
             DestroyWindow(debug_console_);
             debug_console_ = CreateWindowW(L"BUTTON", L"Hide Console", WS_CHILD | WS_VISIBLE,
-                25, 400, 100, 50,
-                hWnd_, (HMENU)1007, NULL, NULL);
+                15, 450, 120, 50,
+                hWnd_, (HMENU)1103, NULL, NULL);
         }
         else if (LOWORD(wParam) == 1103) {
             LOG_DEBUG("Hide console");
             ShowWindow(GetConsoleWindow(), SW_HIDE);
             DestroyWindow(debug_console_);
             debug_console_ = CreateWindowW(L"BUTTON", L"Show Console", WS_CHILD | WS_VISIBLE,
-                25, 400, 100, 50,
-                hWnd_, (HMENU)1005, NULL, NULL);
+                15, 450, 120, 50,
+                hWnd_, (HMENU)1102, NULL, NULL);
         }
     }
     break;
@@ -250,7 +250,7 @@ void GUI::OutputCompromisedProcessesScanResult(const std::vector<application::An
     }
 }
 
-void GUI::OutputEscalatedPrivileges(const std::vector<application::AnalyzeResult>& ep) {
+void GUI::OutputEscalatedPrivilegesScanResult(const std::vector<application::AnalyzeResult>& ep) {
     LogToGUI(L"Scan for escalated privileges complete");
     if (ep.empty()) {
         LOG_INFO("No escalated privileges found");

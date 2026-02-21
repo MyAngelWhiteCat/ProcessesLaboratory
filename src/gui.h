@@ -45,6 +45,6 @@ private:
 
     void OutputHiddenProcessesScanResult(const std::vector<application::AnalyzeResult>& hp);
     void OutputCompromisedProcessesScanResult(const std::vector<application::AnalyzeResult>& cp);
-    void OutputEscalatedPrivileges(const std::vector<application::AnalyzeResult>& ep);
+    void OutputEscalatedPrivilegesScanResult(const std::vector<application::AnalyzeResult>& ep);
 };
 
