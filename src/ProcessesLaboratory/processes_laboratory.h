@@ -40,6 +40,7 @@ namespace laboratory {
         maltech::ntdll::NtDll ntdll_;
         analyze::Analyzers analyzers_;
         SnapshotsProvider snapshots_provider_{ ntdll_ };
+        maltech::escalator::PrivilegeEscalator privilege_escalator{ ntdll_ };
 
         std::vector<domain::SuspiciousProcess> FindHidenProcesses(const domain::Scan& scan);
         std::vector<domain::SuspiciousProcess> FindCompromisedProcesses(const domain::Scan& scan);
