@@ -38,7 +38,7 @@ private:
     LRESULT HandleMessage(UINT message, WPARAM wParam, LPARAM lParam);
     ATOM RegisterMainWindow(HINSTANCE hInstance, LPCWSTR lpszClassName);
     void SetHorizontalScrollSize(std::wstring_view str);
-    void LogToGUI(const std::wstring& text);
+    void LogToGUI(const std::wstring& text) const;
     void OutputFullScanProgress();
 
     // Application interactions =======================================================================

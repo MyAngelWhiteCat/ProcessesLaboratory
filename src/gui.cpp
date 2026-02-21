@@ -58,7 +58,7 @@ LRESULT GUI::WndProc(HWND hWnd, UINT message, WPARAM wParam, LPARAM lParam) {
 }
 
 void GUI::CreateControls() {
-    CreateWindowW(L"BUTTON", L"Full check", WS_CHILD | WS_VISIBLE,
+    CreateWindowW(L"BUTTON", L"Full scan", WS_CHILD | WS_VISIBLE,
         25, 25, 100, 50,
         hWnd_, (HMENU)1001, NULL, NULL);
 
@@ -183,7 +183,7 @@ void GUI::SetHorizontalScrollSize(std::wstring_view str) {
     SendMessageW(listbox_, LB_SETHORIZONTALEXTENT, max_horizontal_size_ + 10, 0);
 }
 
-void GUI::LogToGUI(const std::wstring& text) {
+void GUI::LogToGUI(const std::wstring& text) const {
     auto* msg = new std::wstring(text);
     PostMessageW(hWnd_, WM_APP_LOG_MESSAGE, 0, (LPARAM)msg);
 }
