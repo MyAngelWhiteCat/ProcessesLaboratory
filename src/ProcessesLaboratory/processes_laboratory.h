@@ -26,6 +26,8 @@ namespace laboratory {
                 = std::make_unique<analyze::HiddenProcessesAnalyzer>();
             analyzers_[domain::AnalyzerType::CompromisedProcesses]
                 = std::make_unique<analyze::RWXAnalyzer>();
+            analyzers_[domain::AnalyzerType::EscalatedPrivileges]
+                = std::make_unique<analyze::PrivilegeAnalyzer>(ntdll_);
         }
 
         std::vector<domain::SuspiciousProcess> StartFullScan();
