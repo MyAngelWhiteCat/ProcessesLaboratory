@@ -6,6 +6,7 @@
 #include "../Analyzers/RWX/rwx_analyzer.h"
 #include "../Analyzers/EscalatedPrivileges/privilege_analyzer.h"
 #include "../NtDll/ntdll.h"
+#include "../PrivilegeEscalator/privilege_escalator.h"
 #include "../domain.h"
 
 #include <vector>
