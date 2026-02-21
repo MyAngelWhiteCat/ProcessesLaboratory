@@ -63,7 +63,7 @@ namespace laboratory {
                 Close();
             }
 
-            HANDLE Get() const {
+            HANDLE& Get() {
                 return handle_;
             }
 
