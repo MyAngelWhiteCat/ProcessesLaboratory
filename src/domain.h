@@ -53,6 +53,7 @@ namespace laboratory {
 
         class RaiiHandle {
         public:
+            RaiiHandle() = default;
             explicit RaiiHandle(HANDLE handle)
                 : handle_(handle)
             {
