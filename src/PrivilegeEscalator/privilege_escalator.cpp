@@ -40,7 +40,9 @@ namespace maltech {
             BOOLEAN is_disable) {
             try {
                 TOKEN_PRIVILEGES token_privileges{ NULL };
-                token_privileges.Privileges->Luid = GetPrivilegeLUID(privilege);
+                token_privileges.PrivilegeCount = 1;
+                token_privileges.Privileges[0].Luid = GetPrivilegeLUID(privilege);
+                token_privileges.Privileges[0].Attributes = SE_PRIVILEGE_ENABLED;
                 
                 HANDLE hProcess = GetNtHandle(GetCurrentProcessId());
                 HANDLE hToken = GetProcessToken(hProcess);
