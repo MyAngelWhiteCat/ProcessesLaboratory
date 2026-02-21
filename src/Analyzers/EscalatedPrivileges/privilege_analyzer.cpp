@@ -56,8 +56,11 @@ namespace laboratory {
             std::string comment;
             for (const auto& privilege : privileges->Privileges) {
                 if (privilege.Attributes & SE_PRIVILEGE_ENABLED) {
-                    comment += "Privilege enabled! ";
-                    comment += IsPrivelegeEscalated(privilege.Luid);
+                    std::string priv = IsPrivelegeDangerous(privilege.Luid);
+                    if (!priv.empty()) {
+                        comment += priv;
+                        comment += " Privilege enabled!";
+                    }
                 }
             }
             LOG_DEBUG(comment);
@@ -134,18 +137,18 @@ namespace laboratory {
             return tokeninfo_len;
         }
 
-        std::string PrivilegeAnalyzer::IsPrivelegeEscalated(LUID luid) {
+        std::string PrivilegeAnalyzer::IsPrivelegeDangerous(LUID luid) {
             if (IsPrivilegeEqual(luid, GetPrivilegeLUID(PrivilegeNames::DEBUG))) {
-                return "escalated to DEBUG!";
+                return "DEBUG";
             } 
             else if (IsPrivilegeEqual(luid, GetPrivilegeLUID(PrivilegeNames::LOAD_DRIVER))) {
-                return "escalated to LOAD_DRIVER!";
+                return "LOAD_DRIVER";
             }
             else if (IsPrivilegeEqual(luid, GetPrivilegeLUID(PrivilegeNames::TAKE_OWNERSHIP))) {
-                return "escalated to TAKE_OWNERSHIP!";
+                return "TAKE_OWNERSHIP";
             }
             else if (IsPrivilegeEqual(luid, GetPrivilegeLUID(PrivilegeNames::TCB))) {
-                return "escalated to TCB!";
+                return "TCB";
             }
             return "";
         }
