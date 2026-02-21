@@ -154,6 +154,19 @@ namespace laboratory {
 
             }
 
+            ProcessInfo(DWORD pid, std::string&& process_name)
+                : pid_(pid)
+                , process_name_(std::move(process_name))
+            {
+
+            }
+
+            ProcessInfo(DWORD pid)
+                : pid_(pid)
+            {
+
+            }
+
             void Print(std::ostream& out) const;
             void PrintModules(std::ostream& out) const;
             void PrintThreads(std::ostream& out) const;
