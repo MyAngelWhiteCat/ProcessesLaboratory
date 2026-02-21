@@ -53,7 +53,6 @@ namespace laboratory {
 
         class RaiiHandle {
         public:
-            RaiiHandle() = delete;
             explicit RaiiHandle(HANDLE handle)
                 : handle_(handle)
             {
@@ -68,11 +67,13 @@ namespace laboratory {
             }
 
             void Close() {
-                CloseHandle(handle_);
+                if (handle_) {
+                    CloseHandle(handle_);
+                }
             }
 
         private:
-            HANDLE handle_;
+            HANDLE handle_{ 0 };
         };
 
         struct SuspiciousMemory {
