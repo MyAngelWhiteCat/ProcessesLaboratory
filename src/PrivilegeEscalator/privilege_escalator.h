@@ -1,6 +1,6 @@
 #pragma once
 
-#include "../MalwareTechniques/ntdll.h"
+#include "../NtDll/ntdll.h"
 
 #include <Windows.h>
 
@@ -8,11 +8,6 @@
 namespace maltech {
 
     namespace escalator {
-
-#define SE_SHUTDOWN_PRIVILEGE            0x13
-#define SE_DEBUG_PRIVILEGE               0x14
-#define SE_TCB_PRIVILEGE                 0x17
-
 
         using namespace std::literals;
     

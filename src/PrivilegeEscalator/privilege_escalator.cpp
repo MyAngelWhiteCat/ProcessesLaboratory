@@ -1,7 +1,7 @@
 #include "privilege_escalator.h"
 
 #include "../Logger/logger.h"
-#include "../MalwareTechniques/ntdll.h"
+#include "../NtDll/ntdll.h"
 
 #include <Windows.h>
 #include <winternl.h>
@@ -25,7 +25,7 @@ namespace maltech {
         }
 
         void PrivilegeEscalator::EscalateToShutdown() {
-            EscalateTo(SE_SHUTDOWN_PRIVILEGE);
+            EscalateTo(19);
         }
 
         void PrivilegeEscalator::ResetPrivilege() {
