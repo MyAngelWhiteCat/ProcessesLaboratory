@@ -54,13 +54,13 @@ namespace laboratory {
             TOKEN_PRIVILEGES* privileges = reinterpret_cast<TOKEN_PRIVILEGES*>
                 (privileges_bytes.data());
             std::string comment;
-            for (const auto& privilege : privileges->Privileges) {
-                if (privilege.Attributes & SE_PRIVILEGE_ENABLED) {
-                    std::string priv = IsPrivelegeDangerous(privilege.Luid);
-                    if (!priv.empty()) {
-                        comment += priv;
-                        comment += " Privilege enabled!";
-                    }
+            for (DWORD i = 0; i < privileges->PrivilegeCount; ++i) {
+                auto& privilege = privileges->Privileges[i];
+                if (privilege.Attributes == SE_PRIVILEGE_ENABLED) {
+                    char name[256];
+                    DWORD name_len = 256;
+                    LookupPrivilegeNameA(NULL, &privilege.Luid, name, &name_len);
+                    comment += "[" + std::string(name, name_len) + "]";
                 }
             }
             LOG_DEBUG(comment);
