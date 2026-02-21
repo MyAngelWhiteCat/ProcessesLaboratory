@@ -12,27 +12,34 @@ namespace maltech {
 
     namespace ntdll {
 
-        using namespace std::literals;
+        namespace domain {
 
-        struct Names {
-            Names() = delete;
-            static constexpr std::string_view NTDLL = "ntdll.dll"sv;
-            static constexpr std::string_view ADJUST_PRIVILEGE = "RtlAdjustPrivilege"sv;
-            static constexpr std::string_view NTQSI = "NtQuerySystemInformation"sv;
-            static constexpr std::string_view OPEN_PROCESS = "OpenProcess"sv;
-            static constexpr std::string_view OPEN_PROCESS_TOKEN = "OpenProcessToken"sv;
-            static constexpr std::string_view NTQIT = "NtQueryInformationToken"sv;
-        };
+            using namespace std::literals;
 
-        HMODULE LoadModule(std::string_view module_name);
+            struct Names {
+                Names() = delete;
+                static constexpr std::string_view NTDLL = "ntdll.dll"sv;
+                static constexpr std::string_view ADJUST_PRIVILEGE = "NtAdjustPrivilegesToken"sv;
+                static constexpr std::string_view NTQSI = "NtQuerySystemInformation"sv;
+                static constexpr std::string_view OPEN_PROCESS = "NtOpenProcess"sv;
+                static constexpr std::string_view OPEN_PROCESS_TOKEN = "NtOpenProcessToken"sv;
+                static constexpr std::string_view NTQIT = "NtQueryInformationToken"sv;
+            };
 
-        template<typename Fn>
-        Fn LoadFunctionFromModule(HMODULE hModule, std::string_view function_name) {
-            Fn func = reinterpret_cast<Fn>(GetProcAddress(hModule, function_name.data()));
-            if (!func) {
-                throw std::runtime_error("Incorrect load func: " + std::string(function_name));
+            HMODULE LoadModule(std::string_view module_name);
+
+            std::string GetHexStatusCode(NTSTATUS status);
+
+
+            template<typename Fn>
+            Fn LoadFunctionFromModule(HMODULE hModule, std::string_view function_name) {
+                Fn func = reinterpret_cast<Fn>(GetProcAddress(hModule, function_name.data()));
+                if (!func) {
+                    throw std::runtime_error("Incorrect load func: " + std::string(function_name));
+                }
+                return func;
             }
-            return func;
+
         }
 
         typedef NTSTATUS(*pNtQuerySystemInformation)(
@@ -42,8 +49,15 @@ namespace maltech {
             PULONG ReturnLength
             );
 
-        typedef NTSTATUS(*pRtlAdjustPrivilege)
-            (ULONG, BOOLEAN, BOOLEAN, PBOOLEAN);
+        typedef NTSTATUS
+        (NTAPI* pNtAdjustPrivilege)(
+            HANDLE hTocken,
+            BOOLEAN DisableAllPrivileges,
+            PTOKEN_PRIVILEGES NewPrivilege,
+            ULONG BufferLen,
+            PTOKEN_PRIVILEGES PreviousPrivilege,
+            ULONG ReturnLen
+            );
 
         typedef NTSTATUS(*pNtOpenProcess)(
             PHANDLE hProcess,

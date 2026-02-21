@@ -1,22 +1,28 @@
 #include "ntdll.h"
-#include "../domain.h"
+#include "ntdll_domain.h"
 
 #include <Windows.h>
-#include "ntdll_domain.h"
 
 namespace maltech {
 
     namespace ntdll {
 
         NtDll::NtDll() {
-            ntdll_ = LoadModule(Names::NTDLL);
+            ntdll_ = domain::LoadModule(domain::Names::NTDLL);
         }
 
-        NTSTATUS NtDll::RtlAdjustPrivilege(ULONG privilege,
-            BOOLEAN enable, BOOLEAN client, PBOOLEAN was_enabled)
+        NTSTATUS NtDll::NtAdjustPrivilege(
+            HANDLE hToken,
+            BOOLEAN disable_all_privileges,
+            PTOKEN_PRIVILEGES new_privilege,
+            ULONG buffer_len,
+            PTOKEN_PRIVILEGES previous_privilege,
+            ULONG return_len
+        )
         {
-            LoadRtlAdjustPrivelege();
-            return RtlAdjustPrivilege_(privilege, enable, client, was_enabled);
+            LoadNtAdjustPrivilege();
+            return NtAdjustPrivilege_(hToken, disable_all_privileges, new_privilege,
+                buffer_len, previous_privilege, return_len);
         }
 
         NTSTATUS NtDll::NtQuerySystemInformation(SYSTEM_INFORMATION_CLASS SystemInformationClass,
@@ -49,41 +55,41 @@ namespace maltech {
             (hToken, requested_info, token_info, token_size, returned_size);
         }
 
-        void NtDll::LoadRtlAdjustPrivelege() {
-            if (RtlAdjustPrivilege_) return;
-            RtlAdjustPrivilege_ = LoadFunctionFromModule
-                <pRtlAdjustPrivilege>(ntdll_, Names::ADJUST_PRIVILEGE);
+        void NtDll::LoadNtAdjustPrivilege() {
+            if (NtAdjustPrivilege_) return;
+            NtAdjustPrivilege_ = domain::LoadFunctionFromModule
+                <pNtAdjustPrivilege>(ntdll_, domain::Names::ADJUST_PRIVILEGE);
         }
 
         void NtDll::LoadNtQuerySystemInformation() {
             if (NtQuerySystemInformation_) {
                 return;
             }
-            NtQuerySystemInformation_ = LoadFunctionFromModule
-                <pNtQuerySystemInformation>(ntdll_, Names::NTQSI);
+            NtQuerySystemInformation_ = domain::LoadFunctionFromModule
+                <pNtQuerySystemInformation>(ntdll_, domain::Names::NTQSI);
         }
 
         void NtDll::LoadNtOpenProcess() {
             if (NtOpenProcess_) {
                 return;
             }
-            NtOpenProcess_ = LoadFunctionFromModule<pNtOpenProcess>(ntdll_, Names::OPEN_PROCESS);
+            NtOpenProcess_ = domain::LoadFunctionFromModule<pNtOpenProcess>(ntdll_, domain::Names::OPEN_PROCESS);
         }
 
         void NtDll::LoadNtOpenProcessToken() {
             if (NtOpenProcessToken_) {
                 return;
             }
-            NtOpenProcessToken_ = LoadFunctionFromModule<pNtOpenProcessToken>
-                (ntdll_, Names::OPEN_PROCESS_TOKEN);
+            NtOpenProcessToken_ = domain::LoadFunctionFromModule<pNtOpenProcessToken>
+                (ntdll_, domain::Names::OPEN_PROCESS_TOKEN);
         }
 
         void NtDll::LoadNtQueryInformationToken() {
             if (NtQueryInformationToken_) {
                 return;
             }
-            NtQueryInformationToken_ = LoadFunctionFromModule<pNtQueryInformationToken>
-                (ntdll_, Names::NTQIT);
+            NtQueryInformationToken_ = domain::LoadFunctionFromModule<pNtQueryInformationToken>
+                (ntdll_, domain::Names::NTQIT);
         }
 
     }

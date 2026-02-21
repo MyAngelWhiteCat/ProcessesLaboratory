@@ -15,10 +15,14 @@ namespace maltech {
         class NtDll {
         public:
             NtDll();
-            NTSTATUS RtlAdjustPrivilege(ULONG privilege,
-                BOOLEAN enable,
-                BOOLEAN client,
-                PBOOLEAN was_enabled);
+            NTSTATUS NtAdjustPrivilege(
+                HANDLE hToken,
+                BOOLEAN disable_all_privileges,
+                PTOKEN_PRIVILEGES new_privilege,
+                ULONG buffer_len,
+                PTOKEN_PRIVILEGES previous_privilege,
+                ULONG return_len
+            );
 
             NTSTATUS NtQuerySystemInformation(
                 SYSTEM_INFORMATION_CLASS SystemInformationClass,
@@ -50,13 +54,13 @@ namespace maltech {
 
         private:
             HMODULE ntdll_{ 0 };
-            pRtlAdjustPrivilege RtlAdjustPrivilege_{ 0 };
+            pNtAdjustPrivilege NtAdjustPrivilege_{ 0 };
             pNtQuerySystemInformation NtQuerySystemInformation_{ 0 };
             pNtOpenProcess NtOpenProcess_{ 0 };
             pNtOpenProcessToken NtOpenProcessToken_{ 0 };
             pNtQueryInformationToken NtQueryInformationToken_{ 0 };
 
-            void LoadRtlAdjustPrivelege();
+            void LoadNtAdjustPrivilege();
             void LoadNtQuerySystemInformation();
             void LoadNtOpenProcess();
             void LoadNtOpenProcessToken();
