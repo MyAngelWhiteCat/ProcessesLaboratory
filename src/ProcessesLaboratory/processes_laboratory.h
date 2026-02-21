@@ -4,6 +4,7 @@
 #include "../Analyzers/analyzer.h"
 #include "../Analyzers/HiddenProcesses/hidden_processes_analyzer.h"
 #include "../Analyzers/RWX/rwx_analyzer.h"
+#include "../Analyzers/EscalatedPrivileges/privilege_analyzer.h"
 #include "../NtDll/ntdll.h"
 #include "../domain.h"
 
