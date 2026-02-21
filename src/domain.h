@@ -51,6 +51,30 @@ namespace laboratory {
             RX_TO_RW = 3
         };
 
+        class RaiiHandle {
+        public:
+            RaiiHandle() = delete;
+            explicit RaiiHandle(HANDLE handle)
+                : handle_(handle)
+            {
+            }
+
+            ~RaiiHandle() {
+                Close();
+            }
+
+            HANDLE Get() const {
+                return handle_;
+            }
+
+            void Close() {
+                CloseHandle(handle_);
+            }
+
+        private:
+            HANDLE handle_;
+        };
+
         struct SuspiciousMemory {
             std::optional<MemDetection> detection_;
             SIZE_T address_ = 0;
