@@ -30,7 +30,7 @@ namespace maltech {
         NTSTATUS NtDll::NtOpenProcess(PHANDLE hProcess,
             ACCESS_MASK desired_access, POBJECT_ATTRIBUTES object_attributes, CLIENT_ID* client_id) {
             LoadNtOpenProcess();
-            return NtOpenProcess(hProcess, desired_access, object_attributes, client_id);
+            return NtOpenProcess_(hProcess, desired_access, object_attributes, client_id);
         }
 
         NTSTATUS NtDll::NtOpenProcessToken(HANDLE hProcess,
