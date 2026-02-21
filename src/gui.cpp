@@ -59,27 +59,27 @@ LRESULT GUI::WndProc(HWND hWnd, UINT message, WPARAM wParam, LPARAM lParam) {
 
 void GUI::CreateControls() {
     CreateWindowW(L"BUTTON", L"Full scan", WS_CHILD | WS_VISIBLE,
-        25, 25, 100, 50,
+        15, 25, 120, 50,
         hWnd_, (HMENU)1001, NULL, NULL);
 
-    CreateWindowW(L"BUTTON", L"Find Hidden", WS_CHILD | WS_VISIBLE,
-        25, 95, 100, 50,
+    CreateWindowW(L"BUTTON", L"Hidden Procs", WS_CHILD | WS_VISIBLE,
+        15, 95, 120, 50,
         hWnd_, (HMENU)1002, NULL, NULL);
 
-    CreateWindowW(L"BUTTON", L"Find RWX", WS_CHILD | WS_VISIBLE,
-        25, 165, 100, 50,
+    CreateWindowW(L"BUTTON", L"RWX Anomalies", WS_CHILD | WS_VISIBLE,
+        15, 165, 120, 50,
         hWnd_, (HMENU)1003, NULL, NULL);
 
     CreateWindowW(L"BUTTON", L"Clear LOGS", WS_CHILD | WS_VISIBLE,
-        25, 500, 100, 50,
+        15, 505, 120, 50,
         hWnd_, (HMENU)1101, NULL, NULL);
 
     debug_console_ = CreateWindowW(L"BUTTON", L"Show Console", WS_CHILD | WS_VISIBLE,
-        25, 400, 100, 50,
+        15, 450, 120, 50,
         hWnd_, (HMENU)1102, NULL, NULL);
 
     listbox_ = CreateWindowW(L"LISTBOX", NULL, WS_CHILD | WS_VISIBLE | WS_VSCROLL | WS_HSCROLL,
-        150, 25, 595, 500,
+        150, 25, 595, 530,
         hWnd_, (HMENU)1103, NULL, NULL);
 }
 
