@@ -63,19 +63,19 @@ namespace laboratory {
         return compromised_processes;
     }
 
-    std::vector<domain::SuspiciousProcess> ProcessesLaboratory::DetectEscalatedPrivileges() {
-        std::vector<domain::SuspiciousProcess> procs_with_escalated_privileges;
+    std::vector<domain::SuspiciousProcess> ProcessesLaboratory::DetectEnabledPrivileges() {
+        std::vector<domain::SuspiciousProcess> procs_with_Enabled_privileges;
         try {
             privilege_escalator.EscalateToDebug();
             domain::Scan scan;
             scan[domain::ScanMethod::NtQSI] = snapshots_provider_.GetNtSnapshot();
-            procs_with_escalated_privileges = FindEscalatedPrivileges(scan);
+            procs_with_Enabled_privileges = FindEnabledPrivileges(scan);
             privilege_escalator.ResetPrivilege();
         }
         catch (const std::exception& e) {
-            LOG_CRITICAL("Escalated privileges detection error: "s + e.what());
+            LOG_CRITICAL("Enabled privileges detection error: "s + e.what());
         }
-        return procs_with_escalated_privileges;
+        return procs_with_Enabled_privileges;
     }
 
     std::vector<domain::SuspiciousProcess> 
@@ -113,13 +113,13 @@ namespace laboratory {
     }
 
     std::vector<domain::SuspiciousProcess> 
-        ProcessesLaboratory::FindEscalatedPrivileges(const domain::Scan& scan) {
+        ProcessesLaboratory::FindEnabledPrivileges(const domain::Scan& scan) {
         try {
-            auto analyzer = analyzers_.find(domain::AnalyzerType::EscalatedPrivileges);
+            auto analyzer = analyzers_.find(domain::AnalyzerType::EnabledPrivileges);
             if (analyzer == analyzers_.end()) {
-                throw std::runtime_error("Escalated priviliges analyzer not init");
+                throw std::runtime_error("Enabled priviliges analyzer not init");
             }
-            LOG_DEBUG("Start finding escalated privileges");
+            LOG_DEBUG("Start finding Enabled privileges");
             return analyzer->second->Analyze(scan).suspicious_processes_;
         }
         catch (const std::exception& e) {

@@ -121,10 +121,10 @@ LRESULT GUI::HandleMessage(UINT message, WPARAM wParam, LPARAM lParam) {
                 });
         }
         else if (LOWORD(wParam) == 1004) {
-            LOG_DEBUG("Pressed scan for escalated privileges");
-            LogToGUI(L"Detecting escalated privileges...");
-            application_.AsyncDetectEscalatedPrivileges([this](const auto& result) {
-                OutputEscalatedPrivilegesScanResult(result);
+            LOG_DEBUG("Pressed scan for Enabled privileges");
+            LogToGUI(L"Detecting Enabled privileges...");
+            application_.AsyncDetectEnabledPrivileges([this](const auto& result) {
+                OutputEnabledPrivilegesScanResult(result);
                 });
         }
         else if (LOWORD(wParam) == 1101) {
@@ -250,18 +250,18 @@ void GUI::OutputCompromisedProcessesScanResult(const std::vector<application::An
     }
 }
 
-void GUI::OutputEscalatedPrivilegesScanResult(const std::vector<application::AnalyzeResult>& ep) {
-    LogToGUI(L"Scan for escalated privileges complete");
+void GUI::OutputEnabledPrivilegesScanResult(const std::vector<application::AnalyzeResult>& ep) {
+    LogToGUI(L"Scan for Enabled privileges complete");
     if (ep.empty()) {
-        LOG_INFO("No escalated privileges found");
-        LogToGUI(L"No escalated privileges found");
+        LOG_INFO("No Enabled privileges found");
+        LogToGUI(L"No Enabled privileges found");
     }
     else {
-        for (const auto& escalated_privilege : ep) {
+        for (const auto& Enabled_privilege : ep) {
             std::wstringstream strm{};
-            strm << "[" << laboratory::domain::StringToWideChar(escalated_privilege.pid_)->c_str() << "]["
-                << laboratory::domain::StringToWideChar(escalated_privilege.process_name_)->c_str()
-                << "] " << laboratory::domain::StringToWideChar(escalated_privilege.comment_)->c_str()
+            strm << "[" << laboratory::domain::StringToWideChar(Enabled_privilege.pid_)->c_str() << "]["
+                << laboratory::domain::StringToWideChar(Enabled_privilege.process_name_)->c_str()
+                << "] " << laboratory::domain::StringToWideChar(Enabled_privilege.comment_)->c_str()
                 << "\n";
             auto* wstr = new std::wstring(strm.str());
             SetHorizontalScrollSize(wstr->c_str());

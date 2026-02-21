@@ -41,7 +41,7 @@ namespace laboratory {
         enum class AnalyzerType {
             HiddenProcesses = 0,
             CompromisedProcesses = 1,
-            EscalatedPrivileges = 2
+            EnabledPrivileges = 2
         };
 
         enum class MemDetection {
