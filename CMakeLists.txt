@@ -27,6 +27,16 @@ target_link_libraries(NtDll PRIVATE
     Logger
 )
 
+add_library(PrivilegeEscalator 
+    src/privilege_escalator.h
+    src/privilege_escalator.cpp 
+)
+
+target_link_libraries(PrivilegesEscalator PRIVATE 
+    Logger
+    NtDll 
+)
+
 add_library(ProcessesLaboratory
     src/ProcessesLaboratory/processes_laboratory.h
     src/ProcessesLaboratory/processes_laboratory.cpp
@@ -53,6 +63,7 @@ add_library(ProcessesLaboratory
 target_link_libraries(ProcessesLaboratory PUBLIC 
     Logger
     NtDll
+    PrivilegesEscalator
 )
 
 add_library(ThreadPool 
