@@ -10,6 +10,15 @@ namespace laboratory {
 
     namespace analyze {
 
+        struct PrivilegeNames {
+            PrivilegeNames() = delete;
+
+            static constexpr std::string_view DEBUG = "SeDebugPrivilege"sv;
+            static constexpr std::string_view TCB = "SeTcbPrivilege"sv;
+            static constexpr std::string_view LOAD_DRIVER = "SeLoadDriverPrivilege"sv;
+            static constexpr std::string_view TAKE_OWNERSHIP = "SeTakeOwnershipPrivilege"sv;
+        };
+
         class PrivilegeAnalyzer : public Analyzer {
         public:
             PrivilegeAnalyzer(maltech::ntdll::NtDll& ntdll)
