@@ -3,6 +3,8 @@
 #include "../analyzer.h"
 #include "../../domain.h"
 
+#include <Windows.h>
+
 namespace laboratory {
 
     namespace analyze {
@@ -13,7 +15,7 @@ namespace laboratory {
 
         private:
             AnalyzeResult StartAnalyze(const domain::Scan& scan) override;
-
+            domain::SPProcessInfo AnalyzeProcess(DWORD pid);
         };
 
     }

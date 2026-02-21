@@ -2,6 +2,8 @@
 #include "../../domain.h"
 #include "../analyzer.h"
 
+#include <Windows.h>
+
 
 namespace laboratory {
 
@@ -9,6 +11,10 @@ namespace laboratory {
 
         AnalyzeResult PrivilegeAnalyzer::StartAnalyze(const domain::Scan& scan) {
             return {};
+        }
+
+        domain::SPProcessInfo PrivilegeAnalyzer::AnalyzeProcess(DWORD pid) {
+            return domain::SPProcessInfo();
         }
 
     }
