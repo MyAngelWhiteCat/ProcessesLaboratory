@@ -65,8 +65,7 @@ namespace maltech {
                         LOG_CRITICAL("Can't reset privileges!");
                         return;
                     }
-                    LOG_ERROR("Can't escalate privilege! Try to reset...");
-                    ResetPrivilege();
+                    LOG_ERROR("Can't escalate privilege!");
                 }
             }
             catch (const std::exception& e) {
