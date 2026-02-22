@@ -11,6 +11,7 @@
 Для сборки потребуются:
 - cmake
 - conan2
+- Windows PowerShell
 ``` bash
 git clone https://github.com/MyAngelWhiteCat/ProcessesLaboratory.git
 cd ProcessesLaboratory
