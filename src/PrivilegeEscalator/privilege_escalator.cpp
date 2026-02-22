@@ -55,7 +55,7 @@ namespace maltech {
                     NULL,
                     NULL);
 
-                if (NT_SUCCESS(status)) {
+                if (NT_SUCCESS(status) && status == 0x00) {
                     LogStatus(status);
                     current_privilege_ = std::string(privilege);
                     is_escaled_ = true;
