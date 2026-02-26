@@ -73,4 +73,16 @@ namespace application {
         return result.c_str();
     }
 
+    APPLICATION_API const char* GetDetectedCompromisedProcesses() {
+        static std::string result;
+        result = SerializeResult(std::move(GetApp()->DetectCompromisedProcesses())).dump();
+        return result.c_str();
+    }
+
+    APPLICATION_API const char* GetDetectedEnabledPrivileges() {
+        static std::string result;
+        result = SerializeResult(std::move(GetApp()->DetectEnabledPrivileges())).dump();
+        return result.c_str();
+    }
+
 }
