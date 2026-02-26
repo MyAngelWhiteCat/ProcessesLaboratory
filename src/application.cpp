@@ -52,14 +52,14 @@ namespace application {
         return formated_result;
     }
 
-    json SerializeResult(Suspects&& suspects) {
+    json SerializeResult(std::vector<AnalyzeResult>&& suspects) {
         json serialized_result = json::array();
         for (auto& suspect : suspects) {
             json serialized_suspect;
             serialized_suspect[names::PROCESS_NAME] =
-                std::string(suspect.proc_info_->GetProcessName());
+                std::move(suspect.process_name_);
             serialized_suspect[names::PID] =
-                std::to_string(suspect.proc_info_->GetPid());
+                std::move(suspect.pid_);
             serialized_suspect[names::COMMENT] =
                 std::move(suspect.comment_);
             serialized_result.push_back(serialized_suspect);

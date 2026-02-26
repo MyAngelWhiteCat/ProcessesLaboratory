@@ -49,7 +49,7 @@ namespace application {
         std::string pid_;
     };
 
-    json SerializeResult(Suspects&& suspects);
+    json SerializeResult(std::vector<AnalyzeResult>&& suspects);
 
     class Application {
     public:
