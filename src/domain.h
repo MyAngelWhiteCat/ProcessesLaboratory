@@ -75,6 +75,22 @@ namespace laboratory {
             HANDLE handle_{ 0 };
         };
 
+        struct AnalyzeResult {
+            AnalyzeResult(
+                std::string&& process_name,
+                std::string&& comment,
+                std::string&& pid)
+                : process_name_(std::move(process_name))
+                , comment_(std::move(comment))
+                , pid_(std::move(pid))
+            {
+            }
+
+            std::string process_name_;
+            std::string comment_;
+            std::string pid_;
+        };
+
         struct SuspiciousMemory {
             std::optional<MemDetection> detection_;
             SIZE_T address_ = 0;

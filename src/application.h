@@ -15,23 +15,6 @@ namespace application {
 
     using Suspects = std::vector<laboratory::domain::SuspiciousProcess>;
 
-    struct AnalyzeResult {
-        AnalyzeResult(
-            std::string&& process_name,
-            std::string&& comment,
-            std::string&& pid)
-            : process_name_(std::move(process_name))
-            , comment_(std::move(comment))
-            , pid_(std::move(pid)) 
-        {
-        }
-
-        std::string process_name_;
-        std::string comment_;
-        std::string pid_;
-    };
-
-
     class Application {
     public:
         Application();
