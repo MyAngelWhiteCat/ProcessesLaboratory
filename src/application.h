@@ -26,6 +26,7 @@ namespace application {
     using json = nlohmann::json;
     using names = laboratory::domain::SuspiciousProcessSerializerNames;
 
+
     extern "C" {
         APPLICATION_API const char* GetDetectedHiddenProcesses();
         APPLICATION_API const char* GetDetectedCompromisedProcesses();
