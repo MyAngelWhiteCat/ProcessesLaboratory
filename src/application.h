@@ -28,9 +28,9 @@ namespace application {
     using names = laboratory::domain::SuspiciousProcessSerializerNames;
 
     extern "C" {
-        APPLICATION_API std::string DetectHiddenProcesses();
-        APPLICATION_API std::string DetectCompromisedProcesses();
-        APPLICATION_API std::string DetectEnabledPrivileges();
+        APPLICATION_API const char* DetectHiddenProcesses();
+        APPLICATION_API const char* DetectCompromisedProcesses();
+        APPLICATION_API const char* DetectEnabledPrivileges();
     }
 
     struct AnalyzeResult {
