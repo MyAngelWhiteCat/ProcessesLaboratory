@@ -72,7 +72,7 @@ add_library(ThreadPool
     src/ThreadPool/thread_pool.cpp 
 )
 
-add_library(Application
+add_library(Application SHARED
     src/application.h 
     src/application.cpp
 )
