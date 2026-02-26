@@ -72,7 +72,7 @@ add_library(ThreadPool
     src/ThreadPool/thread_pool.cpp 
 )
 
-add_library(Application SHARED
+add_library(Application
     src/application.h 
     src/application.cpp
 )
@@ -83,7 +83,14 @@ target_link_libraries(Application PUBLIC
     nlohmann_json::nlohmann_json
 )
 
-target_compile_definitions(Application PRIVATE APPLICATION_EXPORT)
+add_library(ApplicationDLL SHARED 
+    src/application_dll.h
+    src/application_dll.cpp 
+)
+
+target_link_libraries(ApplicationDLL PUBLIC 
+    Application
+)
 
 add_executable(ProcLab
     src/gui.h
