@@ -28,20 +28,45 @@
         /// </summary>
         private void InitializeComponent()
         {
+            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(Form1));
+            this.menu_panel = new System.Windows.Forms.Panel();
+            this.main_panel = new System.Windows.Forms.Panel();
             this.SuspendLayout();
+            // 
+            // menu_panel
+            // 
+            this.menu_panel.Dock = System.Windows.Forms.DockStyle.Left;
+            this.menu_panel.Location = new System.Drawing.Point(0, 0);
+            this.menu_panel.Name = "menu_panel";
+            this.menu_panel.Size = new System.Drawing.Size(284, 854);
+            this.menu_panel.TabIndex = 0;
+            // 
+            // main_panel
+            // 
+            this.main_panel.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.main_panel.Location = new System.Drawing.Point(284, 0);
+            this.main_panel.Name = "main_panel";
+            this.main_panel.Size = new System.Drawing.Size(910, 854);
+            this.main_panel.TabIndex = 1;
             // 
             // Form1
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(12F, 25F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(1002, 688);
+            this.ClientSize = new System.Drawing.Size(1194, 854);
+            this.Controls.Add(this.main_panel);
+            this.Controls.Add(this.menu_panel);
+            this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
             this.Name = "Form1";
-            this.Text = "Form1";
+            this.Text = "Processes Laboratory";
             this.ResumeLayout(false);
 
         }
 
         #endregion
+
+        private System.Windows.Forms.Panel menu_panel;
+        private System.Windows.Forms.Panel main_panel;
     }
 }
 
