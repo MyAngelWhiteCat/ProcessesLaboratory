@@ -4,9 +4,6 @@
 #include "ProcessesLaboratory/processes_laboratory.h"
 #include "ThreadPool/thread_pool.h"
 
-#include "nlohmann/json.hpp"
-#include <nlohmann/json_fwd.hpp>
-
 #include <memory>
 #include <string>
 #include <utility>
@@ -17,8 +14,6 @@
 namespace application {
 
     using Suspects = std::vector<laboratory::domain::SuspiciousProcess>;
-    using json = nlohmann::json;
-    using names = laboratory::domain::SuspiciousProcessSerializerNames;
 
     struct AnalyzeResult {
         AnalyzeResult(
@@ -36,7 +31,6 @@ namespace application {
         std::string pid_;
     };
 
-    json SerializeResult(std::vector<AnalyzeResult>&& suspects);
 
     class Application {
     public:
@@ -97,5 +91,4 @@ namespace application {
         thread_pool_.AddTask(detect_func);
     }
 
-    Application* GetApp();
 }
