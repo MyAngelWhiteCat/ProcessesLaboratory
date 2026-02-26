@@ -17,9 +17,21 @@
 
 namespace application {
 
+#ifdef APPLICATION_EXPORT
+#define APPLICATION_API __declspec(dllexport)
+#else
+#define APPLICATION_API __declspec(dllimport)
+#endif
+
     using Suspects = std::vector<laboratory::domain::SuspiciousProcess>;
     using json = nlohmann::json;
     using names = laboratory::domain::SuspiciousProcessSerializerNames;
+
+    extern "C" {
+        APPLICATION_API std::string DetectHiddenProcesses();
+        APPLICATION_API std::string DetectCompromisedProcesses();
+        APPLICATION_API std::string DetectEnabledPrivileges();
+    }
 
     struct AnalyzeResult {
         AnalyzeResult(
