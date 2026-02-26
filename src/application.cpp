@@ -10,15 +10,6 @@
 
 namespace application {
 
-    static std::unique_ptr<Application> app;
-
-    Application* GetApp() {
-        if (!app) {
-            app = std::make_unique<Application>();
-        }
-        return app.get();
-    }
-
     Application::Application()
         : laboratory_(std::make_shared<laboratory::ProcessesLaboratory>())
     {
@@ -65,24 +56,6 @@ namespace application {
             serialized_result.push_back(serialized_suspect);
         }
         return serialized_result;
-    }
-
-    APPLICATION_API const char* GetDetectedHiddenProcesses() {
-        static std::string result;
-        result = SerializeResult(std::move(GetApp()->DetectHiddenProcesses())).dump();
-        return result.c_str();
-    }
-
-    APPLICATION_API const char* GetDetectedCompromisedProcesses() {
-        static std::string result;
-        result = SerializeResult(std::move(GetApp()->DetectCompromisedProcesses())).dump();
-        return result.c_str();
-    }
-
-    APPLICATION_API const char* GetDetectedEnabledPrivileges() {
-        static std::string result;
-        result = SerializeResult(std::move(GetApp()->DetectEnabledPrivileges())).dump();
-        return result.c_str();
     }
 
 }
