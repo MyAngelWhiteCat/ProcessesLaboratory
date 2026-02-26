@@ -25,7 +25,7 @@ namespace application {
     using Suspects = std::vector<laboratory::domain::SuspiciousProcess>;
     using json = nlohmann::json;
     using names = laboratory::domain::SuspiciousProcessSerializerNames;
-
+    
 
     extern "C" {
         APPLICATION_API const char* GetDetectedHiddenProcesses();
@@ -65,16 +65,16 @@ namespace application {
         template <typename Callback>
         void AsyncDetectEnabledPrivileges(Callback&& callback);
 
+        std::vector<AnalyzeResult> FullScan();
+        std::vector<AnalyzeResult> DetectHiddenProcesses();
+        std::vector<AnalyzeResult> DetectCompromisedProcesses();
+        std::vector<AnalyzeResult> DetectEnabledPrivileges();
+
     private:
         ThreadPool thread_pool_{ GetMaximumProcessorCount(ALL_PROCESSOR_GROUPS) };
         std::shared_ptr<laboratory::ProcessesLaboratory> laboratory_;
         std::vector<AnalyzeResult> FormatResult(Suspects&& suspects) const;
         json SerializeResult(Suspects&& suspects) const;
-
-        std::vector<AnalyzeResult> FullScan();
-        std::vector<AnalyzeResult> DetectHiddenProcesses();
-        std::vector<AnalyzeResult> DetectCompromisedProcesses();
-        std::vector<AnalyzeResult> DetectEnabledPrivileges();
     };
 
     template<typename Callback>
