@@ -1,20 +1,15 @@
 #pragma once 
 #include "application.h"
 
-#ifdef APPLICATION_EXPORT
-#define APPLICATION_API __declspec(dllexport)
-#else
-#define APPLICATION_API __declspec(dllimport)
-#endif
-
 namespace application {
 
-    extern "C" {
-        APPLICATION_API const char* GetDetectedHiddenProcesses();
-        APPLICATION_API const char* GetDetectedCompromisedProcesses();
-        APPLICATION_API const char* GetDetectedEnabledPrivileges();
-    }
+    typedef void (*LogCallback)(const char* result);
 
+    extern "C" {
+        __declspec(dllexport) void GetDetectedHiddenProcesses(LogCallback callback);
+        __declspec(dllexport) void GetDetectedCompromisedProcesses(LogCallback callback);
+        __declspec(dllexport) void GetDetectedEnabledPrivileges(LogCallback callback);
+    }
 
 
 }
