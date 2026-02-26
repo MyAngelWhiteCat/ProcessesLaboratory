@@ -79,6 +79,7 @@ add_library(Application
 target_link_libraries(Application PUBLIC 
     ProcessesLaboratory 
     ThreadPool
+    nlohmann_json::nlohmann_json
 )
 
 add_executable(ProcLab
