@@ -16,24 +16,24 @@ namespace application {
         LOG_DEBUG("Application constructed");
     }
 
-    std::vector<AnalyzeResult> Application::FullScan() {
+    std::vector<laboratory::domain::AnalyzeResult> Application::FullScan() {
         return FormatResult(std::move(laboratory_->StartFullScan()));
     }
 
-    std::vector<AnalyzeResult> Application::DetectHiddenProcesses() {
+    std::vector<laboratory::domain::AnalyzeResult> Application::DetectHiddenProcesses() {
         return FormatResult(std::move(laboratory_->DetectHiddenProcesses()));
     }
 
-    std::vector<AnalyzeResult> Application::DetectCompromisedProcesses() {
+    std::vector<laboratory::domain::AnalyzeResult> Application::DetectCompromisedProcesses() {
         return FormatResult(std::move(laboratory_->DetectCompromisedProcesses()));
     }
 
-    std::vector<AnalyzeResult> Application::DetectEnabledPrivileges() {
+    std::vector<laboratory::domain::AnalyzeResult> Application::DetectEnabledPrivileges() {
         return FormatResult(std::move(laboratory_->DetectEnabledPrivileges()));
     }
 
-    std::vector<AnalyzeResult> Application::FormatResult(Suspects&& suspects) const {
-        std::vector<AnalyzeResult> formated_result;
+    std::vector<laboratory::domain::AnalyzeResult> Application::FormatResult(Suspects&& suspects) const {
+        std::vector<laboratory::domain::AnalyzeResult> formated_result;
         for (auto& suspect : suspects) {
             formated_result.emplace_back(
                 std::string(suspect.proc_info_->GetProcessName()),

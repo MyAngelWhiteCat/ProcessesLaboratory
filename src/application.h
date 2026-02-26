@@ -31,15 +31,15 @@ namespace application {
         template <typename Callback>
         void AsyncDetectEnabledPrivileges(Callback&& callback);
 
-        std::vector<AnalyzeResult> FullScan();
-        std::vector<AnalyzeResult> DetectHiddenProcesses();
-        std::vector<AnalyzeResult> DetectCompromisedProcesses();
-        std::vector<AnalyzeResult> DetectEnabledPrivileges();
+        std::vector<laboratory::domain::AnalyzeResult> FullScan();
+        std::vector<laboratory::domain::AnalyzeResult> DetectHiddenProcesses();
+        std::vector<laboratory::domain::AnalyzeResult> DetectCompromisedProcesses();
+        std::vector<laboratory::domain::AnalyzeResult> DetectEnabledPrivileges();
 
     private:
         ThreadPool thread_pool_{ GetMaximumProcessorCount(ALL_PROCESSOR_GROUPS) };
         std::shared_ptr<laboratory::ProcessesLaboratory> laboratory_;
-        std::vector<AnalyzeResult> FormatResult(Suspects&& suspects) const;
+        std::vector<laboratory::domain::AnalyzeResult> FormatResult(Suspects&& suspects) const;
     };
 
     template<typename Callback>
