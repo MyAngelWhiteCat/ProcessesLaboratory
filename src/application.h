@@ -49,6 +49,8 @@ namespace application {
         std::string pid_;
     };
 
+    json SerializeResult(Suspects&& suspects);
+
     class Application {
     public:
         Application();

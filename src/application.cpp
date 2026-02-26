@@ -52,7 +52,7 @@ namespace application {
         return formated_result;
     }
 
-    json Application::SerializeResult(Suspects&& suspects) const {
+    json SerializeResult(Suspects&& suspects) {
         json serialized_result = json::array();
         for (auto& suspect : suspects) {
             json serialized_suspect;
