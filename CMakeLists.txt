@@ -83,6 +83,8 @@ target_link_libraries(Application PUBLIC
     nlohmann_json::nlohmann_json
 )
 
+target_compile_definitions(Application PRIVATE APPLICATION_EXPORT)
+
 add_executable(ProcLab
     src/gui.h
     src/gui.cpp
