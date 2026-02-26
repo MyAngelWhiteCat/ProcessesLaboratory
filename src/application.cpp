@@ -10,7 +10,7 @@
 
 namespace application {
 
-    std::unique_ptr<Application> app;
+    static std::unique_ptr<Application> app;
 
     Application* GetApp() {
         if (!app) {
