@@ -1,39 +1,41 @@
 ﻿#include "Logger/logger.h"
-#include "gui.h"
+#include "application.h"
 
 #include <exception>
 #include <Windows.h>
 
 
 using namespace std::literals;
-
-void TestConsole() {
-    application::Application app;
-    Sleep(5000);
-    int i = 10;
-    while (i-- > 0) {
-        app.AsyncDetectEnabledPrivileges([](auto susps) {
-            if (susps.empty()) {
-                LOG_INFO("Empty");
-            }
-            });
-    }
-    while (true) {
-
-    }
-}
+//
+//void TestConsole() {
+//    application::Application app;
+//    Sleep(5000);
+//    int i = 10;
+//    while (i-- > 0) {
+//        app.AsyncDetectEnabledPrivileges([](auto susps) {
+//            if (susps.empty()) {
+//                LOG_INFO("Empty");
+//            }
+//            });
+//    }
+//    while (true) {
+//
+//    }
+//}
 
 int main() {
     try {
-        logging::Logger logger;
-        logger.Init();
-        LPCWSTR wnd_name = L"ProcLab";
-        HINSTANCE hInstance = GetModuleHandleW(NULL);
-        GUI gui;
-        gui.Create(wnd_name, hInstance);
-        ShowWindow(GetConsoleWindow(), SW_HIDE);
-        gui.Start();
+        //logging::Logger logger;
+        //logger.Init();
+        //LPCWSTR wnd_name = L"ProcLab";
+        //HINSTANCE hInstance = GetModuleHandleW(NULL);
+        //GUI gui;
+        //gui.Create(wnd_name, hInstance);
+        //ShowWindow(GetConsoleWindow(), SW_HIDE);
+        //gui.Start();
 
+        std::cout << application::GetDetectedCompromisedProcesses();
+        while (true) { Sleep(1000); }
     }
     catch (const std::exception& e) {
         LOG_CRITICAL("System error: "s.append(e.what()));

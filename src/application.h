@@ -110,4 +110,5 @@ namespace application {
         thread_pool_.AddTask(detect_func);
     }
 
+    Application* GetApp();
 }
