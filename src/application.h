@@ -76,7 +76,6 @@ namespace application {
         ThreadPool thread_pool_{ GetMaximumProcessorCount(ALL_PROCESSOR_GROUPS) };
         std::shared_ptr<laboratory::ProcessesLaboratory> laboratory_;
         std::vector<AnalyzeResult> FormatResult(Suspects&& suspects) const;
-        json SerializeResult(Suspects&& suspects) const;
     };
 
     template<typename Callback>
