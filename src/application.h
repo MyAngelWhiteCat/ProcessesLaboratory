@@ -19,6 +19,7 @@ namespace application {
 
     using Suspects = std::vector<laboratory::domain::SuspiciousProcess>;
     using json = nlohmann::json;
+    using names = laboratory::domain::SuspiciousProcessSerializerNames;
 
     struct AnalyzeResult {
         AnalyzeResult(
