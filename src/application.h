@@ -14,23 +14,22 @@
 
 #include <Windows.h>
 
-
-namespace application {
-
 #ifdef APPLICATION_EXPORT
 #define APPLICATION_API __declspec(dllexport)
 #else
 #define APPLICATION_API __declspec(dllimport)
 #endif
 
+namespace application {
+
     using Suspects = std::vector<laboratory::domain::SuspiciousProcess>;
     using json = nlohmann::json;
     using names = laboratory::domain::SuspiciousProcessSerializerNames;
 
     extern "C" {
-        APPLICATION_API const char* DetectHiddenProcesses();
-        APPLICATION_API const char* DetectCompromisedProcesses();
-        APPLICATION_API const char* DetectEnabledPrivileges();
+        APPLICATION_API const char* GetDetectedHiddenProcesses();
+        APPLICATION_API const char* GetDetectedCompromisedProcesses();
+        APPLICATION_API const char* GetDetectedEnabledPrivileges();
     }
 
     struct AnalyzeResult {
