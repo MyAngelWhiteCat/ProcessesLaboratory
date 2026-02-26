@@ -4,6 +4,8 @@
 #include "ProcessesLaboratory/processes_laboratory.h"
 #include "ThreadPool/thread_pool.h"
 
+#include "nlohmann/json.hpp"
+
 #include <memory>
 #include <string>
 #include <utility>
@@ -15,6 +17,7 @@
 namespace application {
 
     using Suspects = std::vector<laboratory::domain::SuspiciousProcess>;
+    using json = nlohmann::json;
 
     struct AnalyzeResult {
         AnalyzeResult(
@@ -52,6 +55,7 @@ namespace application {
         ThreadPool thread_pool_{ GetMaximumProcessorCount(ALL_PROCESSOR_GROUPS) };
         std::shared_ptr<laboratory::ProcessesLaboratory> laboratory_;
         std::vector<AnalyzeResult> FormatResult(Suspects&& suspects) const;
+        json SerializeResult(Suspects&& suspects) const;
 
         std::vector<AnalyzeResult> FullScan();
         std::vector<AnalyzeResult> DetectHiddenProcesses();
