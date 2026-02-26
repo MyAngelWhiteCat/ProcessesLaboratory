@@ -67,4 +67,10 @@ namespace application {
         return serialized_result;
     }
 
+    APPLICATION_API const char* GetDetectedHiddenProcesses() {
+        static std::string result;
+        result = SerializeResult(std::move(GetApp()->DetectHiddenProcesses())).dump();
+        return result.c_str();
+    }
+
 }
