@@ -6,6 +6,7 @@ set(CMAKE_CXX_STANDARD 20)
 
 include(${CMAKE_BINARY_DIR}/conan_toolchain.cmake)
 find_package(spdlog REQUIRED)
+find_package(nlohmann_json REQUIRED)
 
 add_library(Logger 
     src/Logger/logger.h
