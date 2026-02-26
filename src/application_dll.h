@@ -21,9 +21,9 @@ namespace application {
 
 
     extern "C" {
-        __declspec(dllexport) void GetDetectedHiddenProcesses(LogCallback callback);
-        __declspec(dllexport) void GetDetectedCompromisedProcesses(LogCallback callback);
-        __declspec(dllexport) void GetDetectedEnabledPrivileges(LogCallback callback);
+        __declspec(dllexport) void DetectHiddenProcesses(LogCallback callback);
+        __declspec(dllexport) void DetectCompromisedProcesses(LogCallback callback);
+        __declspec(dllexport) void DetectEnabledPrivileges(LogCallback callback);
     }
 
     class ApplicationExportDLL {
