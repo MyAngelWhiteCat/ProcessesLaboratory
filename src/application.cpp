@@ -10,6 +10,15 @@
 
 namespace application {
 
+    std::unique_ptr<Application> app;
+
+    Application* GetApp() {
+        if (!app) {
+            app = std::make_unique<Application>();
+        }
+        return app.get();
+    }
+
     Application::Application()
         : laboratory_(std::make_shared<laboratory::ProcessesLaboratory>())
     {
