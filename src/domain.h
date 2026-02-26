@@ -108,6 +108,13 @@ namespace laboratory {
             std::vector<SuspiciousMemory> suspicious_memory_;
         };
 
+        struct SuspiciousProcessSerializerNames {
+            SuspiciousProcessSerializerNames() = delete;
+            static constexpr std::string_view PID = "PID";
+            static constexpr std::string_view PROCESS_NAME = "PROCESS_NAME";
+            static constexpr std::string_view COMMENT = "COMMENT";
+        };
+
         struct ThreadInfo {
             ThreadInfo() = delete;
             ThreadInfo(DWORD thread_id, DWORD owner_id, LONG prioritet) 
