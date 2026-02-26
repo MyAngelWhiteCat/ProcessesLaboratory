@@ -16,5 +16,4 @@ namespace application {
         __declspec(dllexport) void GetDetectedEnabledPrivileges(LogCallback callback);
     }
 
-
 }

@@ -5,7 +5,6 @@
 
 namespace application {
 
-
     Application* GetApp() {
         if (!app) {
             app = std::make_unique<Application>();
