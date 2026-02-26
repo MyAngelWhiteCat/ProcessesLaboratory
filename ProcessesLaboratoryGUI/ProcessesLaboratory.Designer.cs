@@ -38,22 +38,22 @@
             this.menu_panel.Dock = System.Windows.Forms.DockStyle.Left;
             this.menu_panel.Location = new System.Drawing.Point(0, 0);
             this.menu_panel.Name = "menu_panel";
-            this.menu_panel.Size = new System.Drawing.Size(284, 854);
+            this.menu_panel.Size = new System.Drawing.Size(278, 914);
             this.menu_panel.TabIndex = 0;
             // 
             // main_panel
             // 
             this.main_panel.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.main_panel.Location = new System.Drawing.Point(284, 0);
+            this.main_panel.Location = new System.Drawing.Point(278, 0);
             this.main_panel.Name = "main_panel";
-            this.main_panel.Size = new System.Drawing.Size(910, 854);
+            this.main_panel.Size = new System.Drawing.Size(1022, 914);
             this.main_panel.TabIndex = 1;
             // 
             // Form1
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(12F, 25F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(1194, 854);
+            this.ClientSize = new System.Drawing.Size(1300, 914);
             this.Controls.Add(this.main_panel);
             this.Controls.Add(this.menu_panel);
             this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
