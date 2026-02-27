@@ -30,6 +30,9 @@ namespace application {
     public:
         ApplicationExportDLL();
 
+        void AsyncDetectHiddenProcesses(LogCallback callback);
+        void AsyncDetectCompromisedProcesses(LogCallback callback);
+        void AsyncDetectEnabledPrivileges(LogCallback callback);
 
     private:
         ThreadPool thread_pool_{ GetMaximumProcessorCount(ALL_PROCESSOR_GROUPS) };

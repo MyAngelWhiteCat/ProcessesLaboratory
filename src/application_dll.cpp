@@ -26,6 +26,24 @@ namespace application {
         
     }
 
+    void ApplicationExportDLL::AsyncDetectHiddenProcesses(LogCallback callback) {
+        thread_pool_.AddTask([this, callback]() {
+            callback(SerializeResult(laboratory_->DetectHiddenProcesses()).dump().c_str());
+            });
+    }
+
+    void ApplicationExportDLL::AsyncDetectCompromisedProcesses(LogCallback callback) {
+        thread_pool_.AddTask([this, callback]() {
+            callback(SerializeResult(laboratory_->DetectCompromisedProcesses()).dump().c_str());
+            });
+    }
+
+    void ApplicationExportDLL::AsyncDetectEnabledPrivileges(LogCallback callback) {
+        thread_pool_.AddTask([this, callback]() {
+            callback(SerializeResult(laboratory_->DetectEnabledPrivileges()).dump().c_str());
+            });
+    }
+
     json ApplicationExportDLL::SerializeResult
     (std::vector<laboratory::domain::SuspiciousProcess>&& suspects) {
         json serialized_result = json::array();
