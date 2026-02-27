@@ -42,4 +42,9 @@ namespace application {
         return serialized_result;
     }
 
+    ApplicationExportDLL::ApplicationExportDLL()
+        : laboratory_(std::make_shared<laboratory::ProcessesLaboratory>())
+    {
+    }
+
 }

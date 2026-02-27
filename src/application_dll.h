@@ -28,6 +28,8 @@ namespace application {
 
     class ApplicationExportDLL {
     public:
+        ApplicationExportDLL();
+
 
     private:
         ThreadPool thread_pool_{ GetMaximumProcessorCount(ALL_PROCESSOR_GROUPS) };
