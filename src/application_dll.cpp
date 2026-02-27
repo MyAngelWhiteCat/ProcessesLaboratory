@@ -15,15 +15,15 @@ namespace application {
     }
 
     __declspec(dllexport) void DetectHiddenProcesses(LogCallback callback) {
-        
+        GetApp()->AsyncDetectHiddenProcesses(callback);
     }
 
     __declspec(dllexport) void DetectCompromisedProcesses(LogCallback callback) {
-        
+        GetApp()->AsyncDetectCompromisedProcesses(callback);
     }
 
     __declspec(dllexport) void DetectEnabledPrivileges(LogCallback callback) {
-        
+        GetApp()->AsyncDetectEnabledPrivileges(callback);
     }
 
     void ApplicationExportDLL::AsyncDetectHiddenProcesses(LogCallback callback) {
