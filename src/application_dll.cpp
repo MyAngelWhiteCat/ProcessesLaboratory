@@ -9,7 +9,7 @@ namespace application {
 
     ApplicationExportDLL* GetApp() {
         if (!app) {
-            app = std::move(std::make_unique<ApplicationExportDLL>());
+            app = std::make_unique<ApplicationExportDLL>();
         }
         return app.get();
     }
@@ -28,19 +28,25 @@ namespace application {
 
     void ApplicationExportDLL::AsyncDetectHiddenProcesses(LogCallback callback) {
         thread_pool_.AddTask([this, callback]() {
-            callback(SerializeResult(laboratory_->DetectHiddenProcesses()).dump().c_str());
+            auto json_string = SerializeResult
+            (laboratory_->DetectHiddenProcesses()).dump();
+            callback(json_string.c_str());
             });
     }
 
     void ApplicationExportDLL::AsyncDetectCompromisedProcesses(LogCallback callback) {
         thread_pool_.AddTask([this, callback]() {
-            callback(SerializeResult(laboratory_->DetectCompromisedProcesses()).dump().c_str());
+            auto json_string = SerializeResult
+            (laboratory_->DetectCompromisedProcesses()).dump();
+            callback(json_string.c_str());
             });
     }
 
     void ApplicationExportDLL::AsyncDetectEnabledPrivileges(LogCallback callback) {
         thread_pool_.AddTask([this, callback]() {
-            callback(SerializeResult(laboratory_->DetectEnabledPrivileges()).dump().c_str());
+            auto json_string = SerializeResult
+            (laboratory_->DetectEnabledPrivileges()).dump();
+            callback(json_string.c_str());
             });
     }
 
