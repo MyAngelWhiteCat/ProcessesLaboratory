@@ -32,7 +32,7 @@ namespace application {
     private:
         ThreadPool thread_pool_{ GetMaximumProcessorCount(ALL_PROCESSOR_GROUPS) };
         std::shared_ptr<laboratory::ProcessesLaboratory> laboratory_;
-        json SerializeResult(std::vector<laboratory::domain::AnalyzeResult>&& suspects);
+        json SerializeResult(std::vector<laboratory::domain::SuspiciousProcess>&& suspects);
     };
 
     static std::unique_ptr<ApplicationExportDLL> app;
