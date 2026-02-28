@@ -126,9 +126,9 @@ namespace laboratory {
 
         struct SuspiciousProcessSerializerNames {
             SuspiciousProcessSerializerNames() = delete;
-            static constexpr std::string_view PID = "PID";
-            static constexpr std::string_view PROCESS_NAME = "PROCESS_NAME";
-            static constexpr std::string_view COMMENT = "COMMENT";
+            static constexpr std::string_view PID = "pid";
+            static constexpr std::string_view PROCESS_NAME = "process_name";
+            static constexpr std::string_view COMMENT = "comment";
         };
 
         struct ThreadInfo {
