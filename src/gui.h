@@ -1,6 +1,7 @@
 #pragma once
 
 #include "application.h"
+#include "domain.h"
 
 #include <Windows.h>
 #include <string>
@@ -10,6 +11,7 @@
 #define WM_APP_LOG_MESSAGE (WM_APP + 1)
 
 using namespace std::literals;
+using AnalyzeResult = laboratory::domain::AnalyzeResult;
 
 class GUI {
 public:
@@ -43,8 +45,8 @@ private:
 
     // Application interactions =======================================================================
 
-    void OutputHiddenProcessesScanResult(const std::vector<application::AnalyzeResult>& hp);
-    void OutputCompromisedProcessesScanResult(const std::vector<application::AnalyzeResult>& cp);
-    void OutputEnabledPrivilegesScanResult(const std::vector<application::AnalyzeResult>& ep);
+    void OutputHiddenProcessesScanResult(const std::vector<AnalyzeResult>& hp);
+    void OutputCompromisedProcessesScanResult(const std::vector<AnalyzeResult>& cp);
+    void OutputEnabledPrivilegesScanResult(const std::vector<AnalyzeResult>& ep);
 };
 

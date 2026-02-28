@@ -210,7 +210,7 @@ void GUI::OutputFullScanProgress() {
 
 }
 
-void GUI::OutputHiddenProcessesScanResult(const std::vector<application::AnalyzeResult>& hp) {
+void GUI::OutputHiddenProcessesScanResult(const std::vector<AnalyzeResult>& hp) {
     LogToGUI(L"Scan for hidden processes complete");
     if (hp.empty()) {
         LOG_INFO("No hidden processes found");
@@ -230,7 +230,7 @@ void GUI::OutputHiddenProcessesScanResult(const std::vector<application::Analyze
     }
 }
 
-void GUI::OutputCompromisedProcessesScanResult(const std::vector<application::AnalyzeResult>& cp) {
+void GUI::OutputCompromisedProcessesScanResult(const std::vector<AnalyzeResult>& cp) {
     LogToGUI(L"Scan for compromised processes complete");
     if (cp.empty()) {
         LOG_INFO("No compromised processes found");
@@ -250,7 +250,7 @@ void GUI::OutputCompromisedProcessesScanResult(const std::vector<application::An
     }
 }
 
-void GUI::OutputEnabledPrivilegesScanResult(const std::vector<application::AnalyzeResult>& ep) {
+void GUI::OutputEnabledPrivilegesScanResult(const std::vector<AnalyzeResult>& ep) {
     LogToGUI(L"Scan for Enabled privileges complete");
     if (ep.empty()) {
         LOG_INFO("No Enabled privileges found");
