@@ -42,4 +42,5 @@ namespace application {
 
     static std::unique_ptr<ApplicationExportDLL> app;
     ApplicationExportDLL* GetApp();
+
 }
