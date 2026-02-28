@@ -32,9 +32,28 @@ namespace ProcessesLaboratoryGUI
             }
         }
 
-        private void OnCompromisedProcessesResult(string result)
+        private void OnCompromisedProcessesResult(string result_json)
         {
-            
+            if (memreg_lbx.InvokeRequired)
+            {
+                memreg_lbx.Invoke((Action)(() => OnCompromisedProcessesResult(result_json)));
+                return;
+            }
+            try
+            {
+                var detect_result = JsonSerializer
+                    .Deserialize<List<ProcessInfo>>(result_json);
+                foreach (var process in detect_result)
+                {
+                    string line = $"[{process.pid}] {process.process_name} " +
+                        $"- {process.comment}";
+                    memreg_lbx.Items.Add(line);
+                }
+            } 
+            catch (Exception ex)
+            {
+                memreg_lbx.Items.Add($"Error: {ex.Message}");
+            }
         }
 
         private void memreg_btn_Click(object sender, EventArgs e)
