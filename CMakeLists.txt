@@ -83,7 +83,7 @@ target_link_libraries(Application PUBLIC
     nlohmann_json::nlohmann_json
 )
 
-add_library(ApplicationDLL SHARED 
+add_library(ProcessLaboratoryApp SHARED 
     src/application_dll.h
     src/application_dll.cpp 
 )
@@ -100,5 +100,5 @@ add_executable(ProcLab
 
 target_link_libraries(ProcLab PRIVATE
     Application
-    ApplicationDLL
+    ProcessLobaratoryApp
 )
