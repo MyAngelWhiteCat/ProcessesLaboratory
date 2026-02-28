@@ -153,6 +153,9 @@
             // 
             // memreg_panel
             // 
+            this.memreg_panel.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
+            | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
             this.memreg_panel.Controls.Add(this.memreg_lbx);
             this.memreg_panel.Location = new System.Drawing.Point(278, 0);
             this.memreg_panel.Name = "memreg_panel";
@@ -162,6 +165,9 @@
             // 
             // memreg_lbx
             // 
+            this.memreg_lbx.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
+            | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
             this.memreg_lbx.FormattingEnabled = true;
             this.memreg_lbx.ItemHeight = 30;
             this.memreg_lbx.Location = new System.Drawing.Point(0, 0);
@@ -171,7 +177,8 @@
             // 
             // clear_btn
             // 
-            this.clear_btn.Location = new System.Drawing.Point(564, 0);
+            this.clear_btn.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
+            this.clear_btn.Location = new System.Drawing.Point(566, 0);
             this.clear_btn.Name = "clear_btn";
             this.clear_btn.Size = new System.Drawing.Size(567, 78);
             this.clear_btn.TabIndex = 3;
@@ -180,6 +187,7 @@
             // 
             // scan_btn
             // 
+            this.scan_btn.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
             this.scan_btn.Location = new System.Drawing.Point(0, 0);
             this.scan_btn.Name = "scan_btn";
             this.scan_btn.Size = new System.Drawing.Size(565, 78);
@@ -192,7 +200,8 @@
             // 
             this.btns_panel.Controls.Add(this.clear_btn);
             this.btns_panel.Controls.Add(this.scan_btn);
-            this.btns_panel.Location = new System.Drawing.Point(278, 808);
+            this.btns_panel.Dock = System.Windows.Forms.DockStyle.Bottom;
+            this.btns_panel.Location = new System.Drawing.Point(278, 806);
             this.btns_panel.Name = "btns_panel";
             this.btns_panel.Size = new System.Drawing.Size(1134, 87);
             this.btns_panel.TabIndex = 4;
