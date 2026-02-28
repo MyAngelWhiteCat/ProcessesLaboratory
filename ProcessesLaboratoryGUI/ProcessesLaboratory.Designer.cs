@@ -39,12 +39,19 @@
             this.hp_main_lbl = new System.Windows.Forms.Label();
             this.MainLabel = new System.Windows.Forms.Label();
             this.memreg_panel = new System.Windows.Forms.Panel();
+            this.memreg_lbx = new System.Windows.Forms.ListBox();
+            this.clear_btn = new System.Windows.Forms.Button();
+            this.scan_btn = new System.Windows.Forms.Button();
+            this.btns_panel = new System.Windows.Forms.Panel();
             this.menu_panel.SuspendLayout();
             this.main_panel.SuspendLayout();
+            this.memreg_panel.SuspendLayout();
+            this.btns_panel.SuspendLayout();
             this.SuspendLayout();
             // 
             // menu_panel
             // 
+            this.menu_panel.BackColor = System.Drawing.SystemColors.ControlLight;
             this.menu_panel.Controls.Add(this.hidproc_btn);
             this.menu_panel.Controls.Add(this.actpriv_btn);
             this.menu_panel.Controls.Add(this.memreg_btn);
@@ -87,6 +94,7 @@
             this.memreg_btn.TabIndex = 0;
             this.memreg_btn.Text = "Memory regions";
             this.memreg_btn.UseVisualStyleBackColor = true;
+            this.memreg_btn.Click += new System.EventHandler(this.memreg_btn_Click);
             // 
             // main_panel
             // 
@@ -94,12 +102,10 @@
             this.main_panel.Controls.Add(this.mr_main_lbl);
             this.main_panel.Controls.Add(this.hp_main_lbl);
             this.main_panel.Controls.Add(this.MainLabel);
-            this.main_panel.Controls.Add(this.memreg_panel);
-            this.main_panel.Dock = System.Windows.Forms.DockStyle.Fill;
             this.main_panel.Location = new System.Drawing.Point(278, 0);
             this.main_panel.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
             this.main_panel.Name = "main_panel";
-            this.main_panel.Size = new System.Drawing.Size(1134, 893);
+            this.main_panel.Size = new System.Drawing.Size(1134, 806);
             this.main_panel.TabIndex = 1;
             // 
             // ap_main_lbl
@@ -147,20 +153,60 @@
             // 
             // memreg_panel
             // 
-            this.memreg_panel.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.memreg_panel.Location = new System.Drawing.Point(0, 0);
+            this.memreg_panel.Controls.Add(this.memreg_lbx);
+            this.memreg_panel.Location = new System.Drawing.Point(278, 0);
             this.memreg_panel.Name = "memreg_panel";
-            this.memreg_panel.Size = new System.Drawing.Size(1134, 893);
+            this.memreg_panel.Size = new System.Drawing.Size(1134, 806);
             this.memreg_panel.TabIndex = 4;
             this.memreg_panel.Visible = false;
+            // 
+            // memreg_lbx
+            // 
+            this.memreg_lbx.FormattingEnabled = true;
+            this.memreg_lbx.ItemHeight = 30;
+            this.memreg_lbx.Location = new System.Drawing.Point(0, 0);
+            this.memreg_lbx.Name = "memreg_lbx";
+            this.memreg_lbx.Size = new System.Drawing.Size(1134, 814);
+            this.memreg_lbx.TabIndex = 1;
+            // 
+            // clear_btn
+            // 
+            this.clear_btn.Location = new System.Drawing.Point(564, 0);
+            this.clear_btn.Name = "clear_btn";
+            this.clear_btn.Size = new System.Drawing.Size(567, 78);
+            this.clear_btn.TabIndex = 3;
+            this.clear_btn.Text = "Clear";
+            this.clear_btn.UseVisualStyleBackColor = true;
+            // 
+            // scan_btn
+            // 
+            this.scan_btn.Location = new System.Drawing.Point(0, 0);
+            this.scan_btn.Name = "scan_btn";
+            this.scan_btn.Size = new System.Drawing.Size(565, 78);
+            this.scan_btn.TabIndex = 2;
+            this.scan_btn.Text = "Start Detection";
+            this.scan_btn.UseVisualStyleBackColor = true;
+            this.scan_btn.Click += new System.EventHandler(this.scan_btn_Click);
+            // 
+            // btns_panel
+            // 
+            this.btns_panel.Controls.Add(this.clear_btn);
+            this.btns_panel.Controls.Add(this.scan_btn);
+            this.btns_panel.Location = new System.Drawing.Point(278, 808);
+            this.btns_panel.Name = "btns_panel";
+            this.btns_panel.Size = new System.Drawing.Size(1134, 87);
+            this.btns_panel.TabIndex = 4;
+            this.btns_panel.Visible = false;
             // 
             // ProcessesLaboratory
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(12F, 30F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(1412, 893);
-            this.Controls.Add(this.main_panel);
+            this.Controls.Add(this.btns_panel);
+            this.Controls.Add(this.memreg_panel);
             this.Controls.Add(this.menu_panel);
+            this.Controls.Add(this.main_panel);
             this.Font = new System.Drawing.Font("Segoe UI", 7.875F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
             this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
             this.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
@@ -169,6 +215,8 @@
             this.menu_panel.ResumeLayout(false);
             this.main_panel.ResumeLayout(false);
             this.main_panel.PerformLayout();
+            this.memreg_panel.ResumeLayout(false);
+            this.btns_panel.ResumeLayout(false);
             this.ResumeLayout(false);
 
         }
@@ -185,6 +233,10 @@
         private System.Windows.Forms.Label mr_main_lbl;
         private System.Windows.Forms.Label ap_main_lbl;
         private System.Windows.Forms.Panel memreg_panel;
+        private System.Windows.Forms.Button clear_btn;
+        private System.Windows.Forms.Button scan_btn;
+        private System.Windows.Forms.ListBox memreg_lbx;
+        private System.Windows.Forms.Panel btns_panel;
     }
 }
 
