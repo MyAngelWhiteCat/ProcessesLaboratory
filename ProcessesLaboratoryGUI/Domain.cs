@@ -8,7 +8,7 @@ namespace ProcessesLaboratoryGUI
 {
     internal class ProcessInfo
     {
-        public string process_info { get; set; }
+        public string process_name { get; set; }
         public string pid { get; set; }
         public string comment { get; set; }
     }
