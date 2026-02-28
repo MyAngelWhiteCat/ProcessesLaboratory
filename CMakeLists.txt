@@ -100,4 +100,5 @@ add_executable(ProcLab
 
 target_link_libraries(ProcLab PRIVATE
     Application
+    ApplicationDLL
 )
