@@ -10,9 +10,9 @@ using System.Windows.Forms;
 
 namespace ProcessesLaboratoryGUI
 {
-    public partial class Form1 : Form
+    public partial class ProcessesLaboratory : Form
     {
-        public Form1()
+        public ProcessesLaboratory()
         {
             InitializeComponent();
         }
