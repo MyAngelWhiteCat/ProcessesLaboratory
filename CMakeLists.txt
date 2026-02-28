@@ -88,7 +88,7 @@ add_library(ProcessLaboratoryApp SHARED
     src/application_dll.cpp 
 )
 
-target_link_libraries(ApplicationDLL PUBLIC 
+target_link_libraries(ProcessLaboratoryApp PUBLIC 
     Application
 )
 
@@ -100,5 +100,5 @@ add_executable(ProcLab
 
 target_link_libraries(ProcLab PRIVATE
     Application
-    ProcessLobaratoryApp
+    ProcessLaboratoryApp
 )
