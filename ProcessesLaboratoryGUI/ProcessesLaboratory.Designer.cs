@@ -38,6 +38,7 @@
             this.mr_main_lbl = new System.Windows.Forms.Label();
             this.hp_main_lbl = new System.Windows.Forms.Label();
             this.MainLabel = new System.Windows.Forms.Label();
+            this.memreg_panel = new System.Windows.Forms.Panel();
             this.menu_panel.SuspendLayout();
             this.main_panel.SuspendLayout();
             this.SuspendLayout();
@@ -93,6 +94,7 @@
             this.main_panel.Controls.Add(this.mr_main_lbl);
             this.main_panel.Controls.Add(this.hp_main_lbl);
             this.main_panel.Controls.Add(this.MainLabel);
+            this.main_panel.Controls.Add(this.memreg_panel);
             this.main_panel.Dock = System.Windows.Forms.DockStyle.Fill;
             this.main_panel.Location = new System.Drawing.Point(278, 0);
             this.main_panel.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
@@ -143,6 +145,15 @@
             this.MainLabel.TabIndex = 0;
             this.MainLabel.Text = "Processes Laboratory v0.0.1";
             // 
+            // memreg_panel
+            // 
+            this.memreg_panel.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.memreg_panel.Location = new System.Drawing.Point(0, 0);
+            this.memreg_panel.Name = "memreg_panel";
+            this.memreg_panel.Size = new System.Drawing.Size(1134, 893);
+            this.memreg_panel.TabIndex = 4;
+            this.memreg_panel.Visible = false;
+            // 
             // ProcessesLaboratory
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(12F, 30F);
@@ -173,6 +184,7 @@
         private System.Windows.Forms.Button actpriv_btn;
         private System.Windows.Forms.Label mr_main_lbl;
         private System.Windows.Forms.Label ap_main_lbl;
+        private System.Windows.Forms.Panel memreg_panel;
     }
 }
 

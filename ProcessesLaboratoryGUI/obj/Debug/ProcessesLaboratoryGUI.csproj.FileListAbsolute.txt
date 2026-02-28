@@ -1,0 +1,10 @@
+D:\ProcessesLaboratory\ProcessesLaboratoryGUI\bin\Debug\ProcessesLaboratoryGUI.exe.config
+D:\ProcessesLaboratory\ProcessesLaboratoryGUI\bin\Debug\ProcessesLaboratoryGUI.exe
+D:\ProcessesLaboratory\ProcessesLaboratoryGUI\bin\Debug\ProcessesLaboratoryGUI.pdb
+D:\ProcessesLaboratory\ProcessesLaboratoryGUI\obj\Debug\ProcessesLaboratoryGUI.csproj.AssemblyReference.cache
+D:\ProcessesLaboratory\ProcessesLaboratoryGUI\obj\Debug\ProcessesLaboratoryGUI.ProcessesLaboratory.resources
+D:\ProcessesLaboratory\ProcessesLaboratoryGUI\obj\Debug\ProcessesLaboratoryGUI.Properties.Resources.resources
+D:\ProcessesLaboratory\ProcessesLaboratoryGUI\obj\Debug\ProcessesLaboratoryGUI.csproj.GenerateResource.cache
+D:\ProcessesLaboratory\ProcessesLaboratoryGUI\obj\Debug\ProcessesLaboratoryGUI.csproj.CoreCompileInputs.cache
+D:\ProcessesLaboratory\ProcessesLaboratoryGUI\obj\Debug\ProcessesLaboratoryGUI.exe
+D:\ProcessesLaboratory\ProcessesLaboratoryGUI\obj\Debug\ProcessesLaboratoryGUI.pdb
