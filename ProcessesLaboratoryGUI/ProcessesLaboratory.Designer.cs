@@ -31,7 +31,7 @@
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(ProcessesLaboratory));
             this.menu_panel = new System.Windows.Forms.Panel();
             this.hidproc_btn = new System.Windows.Forms.Button();
-            this.actpriv_btn = new System.Windows.Forms.Button();
+            this.enpriv_btn = new System.Windows.Forms.Button();
             this.memreg_btn = new System.Windows.Forms.Button();
             this.main_panel = new System.Windows.Forms.Panel();
             this.ap_main_lbl = new System.Windows.Forms.Label();
@@ -59,7 +59,7 @@
             // 
             this.menu_panel.BackColor = System.Drawing.SystemColors.ControlLight;
             this.menu_panel.Controls.Add(this.hidproc_btn);
-            this.menu_panel.Controls.Add(this.actpriv_btn);
+            this.menu_panel.Controls.Add(this.enpriv_btn);
             this.menu_panel.Controls.Add(this.memreg_btn);
             this.menu_panel.Dock = System.Windows.Forms.DockStyle.Left;
             this.menu_panel.Location = new System.Drawing.Point(0, 0);
@@ -79,17 +79,17 @@
             this.hidproc_btn.Text = "Hidden Processes";
             this.hidproc_btn.UseVisualStyleBackColor = true;
             // 
-            // actpriv_btn
+            // enpriv_btn
             // 
-            this.actpriv_btn.Font = new System.Drawing.Font("Segoe UI", 10.125F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
-            this.actpriv_btn.Location = new System.Drawing.Point(0, 145);
-            this.actpriv_btn.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
-            this.actpriv_btn.Name = "actpriv_btn";
-            this.actpriv_btn.Size = new System.Drawing.Size(278, 108);
-            this.actpriv_btn.TabIndex = 1;
-            this.actpriv_btn.Text = "Active Privileges";
-            this.actpriv_btn.UseVisualStyleBackColor = true;
-            this.actpriv_btn.Click += new System.EventHandler(this.actpriv_btn_Click);
+            this.enpriv_btn.Font = new System.Drawing.Font("Segoe UI", 10.125F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
+            this.enpriv_btn.Location = new System.Drawing.Point(0, 145);
+            this.enpriv_btn.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
+            this.enpriv_btn.Name = "enpriv_btn";
+            this.enpriv_btn.Size = new System.Drawing.Size(278, 108);
+            this.enpriv_btn.TabIndex = 1;
+            this.enpriv_btn.Text = "Active Privileges";
+            this.enpriv_btn.UseVisualStyleBackColor = true;
+            this.enpriv_btn.Click += new System.EventHandler(this.actpriv_btn_Click);
             // 
             // memreg_btn
             // 
@@ -297,7 +297,7 @@
         private System.Windows.Forms.Label MainLabel;
         private System.Windows.Forms.Button memreg_btn;
         private System.Windows.Forms.Button hidproc_btn;
-        private System.Windows.Forms.Button actpriv_btn;
+        private System.Windows.Forms.Button enpriv_btn;
         private System.Windows.Forms.Label mr_main_lbl;
         private System.Windows.Forms.Label ap_main_lbl;
         private System.Windows.Forms.Panel memreg_panel;

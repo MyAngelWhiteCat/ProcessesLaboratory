@@ -32,6 +32,11 @@ namespace ProcessesLaboratoryGUI
                 memreg_panel.Visible = false;
                 memreg_btn.BackColor = SystemColors.ControlLightLight;
             }
+            else if (enpriv_panel.Visible)
+            {
+                enpriv_panel.Visible = false;
+                enpriv_btn.BackColor= SystemColors.ControlLightLight;
+            }
         }
         private void OuputResultToListBox(ListBox listbox, string result_json)
         {
@@ -108,16 +113,17 @@ namespace ProcessesLaboratoryGUI
 
         private void actpriv_btn_Click(object sender, EventArgs e)
         {
-            if (!enpriv_panel.Visible)
+            if (enpriv_panel.Visible)
+            {
+                SwitchToMainPanel();
+
+            }
+            else
             {
                 memreg_panel.Visible = true;
                 main_panel.Visible = false;
                 btns_panel.Visible = true;
                 memreg_btn.BackColor = SystemColors.Control;
-            }
-            else
-            {
-                SwitchToMainPanel();
             }
         }
     }
