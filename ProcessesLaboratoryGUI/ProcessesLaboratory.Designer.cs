@@ -30,7 +30,7 @@
         {
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(ProcessesLaboratory));
             this.menu_panel = new System.Windows.Forms.Panel();
-            this.hidproc_btn = new System.Windows.Forms.Button();
+            this.hidpro_btn = new System.Windows.Forms.Button();
             this.enpriv_btn = new System.Windows.Forms.Button();
             this.memreg_btn = new System.Windows.Forms.Button();
             this.main_panel = new System.Windows.Forms.Panel();
@@ -58,7 +58,7 @@
             // menu_panel
             // 
             this.menu_panel.BackColor = System.Drawing.SystemColors.ControlLight;
-            this.menu_panel.Controls.Add(this.hidproc_btn);
+            this.menu_panel.Controls.Add(this.hidpro_btn);
             this.menu_panel.Controls.Add(this.enpriv_btn);
             this.menu_panel.Controls.Add(this.memreg_btn);
             this.menu_panel.Dock = System.Windows.Forms.DockStyle.Left;
@@ -68,16 +68,17 @@
             this.menu_panel.Size = new System.Drawing.Size(278, 893);
             this.menu_panel.TabIndex = 0;
             // 
-            // hidproc_btn
+            // hidpro_btn
             // 
-            this.hidproc_btn.Font = new System.Drawing.Font("Segoe UI", 10.125F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
-            this.hidproc_btn.Location = new System.Drawing.Point(0, 261);
-            this.hidproc_btn.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
-            this.hidproc_btn.Name = "hidproc_btn";
-            this.hidproc_btn.Size = new System.Drawing.Size(278, 108);
-            this.hidproc_btn.TabIndex = 2;
-            this.hidproc_btn.Text = "Hidden Processes";
-            this.hidproc_btn.UseVisualStyleBackColor = true;
+            this.hidpro_btn.Font = new System.Drawing.Font("Segoe UI", 10.125F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
+            this.hidpro_btn.Location = new System.Drawing.Point(0, 261);
+            this.hidpro_btn.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
+            this.hidpro_btn.Name = "hidpro_btn";
+            this.hidpro_btn.Size = new System.Drawing.Size(278, 108);
+            this.hidpro_btn.TabIndex = 2;
+            this.hidpro_btn.Text = "Hidden Processes";
+            this.hidpro_btn.UseVisualStyleBackColor = true;
+            this.hidpro_btn.Click += new System.EventHandler(this.hidpro_btn_Click);
             // 
             // enpriv_btn
             // 
@@ -296,7 +297,7 @@
         private System.Windows.Forms.Label hp_main_lbl;
         private System.Windows.Forms.Label MainLabel;
         private System.Windows.Forms.Button memreg_btn;
-        private System.Windows.Forms.Button hidproc_btn;
+        private System.Windows.Forms.Button hidpro_btn;
         private System.Windows.Forms.Button enpriv_btn;
         private System.Windows.Forms.Label mr_main_lbl;
         private System.Windows.Forms.Label ap_main_lbl;

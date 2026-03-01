@@ -37,6 +37,11 @@ namespace ProcessesLaboratoryGUI
                 enpriv_panel.Visible = false;
                 enpriv_btn.BackColor= SystemColors.ControlLightLight;
             }
+            else if (hidpro_panel.Visible)
+            {
+                hidpro_panel.Visible = false;
+                hidpro_btn.BackColor = SystemColors.ControlLightLight;
+            }
         }
         private void OuputResultToListBox(ListBox listbox, string result_json)
         {
@@ -119,10 +124,24 @@ namespace ProcessesLaboratoryGUI
             }
             else
             {
-                memreg_panel.Visible = true;
+                enpriv_panel.Visible = true;
                 main_panel.Visible = false;
                 btns_panel.Visible = true;
-                memreg_btn.BackColor = SystemColors.Control;
+                enpriv_btn.BackColor = SystemColors.Control;
+            }
+        }
+        private void hidpro_btn_Click(object sender, EventArgs e)
+        {
+            if (hidpro_panel.Visible)
+            {
+                SwitchToMainPanel();
+            }
+            else
+            {
+                hidpro_panel.Visible = true;
+                main_panel.Visible = false;
+                btns_panel.Visible = true;
+                hidpro_btn.BackColor = SystemColors.Control;
             }
         }
     }
