@@ -43,10 +43,16 @@
             this.clear_btn = new System.Windows.Forms.Button();
             this.scan_btn = new System.Windows.Forms.Button();
             this.btns_panel = new System.Windows.Forms.Panel();
+            this.hidpro_panel = new System.Windows.Forms.Panel();
+            this.hidpro_lbx = new System.Windows.Forms.ListBox();
+            this.enpriv_panel = new System.Windows.Forms.Panel();
+            this.enpriv_lbx = new System.Windows.Forms.ListBox();
             this.menu_panel.SuspendLayout();
             this.main_panel.SuspendLayout();
             this.memreg_panel.SuspendLayout();
             this.btns_panel.SuspendLayout();
+            this.hidpro_panel.SuspendLayout();
+            this.enpriv_panel.SuspendLayout();
             this.SuspendLayout();
             // 
             // menu_panel
@@ -207,11 +213,61 @@
             this.btns_panel.TabIndex = 4;
             this.btns_panel.Visible = false;
             // 
+            // hidpro_panel
+            // 
+            this.hidpro_panel.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
+            | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
+            this.hidpro_panel.Controls.Add(this.hidpro_lbx);
+            this.hidpro_panel.Location = new System.Drawing.Point(278, 0);
+            this.hidpro_panel.Name = "hidpro_panel";
+            this.hidpro_panel.Size = new System.Drawing.Size(1134, 806);
+            this.hidpro_panel.TabIndex = 5;
+            this.hidpro_panel.Visible = false;
+            // 
+            // hidpro_lbx
+            // 
+            this.hidpro_lbx.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
+            | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
+            this.hidpro_lbx.FormattingEnabled = true;
+            this.hidpro_lbx.ItemHeight = 30;
+            this.hidpro_lbx.Location = new System.Drawing.Point(0, 0);
+            this.hidpro_lbx.Name = "hidpro_lbx";
+            this.hidpro_lbx.Size = new System.Drawing.Size(1134, 814);
+            this.hidpro_lbx.TabIndex = 1;
+            // 
+            // enpriv_panel
+            // 
+            this.enpriv_panel.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
+            | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
+            this.enpriv_panel.Controls.Add(this.enpriv_lbx);
+            this.enpriv_panel.Location = new System.Drawing.Point(278, 0);
+            this.enpriv_panel.Name = "enpriv_panel";
+            this.enpriv_panel.Size = new System.Drawing.Size(1134, 806);
+            this.enpriv_panel.TabIndex = 6;
+            this.enpriv_panel.Visible = false;
+            // 
+            // enpriv_lbx
+            // 
+            this.enpriv_lbx.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
+            | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
+            this.enpriv_lbx.FormattingEnabled = true;
+            this.enpriv_lbx.ItemHeight = 30;
+            this.enpriv_lbx.Location = new System.Drawing.Point(0, 0);
+            this.enpriv_lbx.Name = "enpriv_lbx";
+            this.enpriv_lbx.Size = new System.Drawing.Size(1134, 814);
+            this.enpriv_lbx.TabIndex = 1;
+            // 
             // ProcessesLaboratory
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(12F, 30F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(1412, 893);
+            this.Controls.Add(this.enpriv_panel);
+            this.Controls.Add(this.hidpro_panel);
             this.Controls.Add(this.btns_panel);
             this.Controls.Add(this.memreg_panel);
             this.Controls.Add(this.menu_panel);
@@ -226,6 +282,8 @@
             this.main_panel.PerformLayout();
             this.memreg_panel.ResumeLayout(false);
             this.btns_panel.ResumeLayout(false);
+            this.hidpro_panel.ResumeLayout(false);
+            this.enpriv_panel.ResumeLayout(false);
             this.ResumeLayout(false);
 
         }
@@ -246,6 +304,10 @@
         private System.Windows.Forms.Button scan_btn;
         private System.Windows.Forms.ListBox memreg_lbx;
         private System.Windows.Forms.Panel btns_panel;
+        private System.Windows.Forms.Panel hidpro_panel;
+        private System.Windows.Forms.ListBox hidpro_lbx;
+        private System.Windows.Forms.Panel enpriv_panel;
+        private System.Windows.Forms.ListBox enpriv_lbx;
     }
 }
 
