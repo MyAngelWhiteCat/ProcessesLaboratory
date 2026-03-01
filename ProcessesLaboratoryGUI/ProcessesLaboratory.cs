@@ -100,6 +100,21 @@ namespace ProcessesLaboratoryGUI
                 NativeMethods.DetectEnabledPrivileges(_eprivileges_callback);
             }
         }
+        private void clear_btn_Click(object sender, EventArgs e)
+        {
+            if (memreg_panel.Visible)
+            {
+                memreg_lbx.Items.Clear();
+            }
+            else if (hidpro_panel.Visible)
+            {
+                hidpro_lbx.Items.Clear();
+            }
+            else if (enpriv_panel.Visible)
+            {
+                enpriv_lbx.Items.Clear();
+            }
+        }
 
         private void memreg_btn_Click(object sender, EventArgs e)
         {
