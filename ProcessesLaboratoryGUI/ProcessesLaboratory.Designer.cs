@@ -192,6 +192,7 @@
             this.clear_btn.TabIndex = 3;
             this.clear_btn.Text = "Clear";
             this.clear_btn.UseVisualStyleBackColor = true;
+            this.clear_btn.Click += new System.EventHandler(this.clear_btn_Click);
             // 
             // scan_btn
             // 

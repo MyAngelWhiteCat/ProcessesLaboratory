@@ -35,7 +35,7 @@ namespace ProcessesLaboratoryGUI
             else if (enpriv_panel.Visible)
             {
                 enpriv_panel.Visible = false;
-                enpriv_btn.BackColor= SystemColors.ControlLightLight;
+                enpriv_btn.BackColor = SystemColors.ControlLightLight;
             }
             else if (hidpro_panel.Visible)
             {
@@ -54,12 +54,21 @@ namespace ProcessesLaboratoryGUI
             {
                 var detect_result = JsonSerializer
                     .Deserialize<List<ProcessInfo>>(result_json);
-                foreach (var process in detect_result)
+                if (detect_result.Count > 0)
                 {
-                    string line = $"[{process.pid}] {process.process_name} " +
-                        $"- {process.comment}";
-                    listbox.Items.Add(line);
+
+                    foreach (var process in detect_result)
+                    {
+                        string line = $"[{process.pid}] {process.process_name} " +
+                            $"- {process.comment}";
+                        listbox.Items.Add(line);
+                    }
                 }
+                else
+                {
+                    listbox.Items.Add("Empty scan result");
+                }
+                listbox.Items.Add("Scan complete!");
             }
             catch (Exception ex)
             {
@@ -84,18 +93,22 @@ namespace ProcessesLaboratoryGUI
 
         private void scan_btn_Click(object sender, EventArgs e)
         {
+            string start = "Scan started...";
             if (memreg_panel.Visible)
             {
+                memreg_lbx.Items.Add(start);
                 _compromised_callback = OnCompromisedProcessesResult;
                 NativeMethods.DetectCompromisedProcesses(_compromised_callback);
             }
             else if (hidpro_panel.Visible)
             {
+                hidpro_lbx.Items.Add(start);
                 _hidden_callback = OnHiddenProcessesResult;
                 NativeMethods.DetectHiddenProcesses(_hidden_callback);
             }
             else if (enpriv_panel.Visible)
             {
+                enpriv_lbx.Items.Add(start);
                 _eprivileges_callback = OnEnabledPrivilegesResult;
                 NativeMethods.DetectEnabledPrivileges(_eprivileges_callback);
             }
@@ -124,10 +137,23 @@ namespace ProcessesLaboratoryGUI
             }
             else
             {
-                memreg_panel.Visible = true;
-                main_panel.Visible = false;
-                btns_panel.Visible = true;
                 memreg_btn.BackColor = SystemColors.Control;
+                memreg_panel.Visible = true;
+                btns_panel.Visible = true;
+
+                main_panel.Visible = false;
+
+                if (hidpro_panel.Visible)
+                {
+                    hidpro_panel.Visible = false;
+                    hidpro_btn.BackColor = SystemColors.ControlLightLight;
+                }
+
+                if (enpriv_panel.Visible)
+                {
+                    enpriv_panel.Visible = false;
+                    enpriv_btn.BackColor = SystemColors.ControlLightLight;
+                }
             }
         }
 
@@ -139,10 +165,23 @@ namespace ProcessesLaboratoryGUI
             }
             else
             {
-                enpriv_panel.Visible = true;
-                main_panel.Visible = false;
-                btns_panel.Visible = true;
                 enpriv_btn.BackColor = SystemColors.Control;
+                enpriv_panel.Visible = true;
+                btns_panel.Visible = true;
+
+                main_panel.Visible = false;
+
+                if (hidpro_panel.Visible)
+                {
+                    hidpro_panel.Visible = false;
+                    hidpro_btn.BackColor = SystemColors.ControlLightLight;
+                }
+
+                if (memreg_panel.Visible)
+                {
+                    memreg_panel.Visible = false;
+                    memreg_btn.BackColor = SystemColors.ControlLightLight;
+                }
             }
         }
         private void hidpro_btn_Click(object sender, EventArgs e)
@@ -153,11 +192,25 @@ namespace ProcessesLaboratoryGUI
             }
             else
             {
-                hidpro_panel.Visible = true;
-                main_panel.Visible = false;
-                btns_panel.Visible = true;
                 hidpro_btn.BackColor = SystemColors.Control;
+                hidpro_panel.Visible = true;
+                btns_panel.Visible = true;
+
+                main_panel.Visible = false;
+
+                if (enpriv_panel.Visible)
+                {
+                    enpriv_panel.Visible = false;
+                    enpriv_btn.BackColor = SystemColors.ControlLightLight;
+                }
+
+                if (memreg_panel.Visible)
+                {
+                    memreg_panel.Visible = false;
+                    memreg_btn.BackColor = SystemColors.ControlLightLight;
+                }
             }
         }
+
     }
 }
