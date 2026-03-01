@@ -82,21 +82,6 @@ namespace ProcessesLaboratoryGUI
             OuputResultToListBox(enpriv_lbx, result_json);
         }
 
-        private void memreg_btn_Click(object sender, EventArgs e)
-        {
-            if (memreg_panel.Visible)
-            {
-                SwitchToMainPanel();
-            }
-            else
-            {
-                memreg_panel.Visible = true;
-                main_panel.Visible = false;
-                btns_panel.Visible = true;
-                memreg_btn.BackColor = SystemColors.Control;
-            }
-        }
-
         private void scan_btn_Click(object sender, EventArgs e)
         {
             if (memreg_panel.Visible)
@@ -113,6 +98,21 @@ namespace ProcessesLaboratoryGUI
             {
                 _eprivileges_callback = OnEnabledPrivilegesResult;
                 NativeMethods.DetectEnabledPrivileges(_eprivileges_callback);
+            }
+        }
+
+        private void memreg_btn_Click(object sender, EventArgs e)
+        {
+            if (memreg_panel.Visible)
+            {
+                SwitchToMainPanel();
+            }
+            else
+            {
+                memreg_panel.Visible = true;
+                main_panel.Visible = false;
+                btns_panel.Visible = true;
+                memreg_btn.BackColor = SystemColors.Control;
             }
         }
 
