@@ -111,12 +111,11 @@ namespace ProcessesLaboratoryGUI
             }
         }
 
-        private void actpriv_btn_Click(object sender, EventArgs e)
+        private void enpriv_btn_Click(object sender, EventArgs e)
         {
             if (enpriv_panel.Visible)
             {
                 SwitchToMainPanel();
-
             }
             else
             {
