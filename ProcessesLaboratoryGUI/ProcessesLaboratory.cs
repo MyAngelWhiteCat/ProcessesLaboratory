@@ -74,16 +74,16 @@ namespace ProcessesLaboratoryGUI
 
         private void memreg_btn_Click(object sender, EventArgs e)
         {
-            if (!memreg_panel.Visible)
+            if (memreg_panel.Visible)
+            {
+                SwitchToMainPanel();
+            }
+            else
             {
                 memreg_panel.Visible = true;
                 main_panel.Visible = false;
                 btns_panel.Visible = true;
                 memreg_btn.BackColor = SystemColors.Control;
-            }
-            else
-            {
-                SwitchToMainPanel();
             }
         }
 
@@ -106,5 +106,19 @@ namespace ProcessesLaboratoryGUI
             }
         }
 
+        private void actpriv_btn_Click(object sender, EventArgs e)
+        {
+            if (!enpriv_panel.Visible)
+            {
+                memreg_panel.Visible = true;
+                main_panel.Visible = false;
+                btns_panel.Visible = true;
+                memreg_btn.BackColor = SystemColors.Control;
+            }
+            else
+            {
+                SwitchToMainPanel();
+            }
+        }
     }
 }

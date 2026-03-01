@@ -89,6 +89,7 @@
             this.actpriv_btn.TabIndex = 1;
             this.actpriv_btn.Text = "Active Privileges";
             this.actpriv_btn.UseVisualStyleBackColor = true;
+            this.actpriv_btn.Click += new System.EventHandler(this.actpriv_btn_Click);
             // 
             // memreg_btn
             // 
