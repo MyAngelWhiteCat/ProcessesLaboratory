@@ -6,19 +6,6 @@
 - RWX сканнер - поиск RWX регионов памяти процессов, а так же регионов, чьи права были изменены с RX на RW и RW На RX (RX->RW->RX последовательность для инжекта произвольного кода)
 - Сканнер всех включенных привилегий - индекс PID, имя процесса - все включенные привелегии. 
 
-Для сборки потребуются:
-- cmake
-- conan2
-- Windows PowerShell
-``` bash
-git clone https://github.com/MyAngelWhiteCat/ProcessesLaboratory.git
-cd ProcessesLaboratory
-mkdir build && cd build
-conan install .. --build=missing -s compiler.runtime=static -s build_type=Release --output-folder=.
-cmake .. --preset conan-default
-cmake --build .
-```
-
 ## Usage Case:
 При открытии утилиты вас встретит главное меню с кратким описанием функций
 и номером текущей версии
@@ -81,4 +68,18 @@ cmake --build .
 - Аномальное время работы
 - Процессы без цифровой подписи
 - ...
+
+
+Для сборки потребуются:
+- cmake
+- conan2
+- Windows PowerShell
+``` bash
+git clone https://github.com/MyAngelWhiteCat/ProcessesLaboratory.git
+cd ProcessesLaboratory
+mkdir build && cd build
+conan install .. --build=missing -s compiler.runtime=static -s build_type=Release --output-folder=.
+cmake .. --preset conan-default
+cmake --build .
+```
 
