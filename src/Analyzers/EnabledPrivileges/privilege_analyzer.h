@@ -34,7 +34,7 @@ namespace laboratory {
             maltech::ntdll::NtDll& ntdll_;
 
             AnalyzeResult StartAnalyze(const domain::Scan& scan) override;
-            std::string AnalyzeProcess(DWORD pid);
+            std::pair<domain::Severity, std::string> AnalyzeProcess(DWORD pid);
 
             HANDLE GetNtHandle(DWORD pid);
             HANDLE GetProcessToken(HANDLE hProcess);

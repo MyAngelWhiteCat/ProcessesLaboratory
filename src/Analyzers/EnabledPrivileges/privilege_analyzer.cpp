@@ -31,7 +31,7 @@ namespace laboratory {
                         + std::to_string(pid)
                         + " - "
                         + std::string(proc_info->GetProcessName()));
-                    std::string comment = AnalyzeProcess(pid);
+                    auto [severity, comment] = AnalyzeProcess(pid);
                     if (!comment.empty()) {
                         result.suspicious_processes_.emplace_back(
                             proc_info,
@@ -47,7 +47,7 @@ namespace laboratory {
             return result;
         }
 
-        std::string PrivilegeAnalyzer::AnalyzeProcess(DWORD pid) {
+        std::pair<domain::Severity, std::string> PrivilegeAnalyzer::AnalyzeProcess(DWORD pid) {
             domain::RaiiHandle hProcess(GetNtHandle(pid));
             domain::RaiiHandle hToken(GetProcessToken(hProcess.Get()));
             auto privileges_bytes = GetPrivilegesBytes(hToken.Get());
