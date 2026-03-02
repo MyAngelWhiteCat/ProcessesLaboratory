@@ -61,6 +61,8 @@ namespace application {
                 std::to_string(suspect.proc_info_->GetPid());
             serialized_suspect[names::COMMENT] =
                 std::move(suspect.comment_);
+            serialized_suspect[names::SEVERITY] =
+                std::move(laboratory::domain::SeverityToString(suspect.severity_));
             serialized_result.push_back(serialized_suspect);
         }
         return serialized_result;
