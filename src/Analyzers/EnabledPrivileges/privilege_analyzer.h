@@ -40,7 +40,7 @@ namespace laboratory {
             HANDLE GetProcessToken(HANDLE hProcess);
             std::vector<std::byte> GetPrivilegesBytes(HANDLE hToken);
             ULONG GetTokeninfoLen(HANDLE hToken);
-            std::string IsPrivelegeDangerous(LUID luid);
+            bool IsPrivelegeDangerous(LUID luid);
             LUID GetPrivilegeLUID(const std::string_view privilege_name);
             std::string GetPrivilegeName(PLUID luid);
             bool IsPrivilegeEqual(LUID lhs, LUID rhs);

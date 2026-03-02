@@ -36,7 +36,7 @@ namespace laboratory {
                         result.suspicious_processes_.emplace_back(
                             proc_info,
                             comment,
-                            domain::Severity::INFO
+                            severity
                         );
                     }
                 }
@@ -135,20 +135,21 @@ namespace laboratory {
             return tokeninfo_len;
         }
 
-        std::string PrivilegeAnalyzer::IsPrivelegeDangerous(LUID luid) {
+        bool PrivilegeAnalyzer::IsPrivelegeDangerous(LUID luid) {
+            bool is_dangerous = false;
             if (IsPrivilegeEqual(luid, GetPrivilegeLUID(PrivilegeNames::DEBUG))) {
-                return "DEBUG";
+                is_dangerous = true;
             } 
             else if (IsPrivilegeEqual(luid, GetPrivilegeLUID(PrivilegeNames::LOAD_DRIVER))) {
-                return "LOAD_DRIVER";
+                is_dangerous = true;
             }
             else if (IsPrivilegeEqual(luid, GetPrivilegeLUID(PrivilegeNames::TAKE_OWNERSHIP))) {
-                return "TAKE_OWNERSHIP";
+                is_dangerous = true;
             }
             else if (IsPrivilegeEqual(luid, GetPrivilegeLUID(PrivilegeNames::TCB))) {
-                return "TCB";
+                is_dangerous = true;
             }
-            return "";
+            return is_dangerous;
         }
 
         LUID PrivilegeAnalyzer::GetPrivilegeLUID(const std::string_view privilege_name) {
