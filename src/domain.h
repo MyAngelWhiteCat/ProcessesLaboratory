@@ -117,6 +117,8 @@ namespace laboratory {
             CRITICAL = 3
         };
 
+        std::string SeverityToString(Severity severity);
+
         struct SuspiciousProcess {
             SPProcessInfo proc_info_;
             std::string comment_;

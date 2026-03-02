@@ -160,6 +160,19 @@ namespace laboratory {
             return CloseHandle(hProcess_);
         }
 
+        std::string SeverityToString(Severity severity) {
+            switch (severity) {
+            case Severity::INFO:
+                return "info";
+            case Severity::SUSPICIOUS:
+                return "suspicious";
+            case Severity::MALWARE:
+                return "malware";
+            case Severity::CRITICAL:
+                return "critical";
+            }
+        }
+
         std::string WideCharToString(const WCHAR* wstr) {
             if (!wstr) {
                 return "";
