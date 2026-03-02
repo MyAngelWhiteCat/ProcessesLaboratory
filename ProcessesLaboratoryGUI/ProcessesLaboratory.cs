@@ -43,6 +43,16 @@ namespace ProcessesLaboratoryGUI
                 hidpro_btn.BackColor = SystemColors.ControlLightLight;
             }
         }
+
+        private void AppendColoredText(RichTextBox rtb, string text, Color color)
+        {
+            int start = rtb.TextLength;
+            rtb.AppendText(text + "\n");
+            rtb.Select(start, text.Length);
+            rtb.SelectionColor = color;
+            rtb.Select(rtb.TextLength, 0);
+        }
+
         private void OuputResultToRichTextBox(RichTextBox rtextbox, string result_json)
         {
             if (rtextbox.InvokeRequired)
@@ -61,7 +71,17 @@ namespace ProcessesLaboratoryGUI
                     {
                         string line = $"[{process.severity}][{process.pid}] {process.process_name} " +
                             $"- {process.comment}";
-                        rtextbox.AppendText(line + '\n');
+
+                        Color color = process.severity switch
+                        {
+                            "info" => Color.Blue,
+                            "suspicious" => Color.Orange,
+                            "malware" => Color.OrangeRed,
+                            "critical" => Color.Red,
+                            _ => Color.Black
+                        };
+
+                        AppendColoredText(rtextbox, line, color);
                     }
                 }
                 else
