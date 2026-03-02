@@ -58,10 +58,7 @@ namespace laboratory {
             for (DWORD i = 0; i < privileges->PrivilegeCount; ++i) {
                 auto& privilege = privileges->Privileges[i];
                 if (privilege.Attributes == SE_PRIVILEGE_ENABLED) {
-                    char name[256];
-                    DWORD name_len = 256;
-                    LookupPrivilegeNameA(NULL, &privilege.Luid, name, &name_len);
-                    comment += "[" + std::string(name, name_len) + "]";
+                    comment += "[" + GetPrivilegeName(&privilege.Luid) + "]";
                 }
             }
             LOG_DEBUG(comment);
@@ -158,6 +155,13 @@ namespace laboratory {
             LUID luid{ 0 };
             LookupPrivilegeValueA(NULL, privilege_name.data(), &luid);
             return luid;
+        }
+
+        std::string PrivilegeAnalyzer::GetPrivilegeName(PLUID luid) {
+            char name[256];
+            DWORD name_len = 256;
+            LookupPrivilegeNameA(NULL, luid, name, &name_len);
+            return std::string(name, name_len);
         }
 
         bool PrivilegeAnalyzer::IsPrivilegeEqual(LUID lhs, LUID rhs) {
