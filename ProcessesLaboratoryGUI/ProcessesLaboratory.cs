@@ -59,7 +59,7 @@ namespace ProcessesLaboratoryGUI
 
                     foreach (var process in detect_result)
                     {
-                        string line = $"[{process.pid}] {process.process_name} " +
+                        string line = $"[{process.severity}][{process.pid}] {process.process_name} " +
                             $"- {process.comment}";
                         listbox.Items.Add(line);
                     }
