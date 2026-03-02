@@ -51,6 +51,7 @@ namespace laboratory {
             domain::RaiiHandle hProcess(GetNtHandle(pid));
             domain::RaiiHandle hToken(GetProcessToken(hProcess.Get()));
             auto privileges_bytes = GetPrivilegesBytes(hToken.Get());
+            domain::Severity severity = domain::Severity::INFO;
             TOKEN_PRIVILEGES* privileges = reinterpret_cast<TOKEN_PRIVILEGES*>
                 (privileges_bytes.data());
             std::string comment;
@@ -64,7 +65,7 @@ namespace laboratory {
                 }
             }
             LOG_DEBUG(comment);
-            return comment;
+            return { severity, comment };
         }
 
         HANDLE PrivilegeAnalyzer::GetNtHandle(DWORD pid) {
