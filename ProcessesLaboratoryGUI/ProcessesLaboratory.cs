@@ -43,11 +43,11 @@ namespace ProcessesLaboratoryGUI
                 hidpro_btn.BackColor = SystemColors.ControlLightLight;
             }
         }
-        private void OuputResultToListBox(ListBox listbox, string result_json)
+        private void OuputResultToRichTextBox(RichTextBox rtextbox, string result_json)
         {
-            if (listbox.InvokeRequired)
+            if (rtextbox.InvokeRequired)
             {
-                listbox.Invoke((Action)(() => OuputResultToListBox(listbox, result_json)));
+                rtextbox.Invoke((Action)(() => OuputResultToRichTextBox(rtextbox, result_json)));
                 return;
             }
             try
@@ -61,54 +61,54 @@ namespace ProcessesLaboratoryGUI
                     {
                         string line = $"[{process.severity}][{process.pid}] {process.process_name} " +
                             $"- {process.comment}";
-                        listbox.Items.Add(line);
+                        rtextbox.AppendText(line + '\n');
                     }
                 }
                 else
                 {
-                    listbox.Items.Add("Empty scan result");
+                    rtextbox.AppendText("Empty scan result\n");
                 }
-                listbox.Items.Add("Scan complete!");
+                rtextbox.AppendText("Scan complete!\n");
             }
             catch (Exception ex)
             {
-                listbox.Items.Add($"Error: {ex.Message}");
+                rtextbox.AppendText($"Error: {ex.Message}\n");
             }
         }
 
         private void OnCompromisedProcessesResult(string result_json)
         {
-            OuputResultToListBox(memreg_lbx, result_json);
+            OuputResultToRichTextBox(memreg_rtb, result_json);
         }
 
         private void OnHiddenProcessesResult(string result_json)
         {
-            OuputResultToListBox(hidpro_lbx, result_json);
+            OuputResultToRichTextBox(hidpro_rtb, result_json);
         }
 
         private void OnEnabledPrivilegesResult(string result_json)
         {
-            OuputResultToListBox(enpriv_lbx, result_json);
+            OuputResultToRichTextBox(enpriv_rtb, result_json);
         }
 
         private void scan_btn_Click(object sender, EventArgs e)
         {
-            string start = "Scan started...";
+            string start = "Scan started...\n";
             if (memreg_panel.Visible)
             {
-                memreg_lbx.Items.Add(start);
+                memreg_rtb.AppendText(start);
                 _compromised_callback = OnCompromisedProcessesResult;
                 NativeMethods.DetectCompromisedProcesses(_compromised_callback);
             }
             else if (hidpro_panel.Visible)
             {
-                hidpro_lbx.Items.Add(start);
+                hidpro_rtb.AppendText(start);
                 _hidden_callback = OnHiddenProcessesResult;
                 NativeMethods.DetectHiddenProcesses(_hidden_callback);
             }
             else if (enpriv_panel.Visible)
             {
-                enpriv_lbx.Items.Add(start);
+                enpriv_rtb.AppendText(start);
                 _eprivileges_callback = OnEnabledPrivilegesResult;
                 NativeMethods.DetectEnabledPrivileges(_eprivileges_callback);
             }
@@ -117,15 +117,15 @@ namespace ProcessesLaboratoryGUI
         {
             if (memreg_panel.Visible)
             {
-                memreg_lbx.Items.Clear();
+                memreg_rtb.Clear();
             }
             else if (hidpro_panel.Visible)
             {
-                hidpro_lbx.Items.Clear();
+                hidpro_rtb.Clear();
             }
             else if (enpriv_panel.Visible)
             {
-                enpriv_lbx.Items.Clear();
+                enpriv_rtb.Clear();
             }
         }
 
