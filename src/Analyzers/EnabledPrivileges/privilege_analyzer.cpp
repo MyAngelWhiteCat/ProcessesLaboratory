@@ -58,6 +58,9 @@ namespace laboratory {
             for (DWORD i = 0; i < privileges->PrivilegeCount; ++i) {
                 auto& privilege = privileges->Privileges[i];
                 if (privilege.Attributes == SE_PRIVILEGE_ENABLED) {
+                    if (IsPrivelegeDangerous(privilege.Luid)) {
+                        severity = domain::Severity::SUSPICIOUS;
+                    }
                     comment += "[" + GetPrivilegeName(&privilege.Luid) + "]";
                 }
             }
