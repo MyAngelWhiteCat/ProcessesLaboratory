@@ -19,6 +19,30 @@ cmake .. --preset conan-default
 cmake --build .
 ```
 
+## Usage Case:
+При открытии утилиты вас встретит главное меню с кратким описанием функций
+и номером текущей версии
+[UsageCaseExample/main_menu.png]
+
+
+Для работы нужно выбрать соответствующий сканер, после чего откроется
+новое меню, готовое к выводу информации. В его нижней части
+находятся 2 кнопки - scan и clear. Их смысл соответствует названиям.
+[UsageCaseExample/picked_menu.png]
+
+
+Протестируем сканирование активных привилегий. Для теста будем использовать 
+безопасный инструмент [MalwareVaccine](https://github.com/MyAngelWhiteCat/MalwareVaccine).
+Повысим привилегии процесса по Debug. Об успехе операции нам сообщает соответсвующий MessageBox.
+[UsageCaseExample/escalated_privileges.png]
+
+
+Теперь запустим сканирование, выбрав сканер Active Privileges и нажав кнопку Scan.
+В выводе наблюдаем наш тестовый процесс MalwareVaccine, так же видим его PID, активную привилегию
+и отметку - подозрительный процесс (suspicious).
+[UsageCaseExample/found.png]
+
+Таким образом можно ознакомиться с интерфейсом утилиты.
 
 ## Current task:
 - 
