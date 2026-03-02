@@ -114,7 +114,7 @@ namespace laboratory {
                 auto [count, mesure] = ConvertBytesUpscale(region.size_bytes_);
                 result += std::to_string(count)
                     + ' ' + mesure + " of "
-                    + DetectionToString(region.GetDetection()) + ".\n ";
+                    + DetectionToString(region.GetDetection()) + ". ";
             }
             return result;
         }
