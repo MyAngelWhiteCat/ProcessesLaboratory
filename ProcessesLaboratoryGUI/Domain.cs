@@ -11,5 +11,6 @@ namespace ProcessesLaboratoryGUI
         public string process_name { get; set; }
         public string pid { get; set; }
         public string comment { get; set; }
+        public string severity { get; set; }
     }
 }

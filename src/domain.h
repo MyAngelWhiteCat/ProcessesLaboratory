@@ -129,6 +129,7 @@ namespace laboratory {
             static constexpr std::string_view PID = "pid";
             static constexpr std::string_view PROCESS_NAME = "process_name";
             static constexpr std::string_view COMMENT = "comment";
+            static constexpr std::string_view SEVERITY = "severity";
         };
 
         struct ThreadInfo {
