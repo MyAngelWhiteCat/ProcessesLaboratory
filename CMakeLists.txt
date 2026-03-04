@@ -93,8 +93,6 @@ target_link_libraries(ProcessesLaboratoryApp PUBLIC
 )
 
 add_executable(ProcLab
-    src/gui.h
-    src/gui.cpp
     src/main.cpp 
 )
 
