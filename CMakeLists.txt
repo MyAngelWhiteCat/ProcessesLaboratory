@@ -72,12 +72,6 @@ add_library(ThreadPool
     src/ThreadPool/thread_pool.cpp 
 )
 
-target_link_libraries(Application PUBLIC 
-    ProcessesLaboratory 
-    ThreadPool
-    nlohmann_json::nlohmann_json
-)
-
 add_library(ProcessesLaboratoryDLL SHARED 
     src/application_dll.h
     src/application_dll.cpp 
