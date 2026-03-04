@@ -72,11 +72,6 @@ add_library(ThreadPool
     src/ThreadPool/thread_pool.cpp 
 )
 
-add_library(Application
-    src/application.h 
-    src/application.cpp
-)
-
 target_link_libraries(Application PUBLIC 
     ProcessesLaboratory 
     ThreadPool
@@ -98,5 +93,4 @@ add_executable(ProcLab
 
 target_link_libraries(ProcLab PRIVATE
     ProcessesLaboratoryDLL
-    ProcessesLaboratoryApp
 )
