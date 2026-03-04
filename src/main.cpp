@@ -1,6 +1,5 @@
 ﻿#include "Logger/logger.h"
 #include "application.h"
-#include "gui.h"
 
 #include <exception>
 #include <Windows.h>
@@ -28,13 +27,6 @@ int main() {
     try {
         logging::Logger logger;
         logger.Init();
-        LPCWSTR wnd_name = L"ProcLab";
-        HINSTANCE hInstance = GetModuleHandleW(NULL);
-        GUI gui;
-        gui.Create(wnd_name, hInstance);
-        ShowWindow(GetConsoleWindow(), SW_HIDE);
-        gui.Start();
-
     }
     catch (const std::exception& e) {
         LOG_CRITICAL("System error: "s.append(e.what()));

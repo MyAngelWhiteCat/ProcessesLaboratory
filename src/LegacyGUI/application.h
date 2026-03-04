@@ -31,6 +31,9 @@ namespace application {
         template <typename Callback>
         void AsyncDetectEnabledPrivileges(Callback&& callback);
 
+        template <typename Callback>
+        void AsyncDetectEnabledPrivileges(Callback&& callback);
+
         std::vector<laboratory::domain::AnalyzeResult> FullScan();
         std::vector<laboratory::domain::AnalyzeResult> DetectHiddenProcesses();
         std::vector<laboratory::domain::AnalyzeResult> DetectCompromisedProcesses();
