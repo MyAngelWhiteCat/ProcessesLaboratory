@@ -39,14 +39,14 @@
             this.hp_main_lbl = new System.Windows.Forms.Label();
             this.MainLabel = new System.Windows.Forms.Label();
             this.memreg_panel = new System.Windows.Forms.Panel();
+            this.memreg_rtb = new System.Windows.Forms.RichTextBox();
             this.clear_btn = new System.Windows.Forms.Button();
             this.scan_btn = new System.Windows.Forms.Button();
             this.btns_panel = new System.Windows.Forms.Panel();
             this.hidpro_panel = new System.Windows.Forms.Panel();
+            this.hidpro_rtb = new System.Windows.Forms.RichTextBox();
             this.enpriv_panel = new System.Windows.Forms.Panel();
             this.enpriv_rtb = new System.Windows.Forms.RichTextBox();
-            this.hidpro_rtb = new System.Windows.Forms.RichTextBox();
-            this.memreg_rtb = new System.Windows.Forms.RichTextBox();
             this.menu_panel.SuspendLayout();
             this.main_panel.SuspendLayout();
             this.memreg_panel.SuspendLayout();
@@ -58,6 +58,7 @@
             // menu_panel
             // 
             this.menu_panel.BackColor = System.Drawing.SystemColors.ControlLight;
+            this.menu_panel.Controls.Add(this.MainLabel);
             this.menu_panel.Controls.Add(this.hidpro_btn);
             this.menu_panel.Controls.Add(this.enpriv_btn);
             this.menu_panel.Controls.Add(this.memreg_btn);
@@ -78,7 +79,6 @@
             this.hidpro_btn.TabIndex = 2;
             this.hidpro_btn.Text = "Hidden Processes";
             this.hidpro_btn.UseVisualStyleBackColor = true;
-            this.hidpro_btn.Click += new System.EventHandler(this.hidpro_btn_Click);
             // 
             // enpriv_btn
             // 
@@ -90,7 +90,6 @@
             this.enpriv_btn.TabIndex = 1;
             this.enpriv_btn.Text = "Active Privileges";
             this.enpriv_btn.UseVisualStyleBackColor = true;
-            this.enpriv_btn.Click += new System.EventHandler(this.enpriv_btn_Click);
             // 
             // memreg_btn
             // 
@@ -102,14 +101,12 @@
             this.memreg_btn.TabIndex = 0;
             this.memreg_btn.Text = "Memory regions";
             this.memreg_btn.UseVisualStyleBackColor = true;
-            this.memreg_btn.Click += new System.EventHandler(this.memreg_btn_Click);
             // 
             // main_panel
             // 
             this.main_panel.Controls.Add(this.ap_main_lbl);
             this.main_panel.Controls.Add(this.mr_main_lbl);
             this.main_panel.Controls.Add(this.hp_main_lbl);
-            this.main_panel.Controls.Add(this.MainLabel);
             this.main_panel.Location = new System.Drawing.Point(278, 0);
             this.main_panel.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
             this.main_panel.Name = "main_panel";
@@ -153,7 +150,7 @@
             // 
             this.MainLabel.AutoSize = true;
             this.MainLabel.Font = new System.Drawing.Font("Segoe UI", 7.875F, System.Drawing.FontStyle.Italic, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
-            this.MainLabel.Location = new System.Drawing.Point(865, 854);
+            this.MainLabel.Location = new System.Drawing.Point(12, 854);
             this.MainLabel.Name = "MainLabel";
             this.MainLabel.Size = new System.Drawing.Size(257, 30);
             this.MainLabel.TabIndex = 0;
@@ -170,6 +167,15 @@
             this.memreg_panel.Size = new System.Drawing.Size(1134, 806);
             this.memreg_panel.TabIndex = 4;
             this.memreg_panel.Visible = false;
+            // 
+            // memreg_rtb
+            // 
+            this.memreg_rtb.Location = new System.Drawing.Point(0, 0);
+            this.memreg_rtb.Name = "memreg_rtb";
+            this.memreg_rtb.ReadOnly = true;
+            this.memreg_rtb.Size = new System.Drawing.Size(1134, 814);
+            this.memreg_rtb.TabIndex = 5;
+            this.memreg_rtb.Text = "";
             // 
             // clear_btn
             // 
@@ -216,6 +222,15 @@
             this.hidpro_panel.TabIndex = 5;
             this.hidpro_panel.Visible = false;
             // 
+            // hidpro_rtb
+            // 
+            this.hidpro_rtb.Location = new System.Drawing.Point(0, 0);
+            this.hidpro_rtb.Name = "hidpro_rtb";
+            this.hidpro_rtb.ReadOnly = true;
+            this.hidpro_rtb.Size = new System.Drawing.Size(1134, 814);
+            this.hidpro_rtb.TabIndex = 5;
+            this.hidpro_rtb.Text = "";
+            // 
             // enpriv_panel
             // 
             this.enpriv_panel.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
@@ -232,46 +247,29 @@
             // 
             this.enpriv_rtb.Location = new System.Drawing.Point(0, 0);
             this.enpriv_rtb.Name = "enpriv_rtb";
+            this.enpriv_rtb.ReadOnly = true;
             this.enpriv_rtb.Size = new System.Drawing.Size(1134, 814);
             this.enpriv_rtb.TabIndex = 4;
             this.enpriv_rtb.Text = "";
-            this.enpriv_rtb.ReadOnly = true;
-            // 
-            // hidpro_rtb
-            // 
-            this.hidpro_rtb.Location = new System.Drawing.Point(0, 0);
-            this.hidpro_rtb.Name = "hidpro_rtb";
-            this.hidpro_rtb.Size = new System.Drawing.Size(1134, 814);
-            this.hidpro_rtb.TabIndex = 5;
-            this.hidpro_rtb.Text = "";
-            this.hidpro_rtb.ReadOnly = true;
-            // 
-            // memreg_rtb
-            // 
-            this.memreg_rtb.Location = new System.Drawing.Point(0, 0);
-            this.memreg_rtb.Name = "memreg_rtb";
-            this.memreg_rtb.Size = new System.Drawing.Size(1134, 814);
-            this.memreg_rtb.TabIndex = 5;
-            this.memreg_rtb.Text = "";
-            this.memreg_rtb.ReadOnly = true;
             // 
             // ProcessesLaboratory
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(12F, 30F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(1412, 893);
+            this.Controls.Add(this.main_panel);
             this.Controls.Add(this.enpriv_panel);
             this.Controls.Add(this.hidpro_panel);
             this.Controls.Add(this.btns_panel);
             this.Controls.Add(this.memreg_panel);
             this.Controls.Add(this.menu_panel);
-            this.Controls.Add(this.main_panel);
             this.Font = new System.Drawing.Font("Segoe UI", 7.875F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
             this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
             this.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
             this.Name = "ProcessesLaboratory";
             this.Text = "Processes Laboratory";
             this.menu_panel.ResumeLayout(false);
+            this.menu_panel.PerformLayout();
             this.main_panel.ResumeLayout(false);
             this.main_panel.PerformLayout();
             this.memreg_panel.ResumeLayout(false);

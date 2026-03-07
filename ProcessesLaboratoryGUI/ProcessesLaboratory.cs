@@ -14,9 +14,64 @@ namespace ProcessesLaboratoryGUI
 {
     public partial class ProcessesLaboratory : Form
     {
+        private class NavigationSection
+        {
+            public Button button { get; set; }
+            public Panel panel { get; set; }   
+            public Color active_color { get; set; }
+            public Color inactive_color { get; set; }
+
+            public NavigationSection(Button btn, Panel pnl)
+            {
+                button = btn;
+                panel = pnl;
+                active_color = SystemColors.ControlLight;
+                inactive_color = SystemColors.ControlLightLight;
+            }
+
+            public void Show()
+            {
+                panel.Show();
+                button.BackColor = active_color;
+            }
+
+            public void Hide()
+            {
+                panel.Hide();
+                button.BackColor = inactive_color;
+            }
+
+            public bool IsVisible()
+            {
+                return panel.Visible;
+            }
+
+        }
+
+        private List<NavigationSection> navigation_sections_;
+        private NavigationSection active_section_;
+
+        private void InitializeSections()
+        {
+            navigation_sections_ = new List<NavigationSection> {
+                new NavigationSection(memreg_btn, memreg_panel),
+                new NavigationSection(enpriv_btn, enpriv_panel),
+                new NavigationSection(hidpro_btn, hidpro_panel)
+                };
+
+            foreach (var section in navigation_sections_)
+            {
+                section.button.Click += (sender, e) => NavigateToSection(section);
+            }
+
+            active_section_ = null;
+
+        }
+
         public ProcessesLaboratory()
         {
             InitializeComponent();
+            InitializeSections();
         }
 
         private LogCallback _compromised_callback;
@@ -27,21 +82,37 @@ namespace ProcessesLaboratoryGUI
         {
             main_panel.Visible = true;
             btns_panel.Visible = false;
-            if (memreg_panel.Visible)
+            foreach (var section in navigation_sections_)
             {
-                memreg_panel.Visible = false;
-                memreg_btn.BackColor = SystemColors.ControlLightLight;
+                section.Hide();
             }
-            else if (enpriv_panel.Visible)
+            active_section_ = null;
+        }
+
+        private void NavigateToSection(NavigationSection section)
+        {
+            if (active_section_ == section)
             {
-                enpriv_panel.Visible = false;
-                enpriv_btn.BackColor = SystemColors.ControlLightLight;
+                SwitchToMainPanel();
+                return;
             }
-            else if (hidpro_panel.Visible)
+
+            if (!btns_panel.Visible)
             {
-                hidpro_panel.Visible = false;
-                hidpro_btn.BackColor = SystemColors.ControlLightLight;
+                btns_panel.Show();
             }
+
+            foreach (var sec in navigation_sections_)
+            {
+                if (sec.IsVisible())
+                {
+                    sec.Hide();
+                }
+            }  
+
+            section.Show();
+            active_section_ = section;
+            main_panel.Hide();
         }
 
         private void AppendColoredText(RichTextBox rtb, string text, Color color)
@@ -146,89 +217,6 @@ namespace ProcessesLaboratoryGUI
             else if (enpriv_panel.Visible)
             {
                 enpriv_rtb.Clear();
-            }
-        }
-
-        private void memreg_btn_Click(object sender, EventArgs e)
-        {
-            if (memreg_panel.Visible)
-            {
-                SwitchToMainPanel();
-            }
-            else
-            {
-                memreg_btn.BackColor = SystemColors.Control;
-                memreg_panel.Visible = true;
-                btns_panel.Visible = true;
-
-                main_panel.Visible = false;
-
-                if (hidpro_panel.Visible)
-                {
-                    hidpro_panel.Visible = false;
-                    hidpro_btn.BackColor = SystemColors.ControlLightLight;
-                }
-
-                if (enpriv_panel.Visible)
-                {
-                    enpriv_panel.Visible = false;
-                    enpriv_btn.BackColor = SystemColors.ControlLightLight;
-                }
-            }
-        }
-
-        private void enpriv_btn_Click(object sender, EventArgs e)
-        {
-            if (enpriv_panel.Visible)
-            {
-                SwitchToMainPanel();
-            }
-            else
-            {
-                enpriv_btn.BackColor = SystemColors.Control;
-                enpriv_panel.Visible = true;
-                btns_panel.Visible = true;
-
-                main_panel.Visible = false;
-
-                if (hidpro_panel.Visible)
-                {
-                    hidpro_panel.Visible = false;
-                    hidpro_btn.BackColor = SystemColors.ControlLightLight;
-                }
-
-                if (memreg_panel.Visible)
-                {
-                    memreg_panel.Visible = false;
-                    memreg_btn.BackColor = SystemColors.ControlLightLight;
-                }
-            }
-        }
-        private void hidpro_btn_Click(object sender, EventArgs e)
-        {
-            if (hidpro_panel.Visible)
-            {
-                SwitchToMainPanel();
-            }
-            else
-            {
-                hidpro_btn.BackColor = SystemColors.Control;
-                hidpro_panel.Visible = true;
-                btns_panel.Visible = true;
-
-                main_panel.Visible = false;
-
-                if (enpriv_panel.Visible)
-                {
-                    enpriv_panel.Visible = false;
-                    enpriv_btn.BackColor = SystemColors.ControlLightLight;
-                }
-
-                if (memreg_panel.Visible)
-                {
-                    memreg_panel.Visible = false;
-                    memreg_btn.BackColor = SystemColors.ControlLightLight;
-                }
             }
         }
 
