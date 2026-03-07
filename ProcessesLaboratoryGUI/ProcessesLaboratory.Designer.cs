@@ -120,7 +120,7 @@
             this.main_panel.Location = new System.Drawing.Point(278, 0);
             this.main_panel.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
             this.main_panel.Name = "main_panel";
-            this.main_panel.Size = new System.Drawing.Size(1134, 806);
+            this.main_panel.Size = new System.Drawing.Size(1134, 815);
             this.main_panel.TabIndex = 1;
             // 
             // ap_main_lbl
@@ -164,7 +164,7 @@
             this.memreg_panel.Controls.Add(this.memreg_rtb);
             this.memreg_panel.Location = new System.Drawing.Point(278, 0);
             this.memreg_panel.Name = "memreg_panel";
-            this.memreg_panel.Size = new System.Drawing.Size(1134, 806);
+            this.memreg_panel.Size = new System.Drawing.Size(1134, 815);
             this.memreg_panel.TabIndex = 4;
             this.memreg_panel.Visible = false;
             // 
@@ -180,7 +180,7 @@
             // clear_btn
             // 
             this.clear_btn.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
-            this.clear_btn.Location = new System.Drawing.Point(566, 0);
+            this.clear_btn.Location = new System.Drawing.Point(566, 2);
             this.clear_btn.Name = "clear_btn";
             this.clear_btn.Size = new System.Drawing.Size(567, 78);
             this.clear_btn.TabIndex = 3;
@@ -191,7 +191,7 @@
             // scan_btn
             // 
             this.scan_btn.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
-            this.scan_btn.Location = new System.Drawing.Point(0, 0);
+            this.scan_btn.Location = new System.Drawing.Point(0, 2);
             this.scan_btn.Name = "scan_btn";
             this.scan_btn.Size = new System.Drawing.Size(565, 78);
             this.scan_btn.TabIndex = 2;
@@ -204,9 +204,9 @@
             this.btns_panel.Controls.Add(this.clear_btn);
             this.btns_panel.Controls.Add(this.scan_btn);
             this.btns_panel.Dock = System.Windows.Forms.DockStyle.Bottom;
-            this.btns_panel.Location = new System.Drawing.Point(278, 806);
+            this.btns_panel.Location = new System.Drawing.Point(278, 813);
             this.btns_panel.Name = "btns_panel";
-            this.btns_panel.Size = new System.Drawing.Size(1134, 87);
+            this.btns_panel.Size = new System.Drawing.Size(1134, 80);
             this.btns_panel.TabIndex = 4;
             this.btns_panel.Visible = false;
             // 
@@ -218,7 +218,7 @@
             this.hidpro_panel.Controls.Add(this.hidpro_rtb);
             this.hidpro_panel.Location = new System.Drawing.Point(278, 0);
             this.hidpro_panel.Name = "hidpro_panel";
-            this.hidpro_panel.Size = new System.Drawing.Size(1134, 806);
+            this.hidpro_panel.Size = new System.Drawing.Size(1134, 815);
             this.hidpro_panel.TabIndex = 5;
             this.hidpro_panel.Visible = false;
             // 
@@ -239,7 +239,7 @@
             this.enpriv_panel.Controls.Add(this.enpriv_rtb);
             this.enpriv_panel.Location = new System.Drawing.Point(278, 0);
             this.enpriv_panel.Name = "enpriv_panel";
-            this.enpriv_panel.Size = new System.Drawing.Size(1134, 806);
+            this.enpriv_panel.Size = new System.Drawing.Size(1134, 815);
             this.enpriv_panel.TabIndex = 6;
             this.enpriv_panel.Visible = false;
             // 
