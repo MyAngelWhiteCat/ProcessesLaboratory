@@ -30,6 +30,7 @@
         {
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(ProcessesLaboratory));
             this.menu_panel = new System.Windows.Forms.Panel();
+            this.MainLabel = new System.Windows.Forms.Label();
             this.hidpro_btn = new System.Windows.Forms.Button();
             this.enpriv_btn = new System.Windows.Forms.Button();
             this.memreg_btn = new System.Windows.Forms.Button();
@@ -37,7 +38,6 @@
             this.ap_main_lbl = new System.Windows.Forms.Label();
             this.mr_main_lbl = new System.Windows.Forms.Label();
             this.hp_main_lbl = new System.Windows.Forms.Label();
-            this.MainLabel = new System.Windows.Forms.Label();
             this.memreg_panel = new System.Windows.Forms.Panel();
             this.memreg_rtb = new System.Windows.Forms.RichTextBox();
             this.clear_btn = new System.Windows.Forms.Button();
@@ -68,6 +68,16 @@
             this.menu_panel.Name = "menu_panel";
             this.menu_panel.Size = new System.Drawing.Size(278, 893);
             this.menu_panel.TabIndex = 0;
+            // 
+            // MainLabel
+            // 
+            this.MainLabel.AutoSize = true;
+            this.MainLabel.Font = new System.Drawing.Font("Segoe UI", 7.875F, System.Drawing.FontStyle.Italic, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
+            this.MainLabel.Location = new System.Drawing.Point(12, 854);
+            this.MainLabel.Name = "MainLabel";
+            this.MainLabel.Size = new System.Drawing.Size(257, 30);
+            this.MainLabel.TabIndex = 0;
+            this.MainLabel.Text = "Processes Laboratory v0.0.1";
             // 
             // hidpro_btn
             // 
@@ -141,20 +151,10 @@
             this.hp_main_lbl.Font = new System.Drawing.Font("Segoe UI Semibold", 10.875F, System.Drawing.FontStyle.Bold);
             this.hp_main_lbl.Location = new System.Drawing.Point(6, 261);
             this.hp_main_lbl.Name = "hp_main_lbl";
-            this.hp_main_lbl.Size = new System.Drawing.Size(1003, 80);
+            this.hp_main_lbl.Size = new System.Drawing.Size(1021, 80);
             this.hp_main_lbl.TabIndex = 1;
-            this.hp_main_lbl.Text = "# Hidden Processes - Показывает процессы, которые были обнаружены \r\nNt функцией я" +
-    "дра, но пропущены сканерами верхнего уровня. ";
-            // 
-            // MainLabel
-            // 
-            this.MainLabel.AutoSize = true;
-            this.MainLabel.Font = new System.Drawing.Font("Segoe UI", 7.875F, System.Drawing.FontStyle.Italic, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
-            this.MainLabel.Location = new System.Drawing.Point(12, 854);
-            this.MainLabel.Name = "MainLabel";
-            this.MainLabel.Size = new System.Drawing.Size(257, 30);
-            this.MainLabel.TabIndex = 0;
-            this.MainLabel.Text = "Processes Laboratory v0.0.1";
+            this.hp_main_lbl.Text = "# Hidden Processes - Показывает процессы, которые были обнаружены \r\nNt функцией, " +
+    "но отсутсвуют в параллельном снапшоте верхнего уровня. ";
             // 
             // memreg_panel
             // 
