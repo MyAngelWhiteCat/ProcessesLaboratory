@@ -37,7 +37,7 @@ namespace laboratory {
 
         domain::SPProcessInfo GetProcessInfo(std::string_view process_name) const;
         domain::SPProcessInfo GetProcessInfo(DWORD pid) const;
-        void ClearBuffer();
+       
 
     private:
         maltech::ntdll::NtDll& ntdll_;
