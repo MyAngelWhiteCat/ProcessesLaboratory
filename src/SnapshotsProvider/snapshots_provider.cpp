@@ -130,18 +130,6 @@ namespace laboratory {
         return nullptr;
     }
 
-    void SnapshotsProvider::ClearBuffer() {
-        last_full_snapshots_.clear();
-    }
-
-    size_t SnapshotsProvider::GetBufferSize() const {
-        return buffer_size_;
-    }
-
-    void SnapshotsProvider::SetBufferSize(const size_t new_size) {
-        buffer_size_ = new_size;
-    }
-
     void SnapshotsProvider::GetProcModules(domain::ProcessInfo& pinfo) {
         MODULEENTRY32W module_entry{ 0 };
 
