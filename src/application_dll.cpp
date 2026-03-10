@@ -1,9 +1,11 @@
 #include "application_dll.h"
 #include "domain.h"
+#include "ProcessesLaboratory/processes_laboratory.h"
 
 #include <memory>
 #include <utility>
 #include <vector>
+#include <string>
 
 namespace application {
 
