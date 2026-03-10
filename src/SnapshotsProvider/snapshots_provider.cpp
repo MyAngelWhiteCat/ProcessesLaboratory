@@ -112,24 +112,6 @@ namespace laboratory {
         return CreateQuickToolHelpSnapshot();
     }
 
-    domain::Snapshot SnapshotsProvider::GetLastFullSnapshot() {
-        if (!last_full_snapshots_.empty()) {
-            return last_full_snapshots_.back();
-        }
-        return {};
-    }
-
-    void SnapshotsProvider::PrintLastFullSnapshot(std::ostream& out) {
-        domain::Snapshot& last_snapshot = last_full_snapshots_.back();
-        for (const auto& [_, proc] : last_snapshot.pid_to_proc_info_) {
-            proc->Print(out);
-        }
-    }
-
-    void SnapshotsProvider::SetFullSnapshotsBufferSize(size_t size) {
-        buffer_size_ = size;
-    }
-
     SPProcessInfo SnapshotsProvider::GetProcessInfo(std::string_view process_name) const {
         for (const auto& snapshot : last_full_snapshots_ | std::views::reverse) {
             if (auto proc = snapshot.GetProcessInfo(process_name)) {
@@ -146,18 +128,6 @@ namespace laboratory {
             }
         }
         return nullptr;
-    }
-
-    void SnapshotsProvider::ClearBuffer() {
-        last_full_snapshots_.clear();
-    }
-
-    size_t SnapshotsProvider::GetBufferSize() const {
-        return buffer_size_;
-    }
-
-    void SnapshotsProvider::SetBufferSize(const size_t new_size) {
-        buffer_size_ = new_size;
     }
 
     void SnapshotsProvider::GetProcModules(domain::ProcessInfo& pinfo) {

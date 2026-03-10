@@ -35,20 +35,12 @@ namespace laboratory {
         domain::Snapshot GetToolHelpSnapshot();
         domain::Snapshot GetLastFullSnapshot();
 
-        void PrintLastFullSnapshot(std::ostream& out);
-        void SetFullSnapshotsBufferSize(size_t size);
-
         domain::SPProcessInfo GetProcessInfo(std::string_view process_name) const;
         domain::SPProcessInfo GetProcessInfo(DWORD pid) const;
-        void ClearBuffer();
-
-        size_t GetBufferSize() const;
-        void SetBufferSize(const size_t new_size);
+       
 
     private:
         maltech::ntdll::NtDll& ntdll_;
-        size_t buffer_size_ = 10;
-        std::deque<domain::Snapshot> last_full_snapshots_;
 
         void CreateToolHelpFullSnapshot();
         domain::Snapshot CreateQuickToolHelpSnapshot();
