@@ -81,7 +81,8 @@ add_library(ProcessesLaboratoryDLL SHARED
 )
 
 target_link_libraries(ProcessesLaboratoryDLL PUBLIC 
-    Application
+    ProcessesLaboratory
+    nlohmann_json::nlohmann_json
 )
 
 add_executable(TestProcLab
