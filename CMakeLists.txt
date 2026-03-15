@@ -81,7 +81,7 @@ target_link_libraries(ProcessesLaboratoryDLL PUBLIC
     Application
 )
 
-add_executable(ProcLab
+add_executable(TestProcLab
     src/main.cpp 
 )
 
