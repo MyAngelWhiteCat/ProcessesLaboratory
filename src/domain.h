@@ -205,7 +205,6 @@ namespace laboratory {
             DWORD GetThreadCount() const;
 
             void SetProcessName(std::string&& name);
-
             void SetProcessName(std::string_view name);
             const std::string_view GetProcessName() const;
 
