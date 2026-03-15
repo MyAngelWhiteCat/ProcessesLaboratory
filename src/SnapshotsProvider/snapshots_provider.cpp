@@ -88,7 +88,7 @@ namespace laboratory {
     }
 
     domain::Snapshot SnapshotsProvider::GetNtSnapshot() {
-        return CreateNtSnapshot();
+        return CreateQuickNtSnapshot();
     }
 
     domain::Snapshot SnapshotsProvider::GetToolHelpSnapshot() {
@@ -169,7 +169,7 @@ namespace laboratory {
         return process_prioritet;
     }
 
-    domain::Snapshot SnapshotsProvider::CreateNtSnapshot() {
+    domain::Snapshot SnapshotsProvider::CreateQuickNtSnapshot() {
         ULONG sysinfo_len = 0;
         NTSTATUS status = ntdll_.NtQuerySystemInformation(SystemProcessInformation
             , NULL

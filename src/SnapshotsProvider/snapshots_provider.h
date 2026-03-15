@@ -40,7 +40,7 @@ namespace laboratory {
         void CreateToolHelpFullSnapshot();
         domain::Snapshot CreateQuickToolHelpSnapshot();
 
-        domain::Snapshot CreateNtSnapshot();
+        domain::Snapshot CreateQuickNtSnapshot();
 
         void SetupFullProcessInfo(domain::SPProcessInfo proc_info);
 
