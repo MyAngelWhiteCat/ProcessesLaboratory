@@ -34,12 +34,16 @@ namespace laboratory {
         domain::Snapshot GetNtSnapshot();
         domain::Snapshot GetToolHelpSnapshot();
 
+        domain::Snapshot GetFullInfoNtSnapshot();
+        domain::Snapshot GetFullInfoToolHelpSnapshot();
+
     private:
         maltech::ntdll::NtDll& ntdll_;
 
-        void CreateToolHelpFullSnapshot();
+        domain::Snapshot CreateToolHelpFullSnapshot();
         domain::Snapshot CreateQuickToolHelpSnapshot();
 
+        domain::Snapshot CreateFullNtSnapshot();
         domain::Snapshot CreateQuickNtSnapshot();
 
         void SetupFullProcessInfo(domain::SPProcessInfo proc_info);

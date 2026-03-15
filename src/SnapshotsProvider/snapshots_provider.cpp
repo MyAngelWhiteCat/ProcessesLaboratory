@@ -23,40 +23,12 @@ namespace laboratory {
 
     using namespace std::literals;
 
-    void SnapshotsProvider::CreateToolHelpFullSnapshot() {
-        HANDLE hSnapshot = CreateToolhelp32Snapshot(TH32CS_SNAPPROCESS, 0);
-        auto now = domain::Clock::now();
-
-        if (hSnapshot == INVALID_HANDLE_VALUE) {
-            throw std::runtime_error("Snapshot creating error: " + std::to_string(GetLastError()));
-        }
-
-        PROCESSENTRY32W proc_entry{ 0 };
-        proc_entry.dwSize = sizeof(PROCESSENTRY32W);
-        if (!Process32FirstW(hSnapshot, &proc_entry)) {
-            CloseHandle(hSnapshot);
-            throw std::runtime_error("Snapshot reading error: " + std::to_string(GetLastError()));
-        }
-
-        domain::Snapshot snapshot(now);
-        do {
-            auto proc_info = std::make_shared<domain::ProcessInfo>
-                (proc_entry.th32ProcessID, proc_entry.cntThreads
-                    , domain::WideCharToString(proc_entry.szExeFile));
+    domain::Snapshot SnapshotsProvider::CreateToolHelpFullSnapshot() {
+        auto snapshot = CreateQuickToolHelpSnapshot();
+        for (auto& [pid, proc_info] : snapshot.pid_to_proc_info_) {
             SetupFullProcessInfo(proc_info);
-
-            try {
-                GetProcThreads(*proc_info);
-            }
-            catch (const std::exception& e) {
-                LOG_CRITICAL("Reading process threads error: "s + e.what());
-            }
-
-            snapshot.Insert(proc_info);
-
-        } while (Process32NextW(hSnapshot, &proc_entry));
-
-        CloseHandle(hSnapshot);
+        }
+        return snapshot;
     }
 
     domain::Snapshot SnapshotsProvider::CreateQuickToolHelpSnapshot() {
@@ -93,6 +65,11 @@ namespace laboratory {
 
     domain::Snapshot SnapshotsProvider::GetToolHelpSnapshot() {
         return CreateQuickToolHelpSnapshot();
+    }
+
+    domain::Snapshot SnapshotsProvider::GetFullInfoNtSnapshot()
+    {
+        return CreateFullNtSnapshot();
     }
 
     void SnapshotsProvider::GetProcModules(domain::ProcessInfo& pinfo) {
@@ -167,6 +144,15 @@ namespace laboratory {
         }
         CloseHandle(hProcess);
         return process_prioritet;
+    }
+
+    domain::Snapshot SnapshotsProvider::CreateFullNtSnapshot()
+    {
+        auto snapshot = CreateQuickNtSnapshot();
+        for (auto& [pid, proc_info] : snapshot.pid_to_proc_info_) {
+            SetupFullProcessInfo(proc_info);
+        }
+        return snapshot;
     }
 
     domain::Snapshot SnapshotsProvider::CreateQuickNtSnapshot() {
