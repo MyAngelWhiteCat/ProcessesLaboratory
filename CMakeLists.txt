@@ -57,8 +57,8 @@ add_library(ProcessesLaboratory
     src/Analyzers/EnabledPrivileges/privilege_analyzer.h
     src/Analyzers/EnabledPrivileges/privilege_analyzer.cpp
 
-    src/Analyzers/AdminRights/admin_rights_analyzer.h
-    src/Analyzers/AdminRights/admin_rights_analyzer.cpp
+    src/Analyzers/AdminRights/admin_rights_detector.h
+    src/Analyzers/AdminRights/admin_rights_detector.cpp
 
     src/domain.h
     src/domain.cpp
