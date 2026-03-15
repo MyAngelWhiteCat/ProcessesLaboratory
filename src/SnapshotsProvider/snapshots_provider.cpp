@@ -69,10 +69,6 @@ namespace laboratory {
 
         } while (Process32NextW(hSnapshot, &proc_entry));
 
-        if (last_full_snapshots_.size() >= buffer_size_) {
-            last_full_snapshots_.pop_front();
-        }
-        last_full_snapshots_.push_back(std::move(snapshot));
         CloseHandle(hSnapshot);
     }
 
@@ -110,24 +106,6 @@ namespace laboratory {
 
     domain::Snapshot SnapshotsProvider::GetToolHelpSnapshot() {
         return CreateQuickToolHelpSnapshot();
-    }
-
-    SPProcessInfo SnapshotsProvider::GetProcessInfo(std::string_view process_name) const {
-        for (const auto& snapshot : last_full_snapshots_ | std::views::reverse) {
-            if (auto proc = snapshot.GetProcessInfo(process_name)) {
-                return proc;
-            }
-        }
-        return nullptr;
-    }
-
-    SPProcessInfo SnapshotsProvider::GetProcessInfo(DWORD pid) const {
-        for (const auto& snapshot : last_full_snapshots_ | std::views::reverse) {
-            if (auto proc = snapshot.GetProcessInfo(pid)) {
-                return proc;
-            }
-        }
-        return nullptr;
     }
 
     void SnapshotsProvider::GetProcModules(domain::ProcessInfo& pinfo) {

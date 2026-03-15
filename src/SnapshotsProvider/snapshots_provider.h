@@ -33,11 +33,6 @@ namespace laboratory {
 
         domain::Snapshot GetNtSnapshot();
         domain::Snapshot GetToolHelpSnapshot();
-        domain::Snapshot GetLastFullSnapshot();
-
-        domain::SPProcessInfo GetProcessInfo(std::string_view process_name) const;
-        domain::SPProcessInfo GetProcessInfo(DWORD pid) const;
-       
 
     private:
         maltech::ntdll::NtDll& ntdll_;
