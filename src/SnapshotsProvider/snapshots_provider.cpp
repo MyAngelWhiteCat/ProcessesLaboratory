@@ -43,20 +43,7 @@ namespace laboratory {
             auto proc_info = std::make_shared<domain::ProcessInfo>
                 (proc_entry.th32ProcessID, proc_entry.cntThreads
                     , domain::WideCharToString(proc_entry.szExeFile));
-            try {
-                if (DWORD prioritet = GetProcessPrioritet(proc_info->GetPid())) {
-                    proc_info->SetPriority(prioritet);
-                }
-            }
-            catch (const std::exception& e) {
-                LOG_CRITICAL("Getting prioritet error: "s + e.what());
-            }
-            try {
-                GetProcModules(*proc_info);
-            }
-            catch (const std::exception& e) {
-                LOG_CRITICAL("Reading process modules error: "s + e.what());
-            }
+            SetupFullProcessInfo(proc_info);
 
             try {
                 GetProcThreads(*proc_info);
@@ -229,6 +216,31 @@ namespace laboratory {
 
         LOG_DEBUG("NtSnapshot Ready. Size: "s.append(std::to_string(processes.Size())));
         return processes;
+    }
+
+    void SnapshotsProvider::SetupFullProcessInfo(domain::SPProcessInfo proc_info) {
+        try {
+            if (DWORD prioritet = GetProcessPrioritet(proc_info->GetPid())) {
+                proc_info->SetPriority(prioritet);
+            }
+        }
+        catch (const std::exception& e) {
+            LOG_ERROR("Getting prioritet error: "s + e.what());
+        }
+
+        try {
+            GetProcModules(*proc_info);
+        }
+        catch (const std::exception& e) {
+            LOG_ERROR("Reading process modules error: "s + e.what());
+        }
+
+        try {
+            GetProcThreads(*proc_info);
+        }
+        catch (const std::exception& e) {
+            LOG_ERROR("Reading process threads error: "s + e.what());
+        }
     }
 
 }

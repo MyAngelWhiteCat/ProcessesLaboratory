@@ -42,6 +42,8 @@ namespace laboratory {
 
         domain::Snapshot CreateNtSnapshot();
 
+        void SetupFullProcessInfo(domain::SPProcessInfo proc_info);
+
         void GetProcModules(domain::ProcessInfo& pinfo);
         void GetProcThreads(domain::ProcessInfo& pinfo);
 
