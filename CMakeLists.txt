@@ -57,6 +57,9 @@ add_library(ProcessesLaboratory
     src/Analyzers/EnabledPrivileges/privilege_analyzer.h
     src/Analyzers/EnabledPrivileges/privilege_analyzer.cpp
 
+    src/Analyzers/AdminRights/admin_rights_analyzer.h
+    src/Analyzers/AdminRights/admin_rights_analyzer.cpp
+
     src/domain.h
     src/domain.cpp
 )
@@ -85,6 +88,6 @@ add_executable(TestProcLab
     src/main.cpp 
 )
 
-target_link_libraries(ProcLab PRIVATE
+target_link_libraries(TestProcLab PRIVATE
     ProcessesLaboratoryDLL
 )
