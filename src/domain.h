@@ -224,7 +224,7 @@ namespace laboratory {
             void SetTimestamp();
             Clock::time_point GetTimestamp() const;
 
-            HANDLE Open(DWORD accessz);
+            HANDLE Open(DWORD access);
             BOOL Close() const;
 
         private:
