@@ -82,6 +82,7 @@ add_library(ProcessesLaboratoryDLL SHARED
 
 target_link_libraries(ProcessesLaboratoryDLL PUBLIC 
     ProcessesLaboratory
+    ThreadPool
     nlohmann_json::nlohmann_json
 )
 
