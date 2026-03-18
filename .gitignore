@@ -39,3 +39,12 @@
 
 # debug information files
 *.dwo
+
+# gui and C# thinks
+.vs/
+bin/
+obj/
+*.user
+*.suo
+*.cache
+*.csproj.user
