@@ -91,5 +91,5 @@ add_executable(TestProcLab
 )
 
 target_link_libraries(TestProcLab PRIVATE
-    ProcessesLaboratoryDLL
+    ProcessesLaboratoryApp
 )
