@@ -25,7 +25,7 @@ int main() {
         HMODULE module = LoadLibraryA("ProcessesLaboratoryApp.dll");
         auto* DetectCompromisedProcesses = 
             reinterpret_cast<pDetectCompromisedProcesses>
-            (GetProcAddress(module, "DetectCompromisedProcesses"));
+            (GetProcAddress(module, "DetectEnabledPrivileges"));
         
         DetectCompromisedProcesses(TestCallback);
         while (true) {
