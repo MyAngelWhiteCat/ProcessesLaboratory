@@ -39,8 +39,9 @@ namespace laboratory {
             return false;
         }
 
-        bool AdminRightsAnalyzer::CheckByAdminGroud(HANDLE hToken) {
-            return false;
+        bool AdminRightsAnalyzer::CheckByAdminGroup(HANDLE hToken) {
+            
+
         }
 
         bool AdminRightsAnalyzer::CheckByUAC(HANDLE hToken) {
