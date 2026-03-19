@@ -54,6 +54,8 @@ namespace laboratory {
             domain::Severity severity = domain::Severity::INFO;
             TOKEN_PRIVILEGES* privileges = reinterpret_cast<TOKEN_PRIVILEGES*>
                 (privileges_bytes.data());
+
+            domain::Severity severity = domain::Severity::INFO;
             std::string comment;
             for (DWORD i = 0; i < privileges->PrivilegeCount; ++i) {
                 auto& privilege = privileges->Privileges[i];
