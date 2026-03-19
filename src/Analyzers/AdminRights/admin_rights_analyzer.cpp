@@ -42,12 +42,24 @@ namespace laboratory {
         }
 
         bool AdminRightsAnalyzer::CheckByAdminGroup(HANDLE hToken) {
-            
-
+            auto tg_bytes = GetTokenInfo(hToken, TokenGroups);
+            auto token_groups = reinterpret_cast<PTOKEN_GROUPS>(tg_bytes.data());
+            for (const auto& token_group : token_groups->Groups) {
+                if (GetRid(token_group.Sid) == SECURITY_MANDATORY_HIGH_RID) {
+                    return true;
+                }
+            }
+            return false;
         }
 
         bool AdminRightsAnalyzer::CheckByUAC(HANDLE hToken) {
             return false;
+        }
+
+        DWORD AdminRightsAnalyzer::GetRid(PSID sid) {
+            PUCHAR count = GetSidSubAuthorityCount(sid);
+            DWORD rid = *GetSidSubAuthority(sid, (*count) - 1);
+            return rid;
         }
 
     }
