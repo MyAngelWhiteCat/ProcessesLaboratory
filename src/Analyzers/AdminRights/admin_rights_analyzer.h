@@ -25,9 +25,9 @@ namespace laboratory {
 
             std::pair<domain::Severity, std::string> AnalyzeProcess(DWORD pid);
 
-            bool CheckByIntegrityLevel(PHANDLE hToken);
-            bool CheckByAdminGroud(PHANDLE hToken);
-            bool CheckByUAC(PHANDLE hToken);
+            bool CheckByIntegrityLevel(HANDLE hToken);
+            bool CheckByAdminGroud(HANDLE hToken);
+            bool CheckByUAC(HANDLE hToken);
         };
 
     }

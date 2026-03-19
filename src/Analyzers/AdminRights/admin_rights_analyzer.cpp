@@ -17,15 +17,15 @@ namespace laboratory {
             return std::pair<domain::Severity, std::string>();
         }
 
-        bool AdminRightsAnalyzer::CheckByIntegrityLevel(PHANDLE hToken) {
+        bool AdminRightsAnalyzer::CheckByIntegrityLevel(HANDLE hToken) {
             return false;
         }
 
-        bool AdminRightsAnalyzer::CheckByAdminGroud(PHANDLE hToken) {
+        bool AdminRightsAnalyzer::CheckByAdminGroud(HANDLE hToken) {
             return false;
         }
 
-        bool AdminRightsAnalyzer::CheckByUAC(PHANDLE hToken) {
+        bool AdminRightsAnalyzer::CheckByUAC(HANDLE hToken) {
             return false;
         }
 
