@@ -30,6 +30,7 @@
         {
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(ProcessesLaboratory));
             this.menu_panel = new System.Windows.Forms.Panel();
+            this.admrig_btn = new System.Windows.Forms.Button();
             this.MainLabel = new System.Windows.Forms.Label();
             this.hidpro_btn = new System.Windows.Forms.Button();
             this.enpriv_btn = new System.Windows.Forms.Button();
@@ -47,9 +48,9 @@
             this.hidpro_rtb = new System.Windows.Forms.RichTextBox();
             this.enpriv_panel = new System.Windows.Forms.Panel();
             this.enpriv_rtb = new System.Windows.Forms.RichTextBox();
-            this.admrig_btn = new System.Windows.Forms.Button();
             this.admrig_pnl = new System.Windows.Forms.Panel();
             this.admrig_rtb = new System.Windows.Forms.RichTextBox();
+            this.label1 = new System.Windows.Forms.Label();
             this.menu_panel.SuspendLayout();
             this.main_panel.SuspendLayout();
             this.memreg_panel.SuspendLayout();
@@ -74,8 +75,20 @@
             this.menu_panel.Size = new System.Drawing.Size(278, 893);
             this.menu_panel.TabIndex = 0;
             // 
+            // admrig_btn
+            // 
+            this.admrig_btn.Font = new System.Drawing.Font("Segoe UI", 10.125F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
+            this.admrig_btn.Location = new System.Drawing.Point(0, 377);
+            this.admrig_btn.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
+            this.admrig_btn.Name = "admrig_btn";
+            this.admrig_btn.Size = new System.Drawing.Size(278, 108);
+            this.admrig_btn.TabIndex = 3;
+            this.admrig_btn.Text = "Admin Rights";
+            this.admrig_btn.UseVisualStyleBackColor = true;
+            // 
             // MainLabel
             // 
+            this.MainLabel.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
             this.MainLabel.AutoSize = true;
             this.MainLabel.Font = new System.Drawing.Font("Segoe UI", 7.875F, System.Drawing.FontStyle.Italic, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
             this.MainLabel.Location = new System.Drawing.Point(12, 854);
@@ -119,6 +132,8 @@
             // 
             // main_panel
             // 
+            this.main_panel.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
+            this.main_panel.Controls.Add(this.label1);
             this.main_panel.Controls.Add(this.ap_main_lbl);
             this.main_panel.Controls.Add(this.mr_main_lbl);
             this.main_panel.Controls.Add(this.hp_main_lbl);
@@ -132,7 +147,7 @@
             // 
             this.ap_main_lbl.AutoSize = true;
             this.ap_main_lbl.Font = new System.Drawing.Font("Segoe UI Semibold", 10.875F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
-            this.ap_main_lbl.Location = new System.Drawing.Point(6, 145);
+            this.ap_main_lbl.Location = new System.Drawing.Point(6, 157);
             this.ap_main_lbl.Name = "ap_main_lbl";
             this.ap_main_lbl.Size = new System.Drawing.Size(916, 80);
             this.ap_main_lbl.TabIndex = 3;
@@ -143,7 +158,7 @@
             // 
             this.mr_main_lbl.AutoSize = true;
             this.mr_main_lbl.Font = new System.Drawing.Font("Segoe UI Semibold", 10.875F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
-            this.mr_main_lbl.Location = new System.Drawing.Point(6, 29);
+            this.mr_main_lbl.Location = new System.Drawing.Point(6, 41);
             this.mr_main_lbl.Name = "mr_main_lbl";
             this.mr_main_lbl.Size = new System.Drawing.Size(1049, 80);
             this.mr_main_lbl.TabIndex = 2;
@@ -154,7 +169,7 @@
             // 
             this.hp_main_lbl.AutoSize = true;
             this.hp_main_lbl.Font = new System.Drawing.Font("Segoe UI Semibold", 10.875F, System.Drawing.FontStyle.Bold);
-            this.hp_main_lbl.Location = new System.Drawing.Point(6, 261);
+            this.hp_main_lbl.Location = new System.Drawing.Point(3, 271);
             this.hp_main_lbl.Name = "hp_main_lbl";
             this.hp_main_lbl.Size = new System.Drawing.Size(1021, 80);
             this.hp_main_lbl.TabIndex = 1;
@@ -175,6 +190,9 @@
             // 
             // memreg_rtb
             // 
+            this.memreg_rtb.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
+            | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
             this.memreg_rtb.Location = new System.Drawing.Point(0, 0);
             this.memreg_rtb.Name = "memreg_rtb";
             this.memreg_rtb.ReadOnly = true;
@@ -229,6 +247,9 @@
             // 
             // hidpro_rtb
             // 
+            this.hidpro_rtb.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
+            | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
             this.hidpro_rtb.Location = new System.Drawing.Point(0, 0);
             this.hidpro_rtb.Name = "hidpro_rtb";
             this.hidpro_rtb.ReadOnly = true;
@@ -250,23 +271,15 @@
             // 
             // enpriv_rtb
             // 
+            this.enpriv_rtb.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
+            | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
             this.enpriv_rtb.Location = new System.Drawing.Point(0, 0);
             this.enpriv_rtb.Name = "enpriv_rtb";
             this.enpriv_rtb.ReadOnly = true;
             this.enpriv_rtb.Size = new System.Drawing.Size(1134, 814);
             this.enpriv_rtb.TabIndex = 4;
             this.enpriv_rtb.Text = "";
-            // 
-            // admrig_btn
-            // 
-            this.admrig_btn.Font = new System.Drawing.Font("Segoe UI", 10.125F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
-            this.admrig_btn.Location = new System.Drawing.Point(0, 377);
-            this.admrig_btn.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
-            this.admrig_btn.Name = "admrig_btn";
-            this.admrig_btn.Size = new System.Drawing.Size(278, 108);
-            this.admrig_btn.TabIndex = 3;
-            this.admrig_btn.Text = "Admin Rights";
-            this.admrig_btn.UseVisualStyleBackColor = true;
             // 
             // admrig_pnl
             // 
@@ -282,12 +295,25 @@
             // 
             // admrig_rtb
             // 
+            this.admrig_rtb.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
             this.admrig_rtb.Location = new System.Drawing.Point(0, 0);
             this.admrig_rtb.Name = "admrig_rtb";
             this.admrig_rtb.ReadOnly = true;
             this.admrig_rtb.Size = new System.Drawing.Size(1134, 814);
             this.admrig_rtb.TabIndex = 4;
             this.admrig_rtb.Text = "";
+            // 
+            // label1
+            // 
+            this.label1.AutoSize = true;
+            this.label1.Font = new System.Drawing.Font("Segoe UI Semibold", 10.875F, System.Drawing.FontStyle.Bold);
+            this.label1.Location = new System.Drawing.Point(6, 387);
+            this.label1.Name = "label1";
+            this.label1.Size = new System.Drawing.Size(982, 80);
+            this.label1.TabIndex = 4;
+            this.label1.Text = "# Admin Rights - Показывает процессы, которые заупущены от имени \r\nадминистратора" +
+    " или имеют группу администраторов. ";
             // 
             // ProcessesLaboratory
             // 
@@ -342,6 +368,7 @@
         private System.Windows.Forms.Button admrig_btn;
         private System.Windows.Forms.Panel admrig_pnl;
         private System.Windows.Forms.RichTextBox admrig_rtb;
+        private System.Windows.Forms.Label label1;
     }
 }
 
