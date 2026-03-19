@@ -1,9 +1,12 @@
 #include "admin_rights_analyzer.h"
+#include "../../domain.h"
 #include "../analyzer.h"
 
 #include <Windows.h>
 
 #include <string>
+#include <utility>
+#include <stdexcept>
 
 namespace laboratory {
 
