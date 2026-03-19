@@ -24,6 +24,7 @@ namespace application {
         __declspec(dllexport) void DetectHiddenProcesses(LogCallback callback);
         __declspec(dllexport) void DetectCompromisedProcesses(LogCallback callback);
         __declspec(dllexport) void DetectEnabledPrivileges(LogCallback callback);
+        __declspec(dllexport) void DetectAdminRights(LogCallback callback);
     }
 
     class ApplicationExportDLL {
@@ -33,6 +34,7 @@ namespace application {
         void AsyncDetectHiddenProcesses(LogCallback callback);
         void AsyncDetectCompromisedProcesses(LogCallback callback);
         void AsyncDetectEnabledPrivileges(LogCallback callback);
+        void AsyncDetectAdminRights(LogCallback callback);
 
     private:
         ThreadPool thread_pool_{ GetMaximumProcessorCount(ALL_PROCESSOR_GROUPS) };

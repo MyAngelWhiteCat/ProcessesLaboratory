@@ -28,6 +28,10 @@ namespace application {
         GetApp()->AsyncDetectEnabledPrivileges(callback);
     }
 
+    void DetectAdminRights(LogCallback callback) {
+        GetApp()->AsyncDetectAdminRights(callback);
+    }
+
     void ApplicationExportDLL::AsyncDetectHiddenProcesses(LogCallback callback) {
         thread_pool_.AddTask([this, callback]() {
             auto json_string = SerializeResult
@@ -49,6 +53,14 @@ namespace application {
             auto json_string = SerializeResult
             (laboratory_->DetectEnabledPrivileges()).dump();
             callback(json_string.c_str());
+            });
+    }
+
+    void ApplicationExportDLL::AsyncDetectAdminRights(LogCallback callback) {
+        thread_pool_.AddTask([this, callback]() {
+            auto json_string = SerializeResult(
+                laboratory_->DetectAdminProcesses()
+            ).dump();
             });
     }
 
