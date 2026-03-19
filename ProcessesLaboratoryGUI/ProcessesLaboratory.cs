@@ -9,6 +9,7 @@ using System.Threading.Tasks;
 using System.Windows.Forms;
 
 using System.Text.Json;
+using System.Xml;
 
 namespace ProcessesLaboratoryGUI
 {
@@ -56,7 +57,8 @@ namespace ProcessesLaboratoryGUI
             navigation_sections_ = new List<NavigationSection> {
                 new NavigationSection(memreg_btn, memreg_panel),
                 new NavigationSection(enpriv_btn, enpriv_panel),
-                new NavigationSection(hidpro_btn, hidpro_panel)
+                new NavigationSection(hidpro_btn, hidpro_panel),
+                new NavigationSection(admrig_btn, admrig_pnl)
                 };
 
             foreach (var section in navigation_sections_)
@@ -77,6 +79,7 @@ namespace ProcessesLaboratoryGUI
         private LogCallback _compromised_callback;
         private LogCallback _hidden_callback;
         private LogCallback _eprivileges_callback;
+        private LogCallback _adminrights_callback;
 
         private void SwitchToMainPanel()
         {
@@ -124,11 +127,11 @@ namespace ProcessesLaboratoryGUI
             rtb.Select(rtb.TextLength, 0);
         }
 
-        private void OuputResultToRichTextBox(RichTextBox rtextbox, string result_json)
+        private void OutputResultToRichTextBox(RichTextBox rtextbox, string result_json)
         {
             if (rtextbox.InvokeRequired)
             {
-                rtextbox.Invoke((Action)(() => OuputResultToRichTextBox(rtextbox, result_json)));
+                rtextbox.Invoke((Action)(() => OutputResultToRichTextBox(rtextbox, result_json)));
                 return;
             }
             try
@@ -169,17 +172,22 @@ namespace ProcessesLaboratoryGUI
 
         private void OnCompromisedProcessesResult(string result_json)
         {
-            OuputResultToRichTextBox(memreg_rtb, result_json);
+            OutputResultToRichTextBox(memreg_rtb, result_json);
         }
 
         private void OnHiddenProcessesResult(string result_json)
         {
-            OuputResultToRichTextBox(hidpro_rtb, result_json);
+            OutputResultToRichTextBox(hidpro_rtb, result_json);
         }
 
         private void OnEnabledPrivilegesResult(string result_json)
         {
-            OuputResultToRichTextBox(enpriv_rtb, result_json);
+            OutputResultToRichTextBox(enpriv_rtb, result_json);
+        }
+
+        private void OnAdminRightsResult(string result_json)
+        {
+            OutputResultToRichTextBox(admrig_rtb, result_json);
         }
 
         private void scan_btn_Click(object sender, EventArgs e)
@@ -203,6 +211,12 @@ namespace ProcessesLaboratoryGUI
                 _eprivileges_callback = OnEnabledPrivilegesResult;
                 NativeMethods.DetectEnabledPrivileges(_eprivileges_callback);
             }
+            else if (admrig_pnl.Visible)
+            {
+                admrig_rtb.AppendText(start);
+                _adminrights_callback = OnAdminRightsResult;
+                NativeMethods.DetectAdminRights(_adminrights_callback);
+            }
         }
         private void clear_btn_Click(object sender, EventArgs e)
         {
@@ -217,6 +231,10 @@ namespace ProcessesLaboratoryGUI
             else if (enpriv_panel.Visible)
             {
                 enpriv_rtb.Clear();
+            }
+            else if (admrig_pnl.Visible)
+            {
+                admrig_rtb.Clear();
             }
         }
 

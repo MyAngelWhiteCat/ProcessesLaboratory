@@ -47,17 +47,22 @@
             this.hidpro_rtb = new System.Windows.Forms.RichTextBox();
             this.enpriv_panel = new System.Windows.Forms.Panel();
             this.enpriv_rtb = new System.Windows.Forms.RichTextBox();
+            this.admrig_btn = new System.Windows.Forms.Button();
+            this.admrig_pnl = new System.Windows.Forms.Panel();
+            this.admrig_rtb = new System.Windows.Forms.RichTextBox();
             this.menu_panel.SuspendLayout();
             this.main_panel.SuspendLayout();
             this.memreg_panel.SuspendLayout();
             this.btns_panel.SuspendLayout();
             this.hidpro_panel.SuspendLayout();
             this.enpriv_panel.SuspendLayout();
+            this.admrig_pnl.SuspendLayout();
             this.SuspendLayout();
             // 
             // menu_panel
             // 
             this.menu_panel.BackColor = System.Drawing.SystemColors.ControlLight;
+            this.menu_panel.Controls.Add(this.admrig_btn);
             this.menu_panel.Controls.Add(this.MainLabel);
             this.menu_panel.Controls.Add(this.hidpro_btn);
             this.menu_panel.Controls.Add(this.enpriv_btn);
@@ -252,12 +257,45 @@
             this.enpriv_rtb.TabIndex = 4;
             this.enpriv_rtb.Text = "";
             // 
+            // admrig_btn
+            // 
+            this.admrig_btn.Font = new System.Drawing.Font("Segoe UI", 10.125F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
+            this.admrig_btn.Location = new System.Drawing.Point(0, 377);
+            this.admrig_btn.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
+            this.admrig_btn.Name = "admrig_btn";
+            this.admrig_btn.Size = new System.Drawing.Size(278, 108);
+            this.admrig_btn.TabIndex = 3;
+            this.admrig_btn.Text = "Admin Rights";
+            this.admrig_btn.UseVisualStyleBackColor = true;
+            // 
+            // admrig_pnl
+            // 
+            this.admrig_pnl.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
+            | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
+            this.admrig_pnl.Controls.Add(this.admrig_rtb);
+            this.admrig_pnl.Location = new System.Drawing.Point(278, 0);
+            this.admrig_pnl.Name = "admrig_pnl";
+            this.admrig_pnl.Size = new System.Drawing.Size(1134, 815);
+            this.admrig_pnl.TabIndex = 7;
+            this.admrig_pnl.Visible = false;
+            // 
+            // admrig_rtb
+            // 
+            this.admrig_rtb.Location = new System.Drawing.Point(0, 0);
+            this.admrig_rtb.Name = "admrig_rtb";
+            this.admrig_rtb.ReadOnly = true;
+            this.admrig_rtb.Size = new System.Drawing.Size(1134, 814);
+            this.admrig_rtb.TabIndex = 4;
+            this.admrig_rtb.Text = "";
+            // 
             // ProcessesLaboratory
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(12F, 30F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(1412, 893);
             this.Controls.Add(this.main_panel);
+            this.Controls.Add(this.admrig_pnl);
             this.Controls.Add(this.enpriv_panel);
             this.Controls.Add(this.hidpro_panel);
             this.Controls.Add(this.btns_panel);
@@ -276,6 +314,7 @@
             this.btns_panel.ResumeLayout(false);
             this.hidpro_panel.ResumeLayout(false);
             this.enpriv_panel.ResumeLayout(false);
+            this.admrig_pnl.ResumeLayout(false);
             this.ResumeLayout(false);
 
         }
@@ -300,6 +339,9 @@
         private System.Windows.Forms.RichTextBox enpriv_rtb;
         private System.Windows.Forms.RichTextBox memreg_rtb;
         private System.Windows.Forms.RichTextBox hidpro_rtb;
+        private System.Windows.Forms.Button admrig_btn;
+        private System.Windows.Forms.Panel admrig_pnl;
+        private System.Windows.Forms.RichTextBox admrig_rtb;
     }
 }
 

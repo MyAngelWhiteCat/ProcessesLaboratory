@@ -23,6 +23,8 @@ namespace ProcessesLaboratoryGUI
         [DllImport("ProcessesLaboratoryApp.dll", CallingConvention = CallingConvention.Cdecl)]
         public static extern void DetectEnabledPrivileges(LogCallback callback);
 
+        [DllImport("ProcessesLaboratoryApp.dll", CallingConvention = CallingConvention.Cdecl)]
+        public static extern void DetectAdminRights(LogCallback callback);
     }
 
 }
