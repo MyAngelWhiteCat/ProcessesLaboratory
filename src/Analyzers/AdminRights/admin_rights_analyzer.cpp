@@ -21,7 +21,7 @@ namespace laboratory {
             domain::RaiiHandle hToken(GetProcessToken(hProcess.Get(), TOKEN_QUERY));
 
             bool integrity_level = CheckByIntegrityLevel(hToken.Get());
-            bool admin_group = CheckByAdminGroud(hToken.Get());
+            bool admin_group = CheckByAdminGroup(hToken.Get());
             bool is_elevated = CheckByUAC(hToken.Get());
 
             if (admin_group && !is_elevated) {
