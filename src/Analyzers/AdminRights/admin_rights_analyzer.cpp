@@ -85,7 +85,15 @@ namespace laboratory {
         }
 
         DWORD AdminRightsAnalyzer::GetRid(PSID sid) {
+            if (!IsValidSid(sid)) {
+                LOG_ERROR("Invalid sid");
+                return 0;
+            }
             PUCHAR count = GetSidSubAuthorityCount(sid);
+            if (!count) {
+                LOG_ERROR("Can't get subauthority count "s + std::to_string(GetLastError()));
+                return 0;
+            }
             DWORD rid = *GetSidSubAuthority(sid, (*count) - 1);
             return rid;
         }
