@@ -4,7 +4,10 @@ namespace laboratory {
 
     namespace analyze {
 
-
+        AnalyzeResult AdminRightsAnalyzer::StartAnalyze(const domain::Scan& scans)
+        {
+            return AnalyzeResult();
+        }
 
     }
 
