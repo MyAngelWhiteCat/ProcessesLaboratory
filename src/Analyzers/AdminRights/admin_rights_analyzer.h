@@ -7,7 +7,6 @@
 #include <Windows.h>
 
 
-
 namespace laboratory {
 
     namespace analyze {
