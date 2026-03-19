@@ -48,7 +48,7 @@ namespace laboratory {
         }
 
         std::pair<domain::Severity, std::string> PrivilegeAnalyzer::AnalyzeProcess(DWORD pid) {
-            domain::RaiiHandle hProcess(GetNtHandle(pid));
+            domain::RaiiHandle hProcess(GetNtHandle(pid, PROCESS_QUERY_INFORMATION));
             domain::RaiiHandle hToken(GetProcessToken(hProcess.Get()));
             auto privileges_bytes = GetPrivilegesBytes(hToken.Get());
             domain::Severity severity = domain::Severity::INFO;
@@ -68,74 +68,8 @@ namespace laboratory {
             return { severity, comment };
         }
 
-        HANDLE PrivilegeAnalyzer::GetNtHandle(DWORD pid) {
-            CLIENT_ID client_id{ (HANDLE)pid, NULL };
-            OBJECT_ATTRIBUTES attributes = { sizeof(attributes) };
-            HANDLE hProcess{ 0 };
-            NTSTATUS status = ntdll_.NtOpenProcess(
-                &hProcess,
-                PROCESS_QUERY_INFORMATION,
-                &attributes,
-                &client_id);
-
-            if (!NT_SUCCESS(status)) {
-                std::ostringstream strm{};
-                strm << std::hex << status;
-                throw std::runtime_error("NtOpenProcess failed for PID " +
-                    std::to_string(pid) +
-                    " with status: 0x" +
-                    strm.str());
-            }
-            
-            if (!hProcess || hProcess == INVALID_HANDLE_VALUE) {
-                throw std::runtime_error("Error while nt open process #"s 
-                    + std::to_string(pid)
-                    + ". Error code: "
-                    + std::to_string(GetLastError()));
-            }
-
-            return hProcess;
-        }
-
-        HANDLE PrivilegeAnalyzer::GetProcessToken(HANDLE hProcess) {
-            HANDLE hToken{ 0 };
-            ntdll_.NtOpenProcessToken(
-                hProcess,
-                TOKEN_QUERY,
-                &hToken);
-
-            if (!hToken || hToken == INVALID_HANDLE_VALUE) {
-                throw std::runtime_error("Error while nt open token. Error code: "
-                    + std::to_string(GetLastError()));
-            }
-
-            return hToken;
-        }
-
         std::vector<std::byte> PrivilegeAnalyzer::GetPrivilegesBytes(HANDLE hToken) {
-            ULONG tokeninfo_len = GetTokeninfoLen(hToken);
-            std::vector<std::byte> buffer(tokeninfo_len);
-            ntdll_.NtQueryInformationToken(
-                hToken,
-                TokenPrivileges,
-                buffer.data(),
-                tokeninfo_len,
-                &tokeninfo_len
-            );
-
-            return buffer;
-        }
-
-        ULONG PrivilegeAnalyzer::GetTokeninfoLen(HANDLE hToken) {
-            ULONG tokeninfo_len = 0;
-            ntdll_.NtQueryInformationToken(
-                hToken,
-                TokenPrivileges,
-                NULL,
-                0,
-                &tokeninfo_len
-            );
-            return tokeninfo_len;
+            return GetTokenInfo(hToken, TokenPrivileges);
         }
 
         bool PrivilegeAnalyzer::IsPrivelegeDangerous(LUID luid) {
