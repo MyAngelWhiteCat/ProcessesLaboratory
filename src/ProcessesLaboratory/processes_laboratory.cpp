@@ -151,9 +151,9 @@ namespace laboratory {
             if (analyzer == analyzers_.end()) {
                 throw std::runtime_error("Admin rights analyzer not init");
             }
-                LOG_DEBUG("Start detecting processes with administrator rights");
-                return analyzer->second->Analyze(scan).suspicious_processes_;
-            }
+            LOG_DEBUG("Start detecting processes with administrator rights");
+            return analyzer->second->Analyze(scan).suspicious_processes_;
+        }
         catch (const std::exception& e) {
             LOG_ERROR("Processes with admins rights analyze error: "s + e.what());
         }

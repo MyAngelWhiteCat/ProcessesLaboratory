@@ -23,15 +23,15 @@ namespace laboratory {
             for (const auto& [pid, proc_info] : snapshot->second.pid_to_proc_info_) {
                 try {
                     LOG_INFO("Analyze "s + std::string(proc_info->GetProcessName()));
-                auto [severity, comment] = AnalyzeProcess(pid);
-                if (!comment.empty()) {
-                    result.suspicious_processes_.emplace_back(
-                        proc_info,
-                        comment,
-                        severity
-                    );
+                    auto [severity, comment] = AnalyzeProcess(pid);
+                    if (!comment.empty()) {
+                        result.suspicious_processes_.emplace_back(
+                            proc_info,
+                            comment,
+                            severity
+                        );
+                    }
                 }
-            }
                 catch (const std::exception& e) {
                     LOG_ERROR("Admin rights analyze error: "s + e.what());
                 }

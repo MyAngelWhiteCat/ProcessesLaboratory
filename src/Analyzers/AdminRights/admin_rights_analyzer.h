@@ -10,7 +10,7 @@
 namespace laboratory {
 
     namespace analyze {
-        
+
         using namespace std::literals;
 
         
