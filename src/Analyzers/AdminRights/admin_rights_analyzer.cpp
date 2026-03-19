@@ -1,4 +1,4 @@
-#include "admin_rights_detector.h"
+#include "admin_rights_analyzer.h"
 
 namespace laboratory {
 

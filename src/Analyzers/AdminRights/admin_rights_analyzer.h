@@ -5,7 +5,7 @@ namespace laboratory {
 
     namespace analyze {
         
-        class AdminRightsDetector {
+        class AdminRightsAnalyzer  {
 
         };
 
