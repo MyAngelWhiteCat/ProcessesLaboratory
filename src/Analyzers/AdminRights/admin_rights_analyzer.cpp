@@ -1,6 +1,7 @@
 #include "admin_rights_analyzer.h"
 #include "../../domain.h"
 #include "../analyzer.h"
+#include "../../Logger/logger.h"
 
 #include <Windows.h>
 
