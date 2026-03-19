@@ -9,8 +9,26 @@ namespace laboratory {
 
     namespace analyze {
 
-        AnalyzeResult AdminRightsAnalyzer::StartAnalyze(const domain::Scan& scans) {
-            return AnalyzeResult();
+        AnalyzeResult AdminRightsAnalyzer::StartAnalyze(const domain::Scan& scan) {
+            auto snapshot = scan.find(domain::ScanMethod::NtQSI);
+            if (snapshot == scan.end()) {
+                throw std::runtime_error("Invalid scan");
+            }
+
+            AnalyzeResult result;
+
+            for (const auto& [pid, proc_info] : snapshot->second.pid_to_proc_info_) {
+                auto [severity, comment] = AnalyzeProcess(pid);
+                if (!comment.empty()) {
+                    result.suspicious_processes_.emplace_back(
+                        proc_info,
+                        comment,
+                        severity
+                    );
+                }
+            }
+
+            return result;
         }
 
         std::pair<domain::Severity, std::string> AdminRightsAnalyzer::AnalyzeProcess(DWORD pid) {
