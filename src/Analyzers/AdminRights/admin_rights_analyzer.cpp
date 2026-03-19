@@ -36,7 +36,9 @@ namespace laboratory {
         }
 
         bool AdminRightsAnalyzer::CheckByIntegrityLevel(HANDLE hToken) {
-            return false;
+            auto il_bytes = GetTokenInfo(hToken, TokenIntegrityLevel);
+            auto integrity_level = reinterpret_cast<PTOKEN_MANDATORY_LABEL>(il_bytes.data());
+            return GetRid(integrity_level->Label.Sid) == SECURITY_MANDATORY_HIGH_RID;
         }
 
         bool AdminRightsAnalyzer::CheckByAdminGroup(HANDLE hToken) {

@@ -28,6 +28,8 @@ namespace laboratory {
             bool CheckByIntegrityLevel(HANDLE hToken);
             bool CheckByAdminGroup(HANDLE hToken);
             bool CheckByUAC(HANDLE hToken);
+
+            DWORD GetRid(PSID sid);
         };
 
     }
