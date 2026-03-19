@@ -72,6 +72,11 @@ namespace laboratory {
         return CreateFullNtSnapshot();
     }
 
+    domain::Snapshot SnapshotsProvider::GetFullInfoToolHelpSnapshot()
+    {
+        return CreateToolHelpFullSnapshot();
+    }
+
     void SnapshotsProvider::GetProcModules(domain::ProcessInfo& pinfo) {
         MODULEENTRY32W module_entry{ 0 };
 
