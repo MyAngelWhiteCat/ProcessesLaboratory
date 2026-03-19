@@ -53,7 +53,9 @@ namespace laboratory {
         }
 
         bool AdminRightsAnalyzer::CheckByUAC(HANDLE hToken) {
-            return false;
+            auto el_bytes = GetTokenInfo(hToken, TokenElevation);
+            auto token_elevation = reinterpret_cast<PTOKEN_ELEVATION>(el_bytes.data());
+            return token_elevation->TokenIsElevated;
         }
 
         DWORD AdminRightsAnalyzer::GetRid(PSID sid) {
