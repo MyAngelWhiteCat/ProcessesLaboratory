@@ -35,7 +35,7 @@ namespace laboratory {
             virtual AnalyzeResult StartAnalyze(const domain::Scan& scans) = 0;
 
             virtual HANDLE GetNtHandle(DWORD pid, ACCESS_MASK desired_access);
-            virtual HANDLE GetProcessToken(HANDLE hProcess);
+            virtual HANDLE GetProcessToken(HANDLE hProcess, ACCESS_MASK desired_access);
             virtual std::vector<std::byte> GetTokenInfo
             (HANDLE hToken, TOKEN_INFORMATION_CLASS requested_info);
             virtual ULONG GetTokeninfoLen(HANDLE hToken, TOKEN_INFORMATION_CLASS requested_info);
