@@ -61,6 +61,7 @@ namespace application {
             auto json_string = SerializeResult(
                 laboratory_->DetectAdminProcesses()
             ).dump();
+            callback(json_string.c_str());
             });
     }
 
