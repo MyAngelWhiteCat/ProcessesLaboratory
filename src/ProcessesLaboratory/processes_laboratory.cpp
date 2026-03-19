@@ -78,6 +78,21 @@ namespace laboratory {
         return procs_with_Enabled_privileges;
     }
 
+    std::vector<domain::SuspiciousProcess> ProcessesLaboratory::DetectAdminProcesses() {
+        std::vector<domain::SuspiciousProcess> procs_with_admin_rights;
+        try {
+            privilege_escalator.EscalateToDebug();
+            domain::Scan scan;
+            scan[domain::ScanMethod::NtQSI] = snapshots_provider_.GetNtSnapshot();
+            procs_with_admin_rights = FindAdminProcesses(scan);
+            privilege_escalator.ResetPrivilege();
+        }
+        catch (const std::exception& e) {
+            LOG_CRITICAL("Processes with admins rights detection error: "s + e.what());
+        }
+        return procs_with_admin_rights;
+    }
+
     std::vector<domain::SuspiciousProcess> 
         ProcessesLaboratory::FindHidenProcesses(const domain::Scan& scan) {
         try {
@@ -126,6 +141,22 @@ namespace laboratory {
             LOG_CRITICAL("Ecalated privileges analyze error: "s + e.what());
         }
         return {};
+    }
+
+    std::vector<domain::SuspiciousProcess> ProcessesLaboratory::FindAdminProcesses
+    (const domain::Scan& scan)
+    {
+        try {
+            auto analyzer = analyzers_.find(domain::AnalyzerType::AdministratorRights);
+            if (analyzer == analyzers_.end()) {
+                throw std::runtime_error("Admin rights analyzer not init");
+                LOG_DEBUG("Start detecting processes with administrator rights");
+                return analyzer->second->Analyze(scan).suspicious_processes_;
+            }
+        }
+        catch (const std::exception& e) {
+            LOG_ERROR("Processes with admins rights analyze error: "s + e.what());
+        }
     }
 
     domain::Scan ProcessesLaboratory::GetNtAndThSnapshots() {

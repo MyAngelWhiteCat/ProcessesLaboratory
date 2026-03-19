@@ -5,6 +5,7 @@
 #include "../Analyzers/HiddenProcesses/hidden_processes_analyzer.h"
 #include "../Analyzers/RWX/rwx_analyzer.h"
 #include "../Analyzers/EnabledPrivileges/privilege_analyzer.h"
+#include "../Analyzers/AdminRights/admin_rights_analyzer.h"
 #include "../NtDll/ntdll.h"
 #include "../PrivilegeEscalator/privilege_escalator.h"
 #include "../domain.h"
@@ -30,12 +31,15 @@ namespace laboratory {
                 = std::make_unique<analyze::RWXAnalyzer>();
             analyzers_[domain::AnalyzerType::EnabledPrivileges]
                 = std::make_unique<analyze::PrivilegeAnalyzer>(ntdll_);
+            analyzers_[domain::AnalyzerType::AdministratorRights]
+                = std::make_unique<analyze::AdminRightsAnalyzer>(ntdll_);
         }
 
         std::vector<domain::SuspiciousProcess> StartFullScan();
         std::vector<domain::SuspiciousProcess> DetectHiddenProcesses();
         std::vector<domain::SuspiciousProcess> DetectCompromisedProcesses();
         std::vector<domain::SuspiciousProcess> DetectEnabledPrivileges();
+        std::vector<domain::SuspiciousProcess> DetectAdminProcesses();
 
     private:
         maltech::ntdll::NtDll ntdll_;
@@ -46,6 +50,7 @@ namespace laboratory {
         std::vector<domain::SuspiciousProcess> FindHidenProcesses(const domain::Scan& scan);
         std::vector<domain::SuspiciousProcess> FindCompromisedProcesses(const domain::Scan& scan);
         std::vector<domain::SuspiciousProcess> FindEnabledPrivileges(const domain::Scan& scan);
+        std::vector<domain::SuspiciousProcess> FindAdminProcesses(const domain::Scan& scan);
 
 
         domain::Scan GetNtAndThSnapshots();
