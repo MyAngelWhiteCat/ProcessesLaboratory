@@ -50,7 +50,7 @@ namespace laboratory {
         std::pair<domain::Severity, std::string> PrivilegeAnalyzer::AnalyzeProcess(DWORD pid) {
             domain::RaiiHandle hProcess(GetNtHandle(pid, PROCESS_QUERY_INFORMATION));
             domain::RaiiHandle hToken(GetProcessToken(hProcess.Get(), TOKEN_QUERY));
-            auto privileges_bytes = GetPrivilegesBytes(hToken.Get());
+            auto privileges_bytes = GetTokenInfo(hToken.Get(), TokenPrivileges);
             TOKEN_PRIVILEGES* privileges = reinterpret_cast<TOKEN_PRIVILEGES*>
                 (privileges_bytes.data());
 
@@ -67,10 +67,6 @@ namespace laboratory {
             }
             LOG_DEBUG(comment);
             return { severity, comment };
-        }
-
-        std::vector<std::byte> PrivilegeAnalyzer::GetPrivilegesBytes(HANDLE hToken) {
-            return GetTokenInfo(hToken, TokenPrivileges);
         }
 
         bool PrivilegeAnalyzer::IsPrivelegeDangerous(LUID luid) {

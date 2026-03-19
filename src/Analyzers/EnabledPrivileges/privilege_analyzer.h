@@ -33,7 +33,6 @@ namespace laboratory {
             AnalyzeResult StartAnalyze(const domain::Scan& scan) override;
             std::pair<domain::Severity, std::string> AnalyzeProcess(DWORD pid);
 
-            std::vector<std::byte> GetPrivilegesBytes(HANDLE hToken);
             bool IsPrivelegeDangerous(LUID luid);
             LUID GetPrivilegeLUID(const std::string_view privilege_name);
             std::string GetPrivilegeName(PLUID luid);
