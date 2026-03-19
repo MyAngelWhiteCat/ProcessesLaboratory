@@ -19,7 +19,6 @@ namespace laboratory {
             }
 
             AnalyzeResult result;
-
             for (const auto& [pid, proc_info] : snapshot->second.pid_to_proc_info_) {
                 try {
                     LOG_INFO("Analyze "s + std::string(proc_info->GetProcessName()));
