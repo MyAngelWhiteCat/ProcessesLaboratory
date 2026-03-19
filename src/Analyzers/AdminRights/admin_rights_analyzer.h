@@ -11,6 +11,9 @@ namespace laboratory {
 
     namespace analyze {
         
+        using namespace std::literals;
+
+        
         class AdminRightsAnalyzer : public Analyzer {
         public:
             AdminRightsAnalyzer(maltech::ntdll::NtDll& ntdll)
