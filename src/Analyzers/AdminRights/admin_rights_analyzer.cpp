@@ -69,8 +69,9 @@ namespace laboratory {
         bool AdminRightsAnalyzer::CheckByAdminGroup(HANDLE hToken) {
             auto tg_bytes = GetTokenInfo(hToken, TokenGroups);
             auto token_groups = reinterpret_cast<PTOKEN_GROUPS>(tg_bytes.data());
-            for (const auto& token_group : token_groups->Groups) {
-                if (GetRid(token_group.Sid) == SECURITY_MANDATORY_HIGH_RID) {
+            auto group_count = token_groups->GroupCount;
+            for (int i = 0; i < group_count; ++i) {
+                if (GetRid(token_groups->Groups[i].Sid) == DOMAIN_ALIAS_RID_ADMINS) {
                     return true;
                 }
             }
