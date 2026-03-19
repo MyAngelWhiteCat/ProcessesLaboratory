@@ -49,9 +49,8 @@ namespace laboratory {
 
         std::pair<domain::Severity, std::string> PrivilegeAnalyzer::AnalyzeProcess(DWORD pid) {
             domain::RaiiHandle hProcess(GetNtHandle(pid, PROCESS_QUERY_INFORMATION));
-            domain::RaiiHandle hToken(GetProcessToken(hProcess.Get()));
+            domain::RaiiHandle hToken(GetProcessToken(hProcess.Get(), TOKEN_QUERY));
             auto privileges_bytes = GetPrivilegesBytes(hToken.Get());
-            domain::Severity severity = domain::Severity::INFO;
             TOKEN_PRIVILEGES* privileges = reinterpret_cast<TOKEN_PRIVILEGES*>
                 (privileges_bytes.data());
 

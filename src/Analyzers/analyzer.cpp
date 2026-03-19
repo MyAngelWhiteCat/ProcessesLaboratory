@@ -59,7 +59,7 @@ namespace laboratory {
             return hProcess;
         }
 
-        HANDLE Analyzer::GetProcessToken(HANDLE hProcess) {
+        HANDLE Analyzer::GetProcessToken(HANDLE hProcess, ACCESS_MASK desired_access) {
             if (!ntdll_) {
                 throw std::runtime_error("Need to setup ntdll ptr before"
                     " using Nt functions in analyzers");
@@ -67,7 +67,7 @@ namespace laboratory {
             HANDLE hToken{ 0 };
             ntdll_->NtOpenProcessToken(
                 hProcess,
-                TOKEN_QUERY,
+                desired_access,
                 &hToken);
 
             if (!hToken || hToken == INVALID_HANDLE_VALUE) {
